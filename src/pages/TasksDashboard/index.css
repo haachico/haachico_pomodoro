@@ -1,0 +1,33 @@
+.dashboard {
+  width: 1024px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 75% 25%;
+}
+
+.dashboard .first-column {
+  border: 1px solid #eaeaea;
+}
+
+.dashboard .second-column {
+  border: 1px solid #eaeaea;
+  margin: 0 auto;
+}
+
+.dashboard .second-column button {
+  margin-top: 10px;
+}
+
+.viewall-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #eaeaea;
+}
+
+.dashbord-cards-div {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 15px;
+  padding: 15px;
+}

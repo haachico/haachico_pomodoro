@@ -4,6 +4,8 @@ import Layout from "./components/Layout";
 import TasksDashboard from "./pages/TasksDashboard";
 import IntroPage from "./pages/IntroPage";
 import AboutPage from "./pages/IntroPage/AboutPage";
+import CreateTask from "./pages/CreateTask";
+import ViewAllTasks from "./pages/ViewAllTasks";
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
             <Route index element={<IntroPage />} />
             <Route path="/pomodoros/dashboard" element={<TasksDashboard />} />
             <Route path="/aboutus" element={<AboutPage />} />
+            <Route path="/createTask" element={<CreateTask />} />
+            <Route path="/tasks" element={<ViewAllTasks />} />
           </Route>
         </Routes>
       </Router>
