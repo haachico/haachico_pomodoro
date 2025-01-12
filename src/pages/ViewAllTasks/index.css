@@ -1,0 +1,31 @@
+.viewAll-page {
+  width: 1024px;
+  margin: 0 auto;
+}
+
+.viewAll-page nav {
+  display: flex;
+  gap: 20px;
+}
+
+.viewAll-page nav h4 {
+  cursor: pointer;
+}
+.viewAll-div {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.drop-down {
+  position: absolute;
+  background-color: white;
+  opacity: 0.5;
+  color: black;
+  z-index: 1;
+}
+
+.drop-down p {
+  cursor: pointer;
+}

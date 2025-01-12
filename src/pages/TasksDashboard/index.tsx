@@ -10,7 +10,7 @@ const TasksDashboard = () => {
   ).length;
 
   const inProgressTasksCount: number = tasks.filter(
-    (task) => task.status === "in-progress"
+    (task) => task.status === "inProgress"
   ).length;
 
   const pendingTasksCount: number = tasks.filter(
@@ -35,6 +35,7 @@ const TasksDashboard = () => {
             onClick={() => {
               navigate("/tasks");
             }}
+            className={`${key}`}
           >
             <h4>{value}</h4>
             <p>{key}</p>

@@ -6,3 +6,15 @@ body {
 #root {
   width: 100%;
 }
+
+.pending {
+  color: lightblue;
+}
+
+.completed {
+  color: lightgreen;
+}
+
+.inProgress {
+  color: lightcoral;
+}
