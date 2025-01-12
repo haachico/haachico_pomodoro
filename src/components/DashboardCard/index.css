@@ -2,3 +2,15 @@
   border: 1px solid #eaeaea;
   width: 300px;
 }
+
+.pending {
+  color: lightblue;
+}
+
+.completed {
+  color: lightgreen;
+}
+
+.in-progress {
+  color: lightcoral;
+}

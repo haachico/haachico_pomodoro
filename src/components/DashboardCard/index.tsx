@@ -9,7 +9,7 @@ type DashboardCardProps = {
 const DashboardCard = ({ title, status, priority }: DashboardCardProps) => {
   return (
     <div className="dashboard-card">
-      <h4>{title}</h4>
+      <h4 className={`${status}`}>{title}</h4>
     </div>
   );
 };
