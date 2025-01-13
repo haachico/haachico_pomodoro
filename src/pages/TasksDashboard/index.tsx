@@ -33,7 +33,9 @@ const TasksDashboard = () => {
         {Object.entries(countCards).map(([key, value]) => (
           <div
             onClick={() => {
-              navigate("/tasks");
+              navigate("/tasks", {
+                state: { status: key },
+              });
             }}
             className={`${key}`}
           >
@@ -54,6 +56,7 @@ const TasksDashboard = () => {
                 title={task.title}
                 status={task.status}
                 priority={task.priority}
+                id={task.id}
               />
             ))}
           </div>

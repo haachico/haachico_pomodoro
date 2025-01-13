@@ -6,6 +6,7 @@
 .viewAll-page nav {
   display: flex;
   gap: 20px;
+  border-bottom: 1px solid #eaeaea;
 }
 
 .viewAll-page nav h4 {

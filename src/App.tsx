@@ -6,6 +6,7 @@ import IntroPage from "./pages/IntroPage";
 import AboutPage from "./pages/IntroPage/AboutPage";
 import CreateTask from "./pages/CreateTask";
 import ViewAllTasks from "./pages/ViewAllTasks";
+import DetailsPage from "./pages/DetailsPage";
 
 function App() {
   return (
@@ -14,10 +15,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<IntroPage />} />
-            <Route path="/pomodoros/dashboard" element={<TasksDashboard />} />
-            <Route path="/aboutus" element={<AboutPage />} />
-            <Route path="/createTask" element={<CreateTask />} />
-            <Route path="/tasks" element={<ViewAllTasks />} />
+            <Route path="pomodoros/dashboard" element={<TasksDashboard />} />
+            <Route path="aboutus" element={<AboutPage />} />
+            <Route path="createTask" element={<CreateTask />} />
+            <Route path="tasks" element={<ViewAllTasks />} />
+            <Route path="task/:id" element={<DetailsPage />} />
           </Route>
         </Routes>
       </Router>

@@ -1,14 +1,22 @@
+import { useNavigate } from "react-router-dom";
 import "./index.css";
 
 type DashboardCardProps = {
   title: string;
   status: string;
   priority: string;
+  id: number;
 };
 
-const DashboardCard = ({ title, status, priority }: DashboardCardProps) => {
+const DashboardCard = ({ title, status, priority, id }: DashboardCardProps) => {
+  const navigate = useNavigate();
   return (
-    <div className="dashboard-card">
+    <div
+      className="dashboard-card"
+      onClick={() => {
+        navigate(`/task/${id}`);
+      }}
+    >
       <h4 className={`${status}`}>{title}</h4>
     </div>
   );

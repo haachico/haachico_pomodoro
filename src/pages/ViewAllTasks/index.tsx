@@ -1,35 +1,74 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DashboardCard from "../../components/DashboardCard";
 import tasks from "../../db/tasksData";
 import "./index.css";
+import { useLocation } from "react-router-dom";
 
 const ViewAllTasks = () => {
-  const [isStatusFilterOpen, setIsStatusFilterOpen] = useState(false);
-  const [isPriorityFilterOpen, setIsPriorityFilterOpen] = useState(false);
-  const [selectedStatus, setSelectedStatus] = useState("all");
-  const [selectedPriority, setSelectedPriority] = useState("all");
+  const location = useLocation();
+
+  const status = location.state?.status || "All";
+  const [isStatusFilterOpen, setIsStatusFilterOpen] = useState<boolean>(false);
+  const [isPriorityFilterOpen, setIsPriorityFilterOpen] =
+    useState<boolean>(false);
+  const [selectedStatus, setSelectedStatus] = useState<string>(status || "All");
+  const [selectedPriority, setSelectedPriority] = useState<string>("All");
+  const statusDropdownRef = useRef<HTMLDivElement | null>(null);
+  const priorityDropdownRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (
+        statusDropdownRef.current &&
+        !statusDropdownRef.current.contains(e.target as Node)
+      ) {
+        setIsStatusFilterOpen(false);
+      }
+
+      if (
+        priorityDropdownRef.current &&
+        !priorityDropdownRef.current.contains(e.target as Node)
+      ) {
+        setIsPriorityFilterOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  });
 
   const statuses: string[] = ["All", "Pending", "Completed", "In Progress"];
 
   const priority: string[] = ["Low", "Medium", "High"];
 
+  const normalisedStatus = (str: string): string =>
+    str.includes("-")
+      ? str.split("-").join("").toLowerCase()
+      : str.split(" ").join("").toLowerCase();
+
   const displayTasks = tasks.filter((task) => {
-    if (selectedPriority === "all" && selectedStatus === "all") {
-      return true;
+    if (selectedPriority === "All" && selectedStatus === "All") {
+      return task;
     }
-    if (selectedPriority === "all" && selectedStatus !== "all") {
-      return task.status === selectedStatus;
+    if (selectedPriority === "All" && selectedStatus !== "All") {
+      return normalisedStatus(task.status) === normalisedStatus(selectedStatus);
     }
-    if (selectedPriority !== "all" && selectedStatus === "all") {
-      return task.priority === selectedPriority;
+    if (selectedPriority !== "All" && selectedStatus === "All") {
+      return task.priority.toLowerCase() === selectedPriority.toLowerCase();
     }
-    return task.priority === selectedPriority && task.status === selectedStatus;
+    return (
+      task.priority.toLowerCase() === selectedPriority.toLowerCase() &&
+      normalisedStatus(task.status) === normalisedStatus(selectedStatus)
+    );
   });
 
   return (
     <div className="viewAll-page">
       <nav>
-        <div>
+        <div ref={statusDropdownRef}>
           <h4
             onClick={() => {
               setIsStatusFilterOpen((prev) => !prev);
@@ -46,6 +85,13 @@ const ViewAllTasks = () => {
                     setSelectedStatus(status);
                     setIsStatusFilterOpen(false);
                   }}
+                  style={{
+                    border:
+                      normalisedStatus(status) ===
+                      normalisedStatus(selectedStatus)
+                        ? "1px solid #000"
+                        : "none",
+                  }}
                 >
                   {status}
                 </p>
@@ -53,7 +99,7 @@ const ViewAllTasks = () => {
             </div>
           )}
         </div>
-        <div>
+        <div ref={priorityDropdownRef}>
           <h4
             onClick={() => {
               setIsPriorityFilterOpen((prev) => !prev);
@@ -70,6 +116,12 @@ const ViewAllTasks = () => {
                     setSelectedPriority(priority);
                     setIsPriorityFilterOpen(false);
                   }}
+                  style={{
+                    border:
+                      priority.toLowerCase() === selectedPriority.toLowerCase()
+                        ? "1px solid #000"
+                        : "none",
+                  }}
                 >
                   {priority}
                 </p>
@@ -84,13 +136,16 @@ const ViewAllTasks = () => {
           opacity: isStatusFilterOpen || isPriorityFilterOpen ? 0.2 : 1,
         }}
       >
-        {displayTasks.map((task) => (
-          <DashboardCard
-            title={task.title}
-            status={task.status}
-            priority={task.priority}
-          />
-        ))}
+        {displayTasks.length > 0
+          ? displayTasks.map((task) => (
+              <DashboardCard
+                title={task.title}
+                status={task.status}
+                priority={task.priority}
+                id={task.id}
+              />
+            ))
+          : "No tasks found"}
       </div>
     </div>
   );
