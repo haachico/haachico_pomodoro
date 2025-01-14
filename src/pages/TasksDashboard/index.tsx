@@ -51,7 +51,7 @@ const TasksDashboard = () => {
             <NavLink to="/tasks">View All</NavLink>
           </div>
           <div className="dashbord-cards-div">
-            {tasks.slice(0, 10).map((task) => (
+            {tasks.slice(0, 8).map((task) => (
               <DashboardCard
                 title={task.title}
                 status={task.status}

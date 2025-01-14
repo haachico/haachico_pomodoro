@@ -30,3 +30,23 @@
 .drop-down p {
   cursor: pointer;
 }
+
+.filters-nav {
+  display: flex;
+  align-items: center;
+}
+
+.filters-nav > div:nth-child(1) {
+  flex-grow: 1;
+  display: flex;
+  gap: 20px;
+}
+
+.filters-nav > div:nth-child(2) {
+  cursor: pointer;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 10px;
+}

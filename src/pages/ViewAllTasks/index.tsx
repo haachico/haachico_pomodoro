@@ -6,15 +6,34 @@ import { useLocation } from "react-router-dom";
 
 const ViewAllTasks = () => {
   const location = useLocation();
-
   const status = location.state?.status || "All";
-  const [isStatusFilterOpen, setIsStatusFilterOpen] = useState<boolean>(false);
-  const [isPriorityFilterOpen, setIsPriorityFilterOpen] =
-    useState<boolean>(false);
-  const [selectedStatus, setSelectedStatus] = useState<string>(status || "All");
-  const [selectedPriority, setSelectedPriority] = useState<string>("All");
+
+  const [filters, setFilters] = useState({
+    isStatusFilterOpen: false,
+    isPriorityFilterOpen: false,
+    isSearchBarOpen: false,
+    selectedStatus: status || "All",
+    selectedPriority: "All",
+  });
+
+  const setFilter = (key: string, value: any) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [key]: value,
+    }));
+  };
+
+  const {
+    isStatusFilterOpen,
+    isPriorityFilterOpen,
+    isSearchBarOpen,
+    selectedStatus,
+    selectedPriority,
+  } = filters;
+
   const statusDropdownRef = useRef<HTMLDivElement | null>(null);
   const priorityDropdownRef = useRef<HTMLDivElement | null>(null);
+  const [inputField, setInputField] = useState<string>("");
 
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
@@ -22,14 +41,14 @@ const ViewAllTasks = () => {
         statusDropdownRef.current &&
         !statusDropdownRef.current.contains(e.target as Node)
       ) {
-        setIsStatusFilterOpen(false);
+        setFilter("isStatusFilterOpen", false);
       }
 
       if (
         priorityDropdownRef.current &&
         !priorityDropdownRef.current.contains(e.target as Node)
       ) {
-        setIsPriorityFilterOpen(false);
+        setFilter("isPriorityFilterOpen", false);
       }
     };
 
@@ -65,79 +84,127 @@ const ViewAllTasks = () => {
     );
   });
 
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputField(e.target.value);
+  };
+
+  const searchedTasks = displayTasks.filter((task) =>
+    task.title.toLowerCase().includes(inputField.toLowerCase())
+  );
+
+  const handleClearFilters = () => {
+    setFilter("selectedStatus", "All");
+    setFilter("selectedPriority", "All");
+    setFilter("isStatusFilterOpen", false);
+    setFilter("isPriorityFilterOpen", false);
+    setFilter("isSearchBarOpen", false);
+    setInputField("");
+  };
+
   return (
     <div className="viewAll-page">
-      <nav>
-        <div ref={statusDropdownRef}>
-          <h4
-            onClick={() => {
-              setIsStatusFilterOpen((prev) => !prev);
-              setIsPriorityFilterOpen(false);
-            }}
-          >
-            Status
-          </h4>
-          {isStatusFilterOpen && (
-            <div className="drop-down">
-              {statuses.map((status) => (
-                <p
-                  onClick={() => {
-                    setSelectedStatus(status);
-                    setIsStatusFilterOpen(false);
-                  }}
-                  style={{
-                    border:
-                      normalisedStatus(status) ===
-                      normalisedStatus(selectedStatus)
-                        ? "1px solid #000"
-                        : "none",
-                  }}
-                >
-                  {status}
-                </p>
-              ))}
-            </div>
-          )}
+      <nav className="filters-nav">
+        <div>
+          <div ref={statusDropdownRef}>
+            <h4
+              onClick={() => {
+                setFilter("isStatusFilterOpen", !isStatusFilterOpen);
+                setFilter("isPriorityFilterOpen", false);
+              }}
+            >
+              Status
+            </h4>
+            {isStatusFilterOpen && (
+              <div className="drop-down">
+                {statuses.map((status) => (
+                  <p
+                    onClick={() => {
+                      setFilter("selectedStatus", status);
+                      setFilter("isStatusFilterOpen", false);
+                    }}
+                    style={{
+                      border:
+                        normalisedStatus(status) ===
+                        normalisedStatus(selectedStatus)
+                          ? "1px solid #000"
+                          : "none",
+                    }}
+                  >
+                    {status}
+                  </p>
+                ))}
+              </div>
+            )}
+          </div>
+          <div ref={priorityDropdownRef}>
+            <h4
+              onClick={() => {
+                setFilter("isPriorityFilterOpen", !isPriorityFilterOpen);
+                setFilter("isStatusFilterOpen", false);
+              }}
+            >
+              Priority
+            </h4>
+            {isPriorityFilterOpen && (
+              <div className="drop-down">
+                {priority.map((priority) => (
+                  <p
+                    onClick={() => {
+                      setFilter("selectedPriority", priority);
+                      setFilter("isPriorityFilterOpen", false);
+                    }}
+                    style={{
+                      border:
+                        priority.toLowerCase() ===
+                        selectedPriority.toLowerCase()
+                          ? "1px solid #000"
+                          : "none",
+                    }}
+                  >
+                    {priority}
+                  </p>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-        <div ref={priorityDropdownRef}>
-          <h4
+        <div
+          style={{
+            display: "flex",
+            gap: "10px",
+          }}
+        >
+          {(selectedStatus !== "All" ||
+            selectedPriority !== "All" ||
+            inputField) && <div onClick={handleClearFilters}>Clear</div>}
+          <div
             onClick={() => {
-              setIsPriorityFilterOpen((prev) => !prev);
-              setIsStatusFilterOpen(false);
+              setFilter("isSearchBarOpen", !isSearchBarOpen);
             }}
           >
-            Priority
-          </h4>
-          {isPriorityFilterOpen && (
-            <div className="drop-down">
-              {priority.map((priority) => (
-                <p
-                  onClick={() => {
-                    setSelectedPriority(priority);
-                    setIsPriorityFilterOpen(false);
-                  }}
-                  style={{
-                    border:
-                      priority.toLowerCase() === selectedPriority.toLowerCase()
-                        ? "1px solid #000"
-                        : "none",
-                  }}
-                >
-                  {priority}
-                </p>
-              ))}
-            </div>
-          )}
+            Search
+          </div>
         </div>
       </nav>
+      <div>
+        {isSearchBarOpen && (
+          <input
+            onChange={handleSearch}
+            className="search-bar"
+            type="text"
+            placeholder="Search tasks"
+            value={inputField}
+          />
+        )}
+      </div>
       <div
         className="viewAll-div"
         style={{
           opacity: isStatusFilterOpen || isPriorityFilterOpen ? 0.2 : 1,
         }}
       >
-        {displayTasks.length > 0
-          ? displayTasks.map((task) => (
+        {searchedTasks.length > 0
+          ? searchedTasks.map((task) => (
               <DashboardCard
                 title={task.title}
                 status={task.status}
