@@ -33,6 +33,7 @@ const ViewAllTasks = () => {
 
   const statusDropdownRef = useRef<HTMLDivElement | null>(null);
   const priorityDropdownRef = useRef<HTMLDivElement | null>(null);
+  const serarchBarRef = useRef<HTMLDivElement | null>(null);
   const [inputField, setInputField] = useState<string>("");
 
   useEffect(() => {
@@ -49,6 +50,13 @@ const ViewAllTasks = () => {
         !priorityDropdownRef.current.contains(e.target as Node)
       ) {
         setFilter("isPriorityFilterOpen", false);
+      }
+
+      if (
+        serarchBarRef.current &&
+        !serarchBarRef.current.contains(e.target as Node)
+      ) {
+        setFilter("isSearchBarOpen", false);
       }
     };
 
@@ -186,7 +194,7 @@ const ViewAllTasks = () => {
           </div>
         </div>
       </nav>
-      <div>
+      <div ref={serarchBarRef}>
         {isSearchBarOpen && (
           <input
             onChange={handleSearch}

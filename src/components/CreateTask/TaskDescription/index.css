@@ -1,0 +1,22 @@
+.description-form {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.description-form div {
+  display: flex;
+  flex-direction: column;
+}
+
+.description-form label {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.description-form input {
+  padding: 10px;
+  height: 40px;
+  width: 300px;
+  border-radius: 10px;
+}

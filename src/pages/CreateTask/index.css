@@ -1,0 +1,10 @@
+.create-page {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.create-page .stepper {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid white;
+}

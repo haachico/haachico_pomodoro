@@ -1,5 +1,49 @@
+import { useState } from "react";
+import TaskDescription from "../../components/CreateTask/TaskDescription";
+import TaskStatus from "../../components/CreateTask/TaskStatus";
+import "./index.css";
+
 const CreateTask = () => {
-  return <div>Create Task</div>;
+  const [step, setStep] = useState(1);
+  const displayComponent = () => {
+    switch (step) {
+      case 1:
+        return <TaskDescription />;
+      case 2:
+        return <TaskStatus />;
+      default:
+        return <TaskDescription />;
+    }
+  };
+
+  const handlePrevClick = () => {
+    if (step > 1) {
+      setStep((prev) => prev - 1);
+    }
+  };
+
+  const handleNextClick = () => {
+    if (step < 2) {
+      setStep((prev) => prev + 1);
+    }
+  };
+
+  const handleCreateTask = () => {
+    console.log("task created!");
+  };
+  return (
+    <div className="create-page">
+      <div className="stepper">
+        <button onClick={handlePrevClick}>Previous</button>
+        <button onClick={step === 2 ? handleCreateTask : handleNextClick}>
+          {step === 2 ? "Create" : "Next"}
+        </button>
+      </div>
+      <div>
+        <div>{displayComponent()}</div>
+      </div>
+    </div>
+  );
 };
 
 export default CreateTask;
