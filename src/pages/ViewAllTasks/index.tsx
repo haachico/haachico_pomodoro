@@ -3,6 +3,7 @@ import DashboardCard from "../../components/DashboardCard";
 import tasks from "../../db/tasksData";
 import "./index.css";
 import { useLocation } from "react-router-dom";
+import Dropdown from "../../components/commonComponents/Dropdown";
 
 const ViewAllTasks = () => {
   const location = useLocation();
@@ -31,27 +32,15 @@ const ViewAllTasks = () => {
     selectedPriority,
   } = filters;
 
-  const statusDropdownRef = useRef<HTMLDivElement | null>(null);
-  const priorityDropdownRef = useRef<HTMLDivElement | null>(null);
   const serarchBarRef = useRef<HTMLDivElement | null>(null);
   const [inputField, setInputField] = useState<string>("");
 
+  const statuses: string[] = ["All", "Pending", "Completed", "In Progress"];
+
+  const priority: string[] = ["Low", "Medium", "High"];
+
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
-      if (
-        statusDropdownRef.current &&
-        !statusDropdownRef.current.contains(e.target as Node)
-      ) {
-        setFilter("isStatusFilterOpen", false);
-      }
-
-      if (
-        priorityDropdownRef.current &&
-        !priorityDropdownRef.current.contains(e.target as Node)
-      ) {
-        setFilter("isPriorityFilterOpen", false);
-      }
-
       if (
         serarchBarRef.current &&
         !serarchBarRef.current.contains(e.target as Node)
@@ -66,10 +55,6 @@ const ViewAllTasks = () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   });
-
-  const statuses: string[] = ["All", "Pending", "Completed", "In Progress"];
-
-  const priority: string[] = ["Low", "Medium", "High"];
 
   const normalisedStatus = (str: string): string =>
     str.includes("-")
@@ -113,68 +98,34 @@ const ViewAllTasks = () => {
     <div className="viewAll-page">
       <nav className="filters-nav">
         <div>
-          <div ref={statusDropdownRef}>
-            <h4
-              onClick={() => {
-                setFilter("isStatusFilterOpen", !isStatusFilterOpen);
-                setFilter("isPriorityFilterOpen", false);
-              }}
-            >
-              Status
-            </h4>
-            {isStatusFilterOpen && (
-              <div className="drop-down">
-                {statuses.map((status) => (
-                  <p
-                    onClick={() => {
-                      setFilter("selectedStatus", status);
-                      setFilter("isStatusFilterOpen", false);
-                    }}
-                    style={{
-                      border:
-                        normalisedStatus(status) ===
-                        normalisedStatus(selectedStatus)
-                          ? "1px solid #000"
-                          : "none",
-                    }}
-                  >
-                    {status}
-                  </p>
-                ))}
-              </div>
-            )}
-          </div>
-          <div ref={priorityDropdownRef}>
-            <h4
-              onClick={() => {
-                setFilter("isPriorityFilterOpen", !isPriorityFilterOpen);
-                setFilter("isStatusFilterOpen", false);
-              }}
-            >
-              Priority
-            </h4>
-            {isPriorityFilterOpen && (
-              <div className="drop-down">
-                {priority.map((priority) => (
-                  <p
-                    onClick={() => {
-                      setFilter("selectedPriority", priority);
-                      setFilter("isPriorityFilterOpen", false);
-                    }}
-                    style={{
-                      border:
-                        priority.toLowerCase() ===
-                        selectedPriority.toLowerCase()
-                          ? "1px solid #000"
-                          : "none",
-                    }}
-                  >
-                    {priority}
-                  </p>
-                ))}
-              </div>
-            )}
-          </div>
+          <Dropdown
+            label={"Status"}
+            onToggle={() =>
+              setFilter("isStatusFilterOpen", !isStatusFilterOpen)
+            }
+            isOpen={isStatusFilterOpen}
+            options={statuses}
+            selectOption={(option) => {
+              setFilter("selectedStatus", option);
+              setFilter("isStatusFilterOpen", false);
+            }}
+            selectedOption={selectedStatus}
+            normalisedStatus={normalisedStatus}
+          />
+          <Dropdown
+            label={"Priority"}
+            onToggle={() =>
+              setFilter("isPriorityFilterOpen", !isPriorityFilterOpen)
+            }
+            isOpen={isPriorityFilterOpen}
+            options={priority}
+            selectOption={(option) => {
+              setFilter("selectedPriority", option);
+              setFilter("isPriorityFilterOpen", false);
+            }}
+            selectedOption={selectedStatus}
+            normalisedStatus={normalisedStatus}
+          />
         </div>
         <div
           style={{

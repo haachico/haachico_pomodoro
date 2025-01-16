@@ -5,12 +5,27 @@ import "./index.css";
 
 const CreateTask = () => {
   const [step, setStep] = useState(1);
+  const [filters, setFilters] = useState({
+    isStatusFilterOpen: false,
+    isPriorityFilterOpen: false,
+    selectedStatus: "",
+    selectedPriority: "",
+  });
+
+  const setFilter = (key: string, value: any) => {
+    setFilters((prevState) => {
+      return {
+        ...prevState,
+        [key]: value,
+      };
+    });
+  };
   const displayComponent = () => {
     switch (step) {
       case 1:
         return <TaskDescription />;
       case 2:
-        return <TaskStatus />;
+        return <TaskStatus filters={filters} setFilter={setFilter} />;
       default:
         return <TaskDescription />;
     }
