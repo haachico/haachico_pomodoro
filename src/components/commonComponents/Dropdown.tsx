@@ -44,7 +44,14 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   return (
     <div ref={dropdownRef}>
-      <h4 onClick={onToggle}>{label}</h4>
+      <h4
+        onClick={onToggle}
+        style={{
+          cursor: "pointer",
+        }}
+      >
+        {label}
+      </h4>
       {isOpen && (
         <div className="drop-down">
           {options.map((option) => (

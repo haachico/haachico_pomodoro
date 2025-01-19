@@ -5,6 +5,6 @@ export type Task = {
   status: string;
   pomodoroCount: number;
   completedPomodoros: number;
-  dueDate: string;
+  dueDate: Date;
   priority: "medium" | "high" | "low";
 };
