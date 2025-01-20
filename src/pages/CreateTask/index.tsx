@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import TaskDescription from "../../components/CreateTask/TaskDescription";
 import TaskStatus from "../../components/CreateTask/TaskStatus";
 import "./index.css";
-import { Task } from "../../types";
+import { Task, Filters } from "../../types";
+import { add } from "../../redux/tasks/tasksSlice";
 
 const CreateTask = () => {
   const [step, setStep] = useState(1);
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<Filters>({
     isStatusFilterOpen: false,
     isPriorityFilterOpen: false,
     selectedStatus: "",
@@ -22,7 +23,7 @@ const CreateTask = () => {
     pomodoroCount: 0,
     completedPomodoros: 0,
     dueDate: new Date(),
-    priority: "medium",
+    priority: filters.selectedPriority,
   });
 
   const {
@@ -43,7 +44,15 @@ const CreateTask = () => {
         setEnableNextBtn(false);
       }
     }
-  }, [payload, step]);
+
+    if (step === 2) {
+      if (filters.selectedPriority !== "") {
+        setEnableNextBtn(true);
+      } else {
+        setEnableNextBtn(false);
+      }
+    }
+  }, [payload, step, filters]);
 
   const setFilter = (key: string, value: any) => {
     setFilters((prevState) => {
@@ -84,17 +93,26 @@ const CreateTask = () => {
     }
   };
 
-  const handleCreateTask = () => {};
+  const handleCreateTask = () => {
+    const newTask = {};
+  };
   return (
     <div className="create-page">
       <div className="stepper">
         <button onClick={handlePrevClick}>Previous</button>
-        <button
-          onClick={step === 2 ? handleCreateTask : handleNextClick}
-          disabled={enableNextBtn === false}
-        >
-          {step === 2 ? "Create" : "Next"}
-        </button>
+
+        {step === 2 && (
+          <>
+            <button onClick={handleCreateTask} disabled={!enableNextBtn}>
+              Create
+            </button>
+          </>
+        )}
+        {step !== 2 && (
+          <button onClick={handleNextClick} disabled={!enableNextBtn}>
+            Next
+          </button>
+        )}
       </div>
       <div>
         <div>{displayComponent()}</div>

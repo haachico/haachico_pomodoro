@@ -22,12 +22,12 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
   setPayload,
 }) => {
   const {
-    isStatusFilterOpen,
+    // isStatusFilterOpen,
     isPriorityFilterOpen,
-    selectedStatus,
+    // selectedStatus,
     selectedPriority,
   } = filters;
-  const statuses: string[] = ["All", "Pending", "Completed", "In Progress"];
+  // const statuses: string[] = ["All", "Pending", "Completed", "In Progress"];
 
   const priority: string[] = ["Low", "Medium", "High"];
 
@@ -68,13 +68,20 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
       <div>
         <div>
           <DatePicker
+            name="dueDatea"
+            value={payload.dueDate}
             selected={payload.dueDate}
-            //   onChange={(date) => setStartDate(date)}
+            onChange={(date) => handleChange(date)}
           />
         </div>
         <div>
           <label htmlFor="pomodorosCount">Number of Pomodoros : </label>
-          <input type="number" id="pomodorosCount" />
+          <input
+            name="pomodoroCount"
+            type="number"
+            id="pomodorosCount"
+            value={payload.pomodoroCount}
+          />
         </div>
       </div>
     </div>
