@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Task } from "../../types";
+import tasks from "../../db/tasksData";
 
 const initialState: {
   tasks: Task[];
 } = {
-  tasks: [],
+  tasks: [...tasks],
 };
 
 const tasksSlice = createSlice({

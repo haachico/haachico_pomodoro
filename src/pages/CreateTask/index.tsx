@@ -4,6 +4,9 @@ import TaskStatus from "../../components/CreateTask/TaskStatus";
 import "./index.css";
 import { Task, Filters } from "../../types";
 import { add } from "../../redux/tasks/tasksSlice";
+import { v4 as uuidv4 } from "uuid";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const CreateTask = () => {
   const [step, setStep] = useState(1);
@@ -16,7 +19,7 @@ const CreateTask = () => {
   const [enableNextBtn, setEnableNextBtn] = useState<boolean>(false);
 
   const [payload, setPayload] = useState<Task>({
-    id: 0,
+    id: "",
     title: "",
     description: "",
     status: filters.selectedStatus,
@@ -25,6 +28,10 @@ const CreateTask = () => {
     dueDate: new Date(),
     priority: filters.selectedPriority,
   });
+
+  const dispatch = useDispatch();
+  const store = useSelector((state) => state);
+  const navigate = useNavigate();
 
   const {
     title,
@@ -46,7 +53,7 @@ const CreateTask = () => {
     }
 
     if (step === 2) {
-      if (filters.selectedPriority !== "") {
+      if (payload.priority !== "") {
         setEnableNextBtn(true);
       } else {
         setEnableNextBtn(false);
@@ -94,8 +101,17 @@ const CreateTask = () => {
   };
 
   const handleCreateTask = () => {
-    const newTask = {};
+    const newTask: Task = {
+      ...payload,
+      id: uuidv4(),
+    };
+
+    dispatch(add(newTask));
+    navigate("/pomodoros/dashboard");
   };
+
+  console.log(store, "store");
+
   return (
     <div className="create-page">
       <div className="stepper">

@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import DashboardCard from "../../components/DashboardCard";
-import tasks from "../../db/tasksData";
 import "./index.css";
 import { useLocation } from "react-router-dom";
 import Dropdown from "../../components/commonComponents/Dropdown";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 const ViewAllTasks = () => {
   const location = useLocation();
   const status = location.state?.status || "All";
+
+  const tasksList = useSelector((state: RootState) => state.tasks.tasks);
 
   const [filters, setFilters] = useState({
     isStatusFilterOpen: false,
@@ -39,6 +42,8 @@ const ViewAllTasks = () => {
 
   const priority: string[] = ["Low", "Medium", "High"];
 
+  console.log(tasksList, "check tasks list");
+
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
       if (
@@ -61,7 +66,7 @@ const ViewAllTasks = () => {
       ? str.split("-").join("").toLowerCase()
       : str.split(" ").join("").toLowerCase();
 
-  const displayTasks = tasks.filter((task) => {
+  const displayTasks = tasksList.filter((task) => {
     if (selectedPriority === "All" && selectedStatus === "All") {
       return task;
     }

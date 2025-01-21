@@ -1,11 +1,11 @@
 export type Task = {
-  id: number;
+  id: string;
   title: string;
   description: string;
   status: string;
   pomodoroCount: number;
   completedPomodoros: number;
-  dueDate: Date;
+  dueDate: Date | null;
   priority: "medium" | "high" | "low" | "";
 };
 

@@ -3,8 +3,9 @@ import tasksReducer from "./redux/tasks/tasksSlice";
 
 const store = configureStore({
   reducer: {
-    todos: tasksReducer,
+    tasks: tasksReducer,
   },
 });
 
+export type RootState = ReturnType<typeof store.getState>;
 export default store;

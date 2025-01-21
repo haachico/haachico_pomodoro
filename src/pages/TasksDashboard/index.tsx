@@ -2,8 +2,12 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "./index.css";
 import tasks from "../../db/tasksData";
 import DashboardCard from "../../components/DashboardCard";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+
 const TasksDashboard = () => {
   const navigate = useNavigate();
+  const tasksList = useSelector((state: RootState) => state.tasks.tasks);
 
   const completedTasksCount: number = tasks.filter(
     (task) => task.status === "completed"
@@ -51,7 +55,7 @@ const TasksDashboard = () => {
             <NavLink to="/tasks">View All</NavLink>
           </div>
           <div className="dashbord-cards-div">
-            {tasks.slice(0, 8).map((task) => (
+            {tasksList.slice(0, 8).map((task) => (
               <DashboardCard
                 title={task.title}
                 status={task.status}

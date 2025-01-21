@@ -35,6 +35,7 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
     str.includes("-")
       ? str.split("-").join("").toLowerCase()
       : str.split(" ").join("").toLowerCase();
+
   return (
     <div className="form-status">
       <div>
@@ -58,7 +59,10 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
           isOpen={isPriorityFilterOpen}
           options={priority}
           selectOption={(option) => {
-            setFilter("selectedPriority", option);
+            setPayload({
+              ...payload,
+              priority: option.toLowerCase() as "low" | "medium" | "high",
+            });
             setFilter("isPriorityFilterOpen", false);
           }}
           selectedOption={selectedPriority}
@@ -68,10 +72,17 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
       <div>
         <div>
           <DatePicker
-            name="dueDatea"
-            value={payload.dueDate}
+            name="dueDate"
+            value={
+              payload.dueDate ? payload.dueDate.toISOString().split("T")[0] : ""
+            }
             selected={payload.dueDate}
-            onChange={(date) => handleChange(date)}
+            onChange={(date) => {
+              setPayload({
+                ...payload,
+                dueDate: date,
+              });
+            }}
           />
         </div>
         <div>
@@ -81,6 +92,12 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
             type="number"
             id="pomodorosCount"
             value={payload.pomodoroCount}
+            onChange={(e) => {
+              setPayload({
+                ...payload,
+                pomodoroCount: parseInt(e.target.value),
+              });
+            }}
           />
         </div>
       </div>

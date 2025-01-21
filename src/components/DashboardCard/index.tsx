@@ -5,7 +5,7 @@ type DashboardCardProps = {
   title: string;
   status: string;
   priority: string;
-  id: number;
+  id: string;
 };
 
 const DashboardCard = ({ title, status, priority, id }: DashboardCardProps) => {
