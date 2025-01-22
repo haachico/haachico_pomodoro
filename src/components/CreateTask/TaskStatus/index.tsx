@@ -22,12 +22,12 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
   setPayload,
 }) => {
   const {
-    // isStatusFilterOpen,
+    isStatusFilterOpen,
     isPriorityFilterOpen,
-    // selectedStatus,
+    selectedStatus,
     selectedPriority,
   } = filters;
-  // const statuses: string[] = ["All", "Pending", "Completed", "In Progress"];
+  const statuses: string[] = ["All", "Pending", "Completed", "In Progress"];
 
   const priority: string[] = ["Low", "Medium", "High"];
 
@@ -39,18 +39,24 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
   return (
     <div className="form-status">
       <div>
-        {/* <Dropdown
+        <Dropdown
           label={"Status"}
           onToggle={() => setFilter("isStatusFilterOpen", !isStatusFilterOpen)}
           isOpen={isStatusFilterOpen}
           options={statuses}
           selectOption={(option) => {
-            setFilter("selectedStatus", option);
+            setPayload({
+              ...payload,
+              status: option.toLowerCase() as
+                | "pending"
+                | "completed"
+                | "in progress",
+            });
             setFilter("isStatusFilterOpen", false);
           }}
           selectedOption={selectedStatus}
           normalisedStatus={normalisedStatus}
-        /> */}
+        />
         <Dropdown
           label={"Priority"}
           onToggle={() =>

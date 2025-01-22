@@ -8,7 +8,8 @@ import { RootState } from "../../store";
 
 const ViewAllTasks = () => {
   const location = useLocation();
-  const status = location.state?.status || "All";
+  const selectedStatusFilter = location.state?.status || "All";
+  const selectedPriorityFilter = location.state?.priority || "";
 
   const tasksList = useSelector((state: RootState) => state.tasks.tasks);
 
@@ -16,9 +17,11 @@ const ViewAllTasks = () => {
     isStatusFilterOpen: false,
     isPriorityFilterOpen: false,
     isSearchBarOpen: false,
-    selectedStatus: status || "All",
-    selectedPriority: "All",
+    selectedStatus: selectedStatusFilter || "All",
+    selectedPriority: selectedPriorityFilter || "",
   });
+
+  // console.log(tasksList, "check tasks list");
 
   const setFilter = (key: string, value: any) => {
     setFilters((prevFilters) => ({
@@ -42,8 +45,6 @@ const ViewAllTasks = () => {
 
   const priority: string[] = ["Low", "Medium", "High"];
 
-  console.log(tasksList, "check tasks list");
-
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
       if (
@@ -61,21 +62,24 @@ const ViewAllTasks = () => {
     };
   });
 
+  console.log(selectedStatus, selectedStatusFilter, "check");
+
   const normalisedStatus = (str: string): string =>
     str.includes("-")
       ? str.split("-").join("").toLowerCase()
       : str.split(" ").join("").toLowerCase();
 
   const displayTasks = tasksList.filter((task) => {
-    if (selectedPriority === "All" && selectedStatus === "All") {
+    if (selectedPriority === "" && selectedStatus === "All") {
       return task;
     }
-    if (selectedPriority === "All" && selectedStatus !== "All") {
+    if (selectedPriority === "" && selectedStatus !== "All") {
       return normalisedStatus(task.status) === normalisedStatus(selectedStatus);
     }
-    if (selectedPriority !== "All" && selectedStatus === "All") {
-      return task.priority.toLowerCase() === selectedPriority.toLowerCase();
+    if (selectedPriority !== "" && selectedStatus === "All") {
+      return task.priority === selectedPriority;
     }
+
     return (
       task.priority.toLowerCase() === selectedPriority.toLowerCase() &&
       normalisedStatus(task.status) === normalisedStatus(selectedStatus)
@@ -90,9 +94,11 @@ const ViewAllTasks = () => {
     task.title.toLowerCase().includes(inputField.toLowerCase())
   );
 
+  console.log(displayTasks);
+
   const handleClearFilters = () => {
     setFilter("selectedStatus", "All");
-    setFilter("selectedPriority", "All");
+    setFilter("selectedPriority", "");
     setFilter("isStatusFilterOpen", false);
     setFilter("isPriorityFilterOpen", false);
     setFilter("isSearchBarOpen", false);

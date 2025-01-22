@@ -10,6 +10,7 @@ type DashboardCardProps = {
 
 const DashboardCard = ({ title, status, priority, id }: DashboardCardProps) => {
   const navigate = useNavigate();
+
   return (
     <div
       className="dashboard-card"
@@ -17,7 +18,9 @@ const DashboardCard = ({ title, status, priority, id }: DashboardCardProps) => {
         navigate(`/task/${id}`);
       }}
     >
-      <h4 className={`${status}`}>{title}</h4>
+      <h4 className={`${status === "in progress" ? "inProgress" : status}`}>
+        {title}
+      </h4>
     </div>
   );
 };

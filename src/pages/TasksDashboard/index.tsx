@@ -9,26 +9,13 @@ const TasksDashboard = () => {
   const navigate = useNavigate();
   const tasksList = useSelector((state: RootState) => state.tasks.tasks);
 
-  const completedTasksCount: number = tasks.filter(
-    (task) => task.status === "completed"
-  ).length;
-
-  const inProgressTasksCount: number = tasks.filter(
-    (task) => task.status === "inProgress"
-  ).length;
-
-  const pendingTasksCount: number = tasks.filter(
-    (task) => task.status === "pending"
-  ).length;
-
-  const countCards: {
-    completed: number;
-    inProgress: number;
-    pending: number;
-  } = {
-    completed: completedTasksCount,
-    inProgress: inProgressTasksCount,
-    pending: pendingTasksCount,
+  const countCards = {
+    pending: tasks.filter((task) => task.status === "pending").length,
+    inProgress: tasks.filter((task) => task.status === "inProgress").length,
+    completed: tasks.filter((task) => task.status === "completed").length,
+    low: tasks.filter((task) => task.priority === "low").length,
+    medium: tasks.filter((task) => task.priority === "medium").length,
+    high: tasks.filter((task) => task.priority === "high").length,
   };
 
   return (
@@ -38,13 +25,21 @@ const TasksDashboard = () => {
           <div
             onClick={() => {
               navigate("/tasks", {
-                state: { status: key },
+                state: ["pending", "inProgress", "completed"].includes(key)
+                  ? { status: key }
+                  : { priority: key },
               });
             }}
             className={`${key}`}
           >
             <h4>{value}</h4>
-            <p>{key}</p>
+            <p>
+              {key === "inProgress"
+                ? "In Progress"
+                : `${key.slice(0, 1).toUpperCase()}${key
+                    .slice(1)
+                    .toLowerCase()}`}
+            </p>
           </div>
         ))}
       </div>

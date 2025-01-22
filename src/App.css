@@ -7,14 +7,25 @@ body {
   width: 100%;
 }
 
-.pending {
-  color: lightblue;
+.low {
+  color: #28a745; /* Green */
+}
+
+.medium {
+  color: #ffc107; /* Yellow */
+}
+.high {
+  color: #dc3545; /* Red */
 }
 
 .completed {
-  color: lightgreen;
+  color: #28a745; /* Green */
 }
 
 .inProgress {
-  color: lightcoral;
+  color: #fd7e14; /* Orange */
+}
+
+.pending {
+  color: #007bff; /* Blue */
 }
