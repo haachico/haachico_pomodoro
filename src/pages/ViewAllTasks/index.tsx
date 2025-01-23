@@ -134,7 +134,7 @@ const ViewAllTasks = () => {
               setFilter("selectedPriority", option);
               setFilter("isPriorityFilterOpen", false);
             }}
-            selectedOption={selectedStatus}
+            selectedOption={selectedPriority}
             normalisedStatus={normalisedStatus}
           />
         </div>

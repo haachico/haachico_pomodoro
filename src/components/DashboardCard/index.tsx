@@ -11,9 +11,20 @@ type DashboardCardProps = {
 const DashboardCard = ({ title, status, priority, id }: DashboardCardProps) => {
   const navigate = useNavigate();
 
+  const priorityColors: {
+    [key: string]: string;
+  } = {
+    low: "#28a745", // Green
+    medium: "#ffc107", // Yellow
+    high: "#dc3545", // Red
+  };
+
   return (
     <div
       className="dashboard-card"
+      style={{
+        border: `2px solid ${priorityColors[priority]}`,
+      }}
       onClick={() => {
         navigate(`/task/${id}`);
       }}
