@@ -1,4 +1,15 @@
 .intro-page {
   width: 1024px;
   margin: 0 auto;
+  height: calc(100vh - 101px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.intro-buttons {
+  display: flex;
+  margin-top: 20px;
+  gap: 20px;
 }

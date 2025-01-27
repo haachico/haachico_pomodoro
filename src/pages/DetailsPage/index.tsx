@@ -8,11 +8,15 @@ const DetailsPage = () => {
   const [openPomodoro, setOpenPomodoro] = useState(false);
   const { id } = useParams<{ id: string }>();
   const task = tasks.find((task) => task.id === id);
+
+  const handleClosePomodoro = () => {
+    setOpenPomodoro(false);
+  };
   return (
     <div>
       {openPomodoro && (
         <div className="pomodoro-modal">
-          <PomodoroPopup />
+          <PomodoroPopup onClose={handleClosePomodoro} />
         </div>
       )}
       <button

@@ -7,6 +7,7 @@ export type Task = {
   completedPomodoros: number;
   dueDate: Date | null;
   priority: "medium" | "high" | "low" | "";
+  category: string;
 };
 
 export type Filters = {

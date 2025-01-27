@@ -1,5 +1,32 @@
 .pomodoro-popup {
   width: 500px;
-  height: 300px;
+  height: auto;
+  padding: 20px;
   background-color: turquoise;
+}
+
+.pomodoro-popup__header {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.pomodoro-popup__header h4 {
+  background-color: black;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pomodoro-popup__timer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.pomodoro-popup__timer__buttons {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
 }

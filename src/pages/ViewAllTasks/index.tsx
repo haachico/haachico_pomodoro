@@ -10,6 +10,7 @@ const ViewAllTasks = () => {
   const location = useLocation();
   const selectedStatusFilter = location.state?.status || "All";
   const selectedPriorityFilter = location.state?.priority || "";
+  const selectedCategoryFilter = location.state?.category || "";
 
   const tasksList = useSelector((state: RootState) => state.tasks.tasks);
 
@@ -17,8 +18,10 @@ const ViewAllTasks = () => {
     isStatusFilterOpen: false,
     isPriorityFilterOpen: false,
     isSearchBarOpen: false,
+    isCategoryFilterOpen: false,
     selectedStatus: selectedStatusFilter || "All",
     selectedPriority: selectedPriorityFilter || "",
+    selectedCategory: selectedCategoryFilter || "All",
   });
 
   // console.log(tasksList, "check tasks list");
@@ -33,9 +36,11 @@ const ViewAllTasks = () => {
   const {
     isStatusFilterOpen,
     isPriorityFilterOpen,
+    isCategoryFilterOpen,
     isSearchBarOpen,
     selectedStatus,
     selectedPriority,
+    selectedCategory,
   } = filters;
 
   const serarchBarRef = useRef<HTMLDivElement | null>(null);
@@ -44,6 +49,8 @@ const ViewAllTasks = () => {
   const statuses: string[] = ["All", "Pending", "Completed", "In Progress"];
 
   const priority: string[] = ["Low", "Medium", "High"];
+
+  const categories: string[] = ["All", "Work", "Personal", "Study"];
 
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
@@ -62,30 +69,28 @@ const ViewAllTasks = () => {
     };
   });
 
-  console.log(selectedStatus, selectedStatusFilter, "check");
-
   const normalisedStatus = (str: string): string =>
     str.includes("-")
       ? str.split("-").join("").toLowerCase()
       : str.split(" ").join("").toLowerCase();
 
-  const displayTasks = tasksList.filter((task) => {
-    if (selectedPriority === "" && selectedStatus === "All") {
-      return task;
-    }
-    if (selectedPriority === "" && selectedStatus !== "All") {
-      return normalisedStatus(task.status) === normalisedStatus(selectedStatus);
-    }
-    if (selectedPriority !== "" && selectedStatus === "All") {
-      return task.priority === selectedPriority;
-    }
+  console.log(selectedCategory, "cje");
 
-    return (
-      task.priority.toLowerCase() === selectedPriority.toLowerCase() &&
-      normalisedStatus(task.status) === normalisedStatus(selectedStatus)
-    );
+  const displayTasks = tasksList.filter((task) => {
+    const categoryMatch =
+      selectedCategory === "All" ||
+      task.category === selectedCategory.toLowerCase();
+    const statusMatch =
+      selectedStatus === "All" ||
+      normalisedStatus(task.status) === normalisedStatus(selectedStatus);
+    const priorityMatch =
+      selectedPriority === "" ||
+      task.priority === selectedPriority.toLowerCase();
+
+    return categoryMatch && statusMatch && priorityMatch;
   });
 
+  console.log(displayTasks, selectedStatusFilter, "check");
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputField(e.target.value);
   };
@@ -99,8 +104,10 @@ const ViewAllTasks = () => {
   const handleClearFilters = () => {
     setFilter("selectedStatus", "All");
     setFilter("selectedPriority", "");
+    setFilter("selectedCategory", "All");
     setFilter("isStatusFilterOpen", false);
     setFilter("isPriorityFilterOpen", false);
+    setFilter("isCategoryFilterOpen", false);
     setFilter("isSearchBarOpen", false);
     setInputField("");
   };
@@ -109,6 +116,20 @@ const ViewAllTasks = () => {
     <div className="viewAll-page">
       <nav className="filters-nav">
         <div>
+          <Dropdown
+            label={"Category"}
+            onToggle={() =>
+              setFilter("isCategoryFilterOpen", !isCategoryFilterOpen)
+            }
+            isOpen={isCategoryFilterOpen}
+            options={categories}
+            selectOption={(option) => {
+              setFilter("selectedCategory", option);
+              setFilter("isCategoryFilterOpen", false);
+            }}
+            selectedOption={selectedCategory}
+            normalisedStatus={normalisedStatus}
+          />
           <Dropdown
             label={"Status"}
             onToggle={() =>
