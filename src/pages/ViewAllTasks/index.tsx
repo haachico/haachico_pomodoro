@@ -67,7 +67,7 @@ const ViewAllTasks = () => {
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  });
+  }, []);
 
   const normalisedStatus = (str: string): string =>
     str.includes("-")
@@ -79,13 +79,13 @@ const ViewAllTasks = () => {
   const displayTasks = tasksList.filter((task) => {
     const categoryMatch =
       selectedCategory === "All" ||
-      task.category === selectedCategory.toLowerCase();
+      task.category.toLowerCase() === selectedCategory.toLowerCase();
     const statusMatch =
       selectedStatus === "All" ||
       normalisedStatus(task.status) === normalisedStatus(selectedStatus);
     const priorityMatch =
       selectedPriority === "" ||
-      task.priority === selectedPriority.toLowerCase();
+      task.priority.toLowerCase() === selectedPriority.toLowerCase();
 
     return categoryMatch && statusMatch && priorityMatch;
   });
@@ -98,8 +98,6 @@ const ViewAllTasks = () => {
   const searchedTasks = displayTasks.filter((task) =>
     task.title.toLowerCase().includes(inputField.toLowerCase())
   );
-
-  console.log(displayTasks);
 
   const handleClearFilters = () => {
     setFilter("selectedStatus", "All");

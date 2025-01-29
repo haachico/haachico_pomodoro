@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Task } from "../../types";
 import tasks from "../../db/tasksData";
 
@@ -12,32 +12,32 @@ const tasksSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
-    add(state, action) {
+    add(state, action: PayloadAction<Task>) {
       console.log("Works");
       state.tasks.push(action.payload);
     },
-    remove(state, action) {
+    remove(state, action: PayloadAction<string>) {
       state.tasks = state.tasks.filter((item) => item.id !== action.payload);
     },
-    // edit: {
-    //   prepare(id, editedText) {
-    //     return {
-    //       payload: { id, editedText },
-    //     };
-    //   },
-    //   reducer(state, action) {
-    //     state.todosItems = state.todosItems.map((item) => {
-    //       if (item.id === action.payload.id) {
-    //         return {
-    //           ...item,
-    //           title: action.payload.editedText,
-    //         };
-    //       } else {
-    //         return item;
-    //       }
-    //     });
-    //   },
-    // },
+    edit: {
+      prepare(id: string, editedText: Partial<Task>) {
+        return {
+          payload: { id, ...editedText },
+        };
+      },
+      reducer(state, action: PayloadAction<Task>) {
+        state.tasks = state.tasks.map((item) => {
+          if (item.id === action.payload.id) {
+            return {
+              ...item,
+              ...action.payload,
+            };
+          } else {
+            return item;
+          }
+        });
+      },
+    },
     // mark(state, action) {
     //   state.tasks = state.tasks.map((task) =>
     //     task.id === action.payload
@@ -51,6 +51,6 @@ const tasksSlice = createSlice({
   },
 });
 
-export const { add, remove } = tasksSlice.actions;
+export const { add, remove, edit } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

@@ -70,7 +70,11 @@ const Dropdown: React.FC<DropdownProps> = ({
                     ? option.toLowerCase() === selectedOption.toLowerCase()
                       ? "1px solid #000"
                       : "none"
-                    : "",
+                    : label === "Category"
+                    ? option.toLowerCase() === selectedOption.toLowerCase()
+                      ? "1px solid #000"
+                      : "none"
+                    : "none",
               }}
             >
               {option}
