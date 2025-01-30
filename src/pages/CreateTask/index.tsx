@@ -15,6 +15,7 @@ const CreateTask = () => {
     isPriorityFilterOpen: false,
     selectedStatus: "",
     selectedPriority: "",
+    selectedCategory: "",
   });
   const [enableNextBtn, setEnableNextBtn] = useState<boolean>(false);
 
@@ -27,6 +28,7 @@ const CreateTask = () => {
     completedPomodoros: 0,
     dueDate: new Date(),
     priority: filters.selectedPriority,
+    category: filters.selectedCategory,
   });
 
   const dispatch = useDispatch();

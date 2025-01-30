@@ -43,7 +43,7 @@ const ViewAllTasks = () => {
     selectedCategory,
   } = filters;
 
-  const serarchBarRef = useRef<HTMLDivElement | null>(null);
+  const searchBarRef = useRef<HTMLDivElement | null>(null);
   const [inputField, setInputField] = useState<string>("");
 
   const statuses: string[] = ["All", "Pending", "Completed", "In Progress"];
@@ -55,8 +55,8 @@ const ViewAllTasks = () => {
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
       if (
-        serarchBarRef.current &&
-        !serarchBarRef.current.contains(e.target as Node)
+        searchBarRef.current &&
+        !searchBarRef.current.contains(e.target as Node)
       ) {
         setFilter("isSearchBarOpen", false);
       }
@@ -167,15 +167,16 @@ const ViewAllTasks = () => {
             selectedPriority !== "All" ||
             inputField) && <div onClick={handleClearFilters}>Clear</div>}
           <div
-            onClick={() => {
-              setFilter("isSearchBarOpen", !isSearchBarOpen);
+            onClick={(e) => {
+              e.stopPropagation();
+              setFilter("isSearchBarOpen", (prev: boolean) => !prev);
             }}
           >
             Search
           </div>
         </div>
       </nav>
-      <div ref={serarchBarRef}>
+      <div ref={searchBarRef}>
         {isSearchBarOpen && (
           <input
             onChange={handleSearch}

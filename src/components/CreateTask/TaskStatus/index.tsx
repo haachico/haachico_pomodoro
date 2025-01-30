@@ -3,13 +3,16 @@ import Dropdown from "../../commonComponents/Dropdown";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Task } from "../../../types";
+import { set } from "react-datepicker/dist/date_utils";
 
 type TaskStatusProps = {
   filters: {
     isStatusFilterOpen: boolean;
     isPriorityFilterOpen: boolean;
+    isCategoryFilterOpen: boolean;
     selectedStatus: string;
     selectedPriority: string;
+    selectedCategory: string;
   };
   setFilter: (key: string, value: any) => void;
   payload: Task;
@@ -24,12 +27,16 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
   const {
     isStatusFilterOpen,
     isPriorityFilterOpen,
+    isCategoryFilterOpen,
     selectedStatus,
     selectedPriority,
+    selectedCategory,
   } = filters;
   const statuses: string[] = ["All", "Pending", "Completed", "In Progress"];
 
   const priority: string[] = ["Low", "Medium", "High"];
+
+  const categories: string[] = ["All", "Work", "Personal", "Study"];
 
   const normalisedStatus = (str: string): string =>
     str.includes("-")
@@ -39,6 +46,24 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
   return (
     <div className="form-status">
       <div>
+        <Dropdown
+          label={"Category"}
+          onToggle={() =>
+            setFilter("isCategoryFilterOpen", !isCategoryFilterOpen)
+          }
+          isOpen={isCategoryFilterOpen}
+          options={categories}
+          selectOption={(option) => {
+            setPayload({
+              ...payload,
+              category: option.toLowerCase() as "study" | "work" | "personal",
+            });
+            setFilter("isCategoryFilterOpen", false);
+            setFilter("selectedCategory", option);
+          }}
+          selectedOption={selectedCategory}
+          normalisedStatus={normalisedStatus}
+        />
         <Dropdown
           label={"Status"}
           onToggle={() => setFilter("isStatusFilterOpen", !isStatusFilterOpen)}
@@ -53,6 +78,7 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
                 | "in progress",
             });
             setFilter("isStatusFilterOpen", false);
+            setFilter("selectedStatus", option);
           }}
           selectedOption={selectedStatus}
           normalisedStatus={normalisedStatus}
@@ -70,6 +96,7 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
               priority: option.toLowerCase() as "low" | "medium" | "high",
             });
             setFilter("isPriorityFilterOpen", false);
+            setFilter("selectedPriority", option);
           }}
           selectedOption={selectedPriority}
           normalisedStatus={normalisedStatus}

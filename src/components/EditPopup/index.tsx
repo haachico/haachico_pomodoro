@@ -170,6 +170,13 @@ const EditPopup: React.FC<EditPopupProps> = ({ task, onClose }) => {
       >
         Save
       </button>
+      <button
+        onClick={() => {
+          onClose();
+        }}
+      >
+        Close
+      </button>
     </div>
   );
 };

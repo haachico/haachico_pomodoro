@@ -15,4 +15,5 @@ export type Filters = {
   isPriorityFilterOpen: boolean;
   selectedStatus: string;
   selectedPriority: "medium" | "high" | "low" | "";
+  selectedCategory: string;
 };

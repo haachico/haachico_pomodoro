@@ -13,7 +13,6 @@ const tasksSlice = createSlice({
   initialState,
   reducers: {
     add(state, action: PayloadAction<Task>) {
-      console.log("Works");
       state.tasks.push(action.payload);
     },
     remove(state, action: PayloadAction<string>) {
