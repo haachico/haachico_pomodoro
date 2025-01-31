@@ -1,12 +1,28 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Task } from "../../types";
 import tasks from "../../db/tasksData";
+import fetchTasks from "../../services/tasksService";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebaseConfig";
 
 const initialState: {
   tasks: Task[];
 } = {
   tasks: [...tasks],
 };
+
+export const fetchTasksThunk = createAsyncThunk(
+  "tasks/fetchTasks",
+  async () => {
+    const tasksCollection = collection(db, "tasks");
+    const tasksSnapshot = await getDocs(tasksCollection);
+    const tasksList = tasksSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    })) as Task[];
+    return tasksList;
+  }
+);
 
 const tasksSlice = createSlice({
   name: "tasks",
