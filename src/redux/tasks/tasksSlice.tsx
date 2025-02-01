@@ -1,14 +1,24 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Task } from "../../types";
-import tasks from "../../db/tasksData";
-import fetchTasks from "../../services/tasksService";
-import { collection, getDocs } from "firebase/firestore";
+// import tasks from "../../db/tasksData";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 
 const initialState: {
   tasks: Task[];
+  loading: boolean;
+  error: string | null;
 } = {
-  tasks: [...tasks],
+  tasks: [],
+  loading: false,
+  error: null,
 };
 
 export const fetchTasksThunk = createAsyncThunk(
@@ -20,10 +30,40 @@ export const fetchTasksThunk = createAsyncThunk(
       id: doc.id,
       ...doc.data(),
     })) as Task[];
+    console.log(tasksList, "taskList");
     return tasksList;
   }
 );
 
+export const addTaskThunk = createAsyncThunk(
+  "tasks/addTask",
+  async (task: Task) => {
+    console.log("called");
+    const taskCollection = collection(db, "tasks");
+    const docRef = await addDoc(taskCollection, task);
+    console.log("docRef", docRef);
+    return { ...task, id: docRef.id };
+  }
+);
+
+export const deleteTaskThunk = createAsyncThunk(
+  "tassks/deleteTask",
+  async (id: string) => {
+    const taskCollection = collection(db, "tasks");
+    await deleteDoc(doc(taskCollection, id));
+    return id;
+  }
+);
+
+export const editTaskThunk = createAsyncThunk(
+  "tasks/editTask",
+  async (task: Task) => {
+    const taskCollection = collection(db, "tasks");
+    const docRef = doc(taskCollection, task.id);
+    await updateDoc(docRef, task);
+    return task;
+  }
+);
 const tasksSlice = createSlice({
   name: "tasks",
   initialState,
@@ -53,16 +93,69 @@ const tasksSlice = createSlice({
         });
       },
     },
-    // mark(state, action) {
-    //   state.tasks = state.tasks.map((task) =>
-    //     task.id === action.payload
-    //       ? { ...task, isComplete: !task.isComplete }
-    //       : task
-    //   );
-    // },
-    // clearAllCompleted(state, action) {
-    //   state.tasks = state.tasks.filter((todo) => todo.isComplete === false);
-    // },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchTasksThunk.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(fetchTasksThunk.fulfilled, (state, action) => {
+      state.loading = false;
+      state.error = null;
+      state.tasks = action.payload;
+    });
+    builder.addCase(fetchTasksThunk.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message || "Failed to fetch tasks!";
+    });
+    builder.addCase(addTaskThunk.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(addTaskThunk.fulfilled, (state, action) => {
+      state.loading = false;
+      state.error = null;
+      state.tasks.push(action.payload);
+    });
+    builder.addCase(addTaskThunk.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message || "Failed to add task!";
+    });
+    builder.addCase(deleteTaskThunk.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(deleteTaskThunk.fulfilled, (state, action) => {
+      state.loading = false;
+      state.error = null;
+      state.tasks = state.tasks.filter((task) => task.id !== action.payload);
+    });
+    builder.addCase(deleteTaskThunk.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message || "Failed to delete task!";
+    });
+    builder.addCase(editTaskThunk.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(editTaskThunk.fulfilled, (state, action) => {
+      state.loading = false;
+      state.error = null;
+      state.tasks = state.tasks.map((task) => {
+        if (task.id === action.payload.id) {
+          return {
+            ...task,
+            ...action.payload,
+          };
+        } else {
+          return task;
+        }
+      });
+    });
+    builder.addCase(editTaskThunk.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message || "Failed to edit task!";
+    });
   },
 });
 

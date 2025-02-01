@@ -3,16 +3,23 @@ import TaskDescription from "../../components/CreateTask/TaskDescription";
 import TaskStatus from "../../components/CreateTask/TaskStatus";
 import "./index.css";
 import { Task, Filters } from "../../types";
-import { add } from "../../redux/tasks/tasksSlice";
+import {
+  add,
+  addTaskThunk,
+  fetchTasksThunk,
+} from "../../redux/tasks/tasksSlice";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { AppDispatch } from "../../store";
+import { Timestamp } from "firebase/firestore";
 
 const CreateTask = () => {
   const [step, setStep] = useState(1);
   const [filters, setFilters] = useState<Filters>({
     isStatusFilterOpen: false,
     isPriorityFilterOpen: false,
+    isCategoryFilterOpen: false,
     selectedStatus: "",
     selectedPriority: "",
     selectedCategory: "",
@@ -26,24 +33,18 @@ const CreateTask = () => {
     status: filters.selectedStatus,
     pomodoroCount: 0,
     completedPomodoros: 0,
-    dueDate: new Date(),
+    dueDate: Timestamp.fromDate(new Date()),
     priority: filters.selectedPriority,
     category: filters.selectedCategory,
   });
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const store = useSelector((state) => state);
   const navigate = useNavigate();
 
-  const {
-    title,
-    description,
-    status,
-    promodoroCount,
-    completedPomodoros,
-    dueDate,
-    priority,
-  } = payload;
+  const { title, description } = payload;
+
+  console.log(payload, "payload");
 
   useEffect(() => {
     if (step === 1) {
@@ -102,17 +103,23 @@ const CreateTask = () => {
     }
   };
 
-  const handleCreateTask = () => {
+  const handleCreateTask = async () => {
     const newTask: Task = {
       ...payload,
       id: uuidv4(),
     };
 
-    dispatch(add(newTask));
-    navigate("/pomodoros/dashboard");
+    try {
+      const response = await dispatch(addTaskThunk(newTask));
+      await dispatch(fetchTasksThunk());
+      console.log("newTask", response);
+      navigate("/pomodoros/dashboard");
+      console.log("success");
+    } catch (error) {
+      console.error("Failed to create task:", error);
+      console.log("error");
+    }
   };
-
-  console.log(store, "store");
 
   return (
     <div className="create-page">

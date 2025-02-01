@@ -1,13 +1,31 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import "./index.css";
-import DashboardCard from "../../components/DashboardCard";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store";
+import { useEffect, useState } from "react";
+import { fetchTasksThunk } from "../../redux/tasks/tasksSlice";
+import { Task } from "../../types";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 const TasksDashboard = () => {
   const navigate = useNavigate();
-  const tasksList = useSelector((state: RootState) => state.tasks.tasks);
+  // const tasksList = useSelector((state: RootState) => state.tasks.tasks);
+  const [tasksList, setTasksList] = useState<Task[]>([]);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await dispatch(fetchTasksThunk());
+        const tasks = unwrapResult(response);
+        setTasksList(tasks);
+      } catch (error) {
+        console.error("Error fetching tasks", error);
+      }
+    };
+
+    fetchTasks();
+  }, []);
 
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedStatus, setSelectedStatus] = useState<string>("");

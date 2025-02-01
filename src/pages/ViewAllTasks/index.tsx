@@ -3,8 +3,9 @@ import DashboardCard from "../../components/DashboardCard";
 import "./index.css";
 import { useLocation } from "react-router-dom";
 import Dropdown from "../../components/commonComponents/Dropdown";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store";
+import { fetchTasksThunk } from "../../redux/tasks/tasksSlice";
 
 const ViewAllTasks = () => {
   const location = useLocation();
@@ -13,6 +14,7 @@ const ViewAllTasks = () => {
   const selectedCategoryFilter = location.state?.category || "";
 
   const tasksList = useSelector((state: RootState) => state.tasks.tasks);
+  const dispatch = useDispatch<AppDispatch>();
 
   const [filters, setFilters] = useState({
     isStatusFilterOpen: false,
@@ -24,7 +26,13 @@ const ViewAllTasks = () => {
     selectedCategory: selectedCategoryFilter || "All",
   });
 
-  // console.log(tasksList, "check tasks list");
+  useEffect(() => {
+    const fetchTasks = async () => {
+      await dispatch(fetchTasksThunk());
+    };
+
+    fetchTasks();
+  });
 
   const setFilter = (key: string, value: any) => {
     setFilters((prevFilters) => ({

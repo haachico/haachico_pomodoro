@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export type Task = {
   id: string;
   title: string;
@@ -5,7 +7,7 @@ export type Task = {
   status: string;
   pomodoroCount: number;
   completedPomodoros: number;
-  dueDate: Date | null;
+  dueDate: Date | Timestamp | null;
   priority: "medium" | "high" | "low" | "";
   category: string;
 };
@@ -13,6 +15,7 @@ export type Task = {
 export type Filters = {
   isStatusFilterOpen: boolean;
   isPriorityFilterOpen: boolean;
+  isCategoryFilterOpen: boolean;
   selectedStatus: string;
   selectedPriority: "medium" | "high" | "low" | "";
   selectedCategory: string;
