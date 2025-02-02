@@ -7,8 +7,20 @@ import AboutPage from "./pages/IntroPage/AboutPage";
 import CreateTask from "./pages/CreateTask";
 import ViewAllTasks from "./pages/ViewAllTasks";
 import DetailsPage from "./pages/DetailsPage";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "./store";
+import { fetchTasksThunk } from "./redux/tasks/tasksSlice";
 
 function App() {
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      await dispatch(fetchTasksThunk());
+    };
+    fetchTasks();
+  }, []);
   return (
     <div className="app">
       <Router>

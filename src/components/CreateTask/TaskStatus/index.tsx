@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Task } from "../../../types";
 import { set } from "react-datepicker/dist/date_utils";
 import { Timestamp } from "firebase/firestore";
+import Time from "react-datepicker/dist/time";
 
 type TaskStatusProps = {
   filters: {
@@ -114,16 +115,12 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
                 ? payload.dueDate.toISOString().split("T")[0]
                 : ""
             }
-            selected={
-              payload.dueDate instanceof Timestamp
-                ? payload.dueDate.toDate()
-                : payload.dueDate
-            }
+            selected={payload.dueDate as Date}
             onChange={(date) => {
               if (date) {
                 setPayload({
                   ...payload,
-                  dueDate: Timestamp.fromDate(date),
+                  dueDate: date,
                 });
               } else {
                 setPayload({

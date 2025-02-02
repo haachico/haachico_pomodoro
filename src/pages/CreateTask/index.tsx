@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../store";
-import { Timestamp } from "firebase/firestore";
+// import { Timestamp } from "firebase/firestore";
 
 const CreateTask = () => {
   const [step, setStep] = useState(1);
@@ -27,13 +27,13 @@ const CreateTask = () => {
   const [enableNextBtn, setEnableNextBtn] = useState<boolean>(false);
 
   const [payload, setPayload] = useState<Task>({
-    id: "",
+    // id: "",
     title: "",
     description: "",
     status: filters.selectedStatus,
     pomodoroCount: 0,
     completedPomodoros: 0,
-    dueDate: Timestamp.fromDate(new Date()),
+    dueDate: new Date(),
     priority: filters.selectedPriority,
     category: filters.selectedCategory,
   });
@@ -106,7 +106,6 @@ const CreateTask = () => {
   const handleCreateTask = async () => {
     const newTask: Task = {
       ...payload,
-      id: uuidv4(),
     };
 
     try {

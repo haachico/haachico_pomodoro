@@ -2,8 +2,14 @@ import { useState } from "react";
 import { Task } from "../../types";
 import DatePicker from "react-datepicker";
 import Dropdown from "../commonComponents/Dropdown";
-import { edit } from "../../redux/tasks/tasksSlice";
+import {
+  edit,
+  editTaskThunk,
+  fetchTasksThunk,
+} from "../../redux/tasks/tasksSlice";
 import { useDispatch } from "react-redux";
+import { Timestamp } from "firebase/firestore";
+import { AppDispatch } from "../../store";
 
 type EditPopupProps = {
   task: Task;
@@ -11,7 +17,13 @@ type EditPopupProps = {
 };
 
 const EditPopup: React.FC<EditPopupProps> = ({ task, onClose }) => {
-  const [editDetials, setEditDetails] = useState<Task>(task);
+  const [editDetials, setEditDetails] = useState<Task>({
+    ...task,
+    dueDate:
+      task.dueDate instanceof Timestamp
+        ? task.dueDate.toDate()
+        : new Date(task.dueDate as Date), // Ensure dueDate is a Date object
+  });
   const [filters, setFilters] = useState({
     isStatusFilterOpen: false,
     isPriorityFilterOpen: false,
@@ -22,7 +34,7 @@ const EditPopup: React.FC<EditPopupProps> = ({ task, onClose }) => {
     selectedCategory: "All",
   });
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const setFilter = (key: string, value: any) => {
     setFilters((prevFilters) => ({
@@ -61,8 +73,19 @@ const EditPopup: React.FC<EditPopupProps> = ({ task, onClose }) => {
       };
     });
   };
+  const handleSaveDetails = async () => {
+    try {
+      await dispatch(editTaskThunk(editDetials));
 
-  console.log(editDetials, "editDetials");
+      await dispatch(fetchTasksThunk());
+      onClose();
+      console.log("Task edited successfully");
+    } catch (error) {
+      console.error("Error editing task", error);
+      console.log("Task editing failed");
+    }
+  };
+
   return (
     <div>
       <div>
@@ -146,11 +169,13 @@ const EditPopup: React.FC<EditPopupProps> = ({ task, onClose }) => {
         <DatePicker
           name="dueDate"
           value={
-            editDetials.dueDate
+            editDetials.dueDate instanceof Timestamp
+              ? editDetials.dueDate.toDate().toISOString().split("T")[0]
+              : editDetials.dueDate
               ? editDetials.dueDate.toISOString().split("T")[0]
               : ""
           }
-          selected={editDetials.dueDate}
+          selected={editDetials.dueDate as Date}
           onChange={(date) => {
             setEditDetails((prevState) => {
               return {
@@ -162,14 +187,7 @@ const EditPopup: React.FC<EditPopupProps> = ({ task, onClose }) => {
         />
       </div>
 
-      <button
-        onClick={() => {
-          dispatch(edit(editDetials.id, editDetials));
-          onClose();
-        }}
-      >
-        Save
-      </button>
+      <button onClick={handleSaveDetails}>Save</button>
       <button
         onClick={() => {
           onClose();

@@ -1,13 +1,13 @@
 import { Timestamp } from "firebase/firestore";
 
 export type Task = {
-  id: string;
+  // id: string;
   title: string;
   description: string;
   status: string;
   pomodoroCount: number;
   completedPomodoros: number;
-  dueDate: Date | Timestamp | null;
+  dueDate: Date | Timestamp | null | "";
   priority: "medium" | "high" | "low" | "";
   category: string;
 };

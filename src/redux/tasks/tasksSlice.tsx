@@ -7,6 +7,7 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  Timestamp,
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
@@ -29,8 +30,8 @@ export const fetchTasksThunk = createAsyncThunk(
     const tasksList = tasksSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
+      dueDate: doc.data().dueDate.toDate().toISOString(), // Convert Timestamp to ISO string
     })) as Task[];
-    console.log(tasksList, "taskList");
     return tasksList;
   }
 );
@@ -38,10 +39,11 @@ export const fetchTasksThunk = createAsyncThunk(
 export const addTaskThunk = createAsyncThunk(
   "tasks/addTask",
   async (task: Task) => {
-    console.log("called");
     const taskCollection = collection(db, "tasks");
-    const docRef = await addDoc(taskCollection, task);
-    console.log("docRef", docRef);
+    const docRef = await addDoc(taskCollection, {
+      ...task,
+      dueDate: Timestamp.fromDate(new Date(task.dueDate as Date)), // Convert ISO string to Timestamp
+    });
     return { ...task, id: docRef.id };
   }
 );
@@ -60,10 +62,14 @@ export const editTaskThunk = createAsyncThunk(
   async (task: Task) => {
     const taskCollection = collection(db, "tasks");
     const docRef = doc(taskCollection, task.id);
-    await updateDoc(docRef, task);
+    await updateDoc(docRef, {
+      ...task,
+      dueDate: Timestamp.fromDate(new Date(task.dueDate as Date)), // Convert ISO string to Timestamp
+    });
     return task;
   }
 );
+
 const tasksSlice = createSlice({
   name: "tasks",
   initialState,
