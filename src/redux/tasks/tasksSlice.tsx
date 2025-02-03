@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Task } from "../../types";
+import { CreateTaskType, Task } from "../../types";
 // import tasks from "../../db/tasksData";
 import {
   addDoc,
@@ -38,7 +38,7 @@ export const fetchTasksThunk = createAsyncThunk(
 
 export const addTaskThunk = createAsyncThunk(
   "tasks/addTask",
-  async (task: Task) => {
+  async (task: CreateTaskType) => {
     const taskCollection = collection(db, "tasks");
     const docRef = await addDoc(taskCollection, {
       ...task,

@@ -2,7 +2,7 @@ import "./index.css";
 import Dropdown from "../../commonComponents/Dropdown";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Task } from "../../../types";
+import { CreateTaskType } from "../../../types";
 import { set } from "react-datepicker/dist/date_utils";
 import { Timestamp } from "firebase/firestore";
 import Time from "react-datepicker/dist/time";
@@ -17,8 +17,8 @@ type TaskStatusProps = {
     selectedCategory: string;
   };
   setFilter: (key: string, value: any) => void;
-  payload: Task;
-  setPayload: React.Dispatch<React.SetStateAction<Task>>;
+  payload: CreateTaskType;
+  setPayload: React.Dispatch<React.SetStateAction<CreateTaskType>>;
 };
 const TaskStatus: React.FC<TaskStatusProps> = ({
   filters,

@@ -18,6 +18,7 @@ const TasksDashboard = () => {
       try {
         const response = await dispatch(fetchTasksThunk());
         const tasks = unwrapResult(response);
+        console.log(tasks, "tasks chek");
         setTasksList(tasks);
       } catch (error) {
         console.error("Error fetching tasks", error);
@@ -30,6 +31,7 @@ const TasksDashboard = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedStatus, setSelectedStatus] = useState<string>("");
   const [selectedPriority, setSelectedPriority] = useState<string>("");
+
   const countCategories: {
     [key: string]: number;
   } = {
@@ -38,13 +40,15 @@ const TasksDashboard = () => {
     study: tasksList.filter((task) => task.category === "study").length,
   };
 
+  console.log(selectedStatus, selectedCategory, selectedCategory, "selected");
+
   const countStatus = {
     pending: tasksList.filter(
       (task) => task.category === selectedCategory && task.status === "pending"
     ).length,
-    inProgress: tasksList.filter(
+    "in progress": tasksList.filter(
       (task) =>
-        task.category === selectedCategory && task.status === "inProgress"
+        task.category === selectedCategory && task.status === "in progress"
     ).length,
     completed: tasksList.filter(
       (task) =>
@@ -115,7 +119,9 @@ const TasksDashboard = () => {
         {Object.entries(countCategories).length > 0
           ? Object.entries(filtersToShow()).map(([countText, count]) => (
               <div
-                className={`filter-card ${countText}`}
+                className={`filter-card ${
+                  countText === "in progress" ? "inProgress" : countText
+                }`}
                 key={countText}
                 onClick={() => handleFilterClick(countText)}
               >

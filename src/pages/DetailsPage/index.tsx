@@ -3,12 +3,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import PomodoroPopup from "../../components/Pomodoro";
 import "./index.css";
-import { remove } from "../../redux/tasks/tasksSlice";
+import { deleteTaskThunk } from "../../redux/tasks/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Task } from "../../types";
 import DeletePopup from "../../components/DeletePopup";
 import EditPopup from "../../components/EditPopup";
-import { RootState } from "../../store";
+import { AppDispatch, RootState } from "../../store";
 
 const DetailsPage = () => {
   const [openPomodoro, setOpenPomodoro] = useState(false);
@@ -16,9 +16,9 @@ const DetailsPage = () => {
   const [showEditPopup, setEditPopup] = useState(false);
 
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
-  const { id } = useParams<{ id: string }>();
-  const task: Task | undefined = tasks.find((task) => task.id === id);
-  const dispatch = useDispatch();
+  const { id: taskId } = useParams<{ id: string }>();
+  const task: Task | undefined = tasks.find((task) => task.id === taskId);
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   const handleClose = () => {
@@ -26,10 +26,12 @@ const DetailsPage = () => {
     setEditPopup(false);
   };
 
-  const handleDeleteTask = () => {
-    if (id) {
-      dispatch(remove(id));
+  const handleDeleteTask = async () => {
+    try {
+      await dispatch(deleteTaskThunk(taskId as string));
       navigate("/pomodoros/dashboard");
+    } catch (error) {
+      console.error("Error deleting task", error);
     }
   };
   return (

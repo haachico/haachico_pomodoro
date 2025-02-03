@@ -1,9 +1,9 @@
-import { Task } from "../../../types";
+import { CreateTaskType } from "../../../types";
 import "./index.css";
 
 type TaskDescriptionProps = {
-  payload: Task;
-  setPayload: React.Dispatch<React.SetStateAction<Task>>;
+  payload: CreateTaskType;
+  setPayload: React.Dispatch<React.SetStateAction<CreateTaskType>>;
 };
 
 const TaskDescription: React.FC<TaskDescriptionProps> = ({

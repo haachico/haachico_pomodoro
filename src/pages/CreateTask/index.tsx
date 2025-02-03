@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import TaskDescription from "../../components/CreateTask/TaskDescription";
 import TaskStatus from "../../components/CreateTask/TaskStatus";
 import "./index.css";
-import { Task, Filters } from "../../types";
+import { Task, Filters, CreateTaskType } from "../../types";
 import {
   add,
   addTaskThunk,
@@ -26,7 +26,7 @@ const CreateTask = () => {
   });
   const [enableNextBtn, setEnableNextBtn] = useState<boolean>(false);
 
-  const [payload, setPayload] = useState<Task>({
+  const [payload, setPayload] = useState<CreateTaskType>({
     // id: "",
     title: "",
     description: "",
@@ -104,7 +104,7 @@ const CreateTask = () => {
   };
 
   const handleCreateTask = async () => {
-    const newTask: Task = {
+    const newTask: CreateTaskType = {
       ...payload,
     };
 

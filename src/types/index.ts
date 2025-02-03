@@ -1,7 +1,7 @@
 import { Timestamp } from "firebase/firestore";
 
 export type Task = {
-  // id: string;
+  id: string;
   title: string;
   description: string;
   status: string;
@@ -20,3 +20,5 @@ export type Filters = {
   selectedPriority: "medium" | "high" | "low" | "";
   selectedCategory: string;
 };
+
+export type CreateTaskType = Omit<Task, "id">;

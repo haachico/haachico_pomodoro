@@ -47,7 +47,6 @@ const EditPopup: React.FC<EditPopupProps> = ({ task, onClose }) => {
     isStatusFilterOpen,
     isPriorityFilterOpen,
     isCategoryFilterOpen,
-    isSearchBarOpen,
     selectedStatus,
     selectedPriority,
     selectedCategory,
@@ -75,6 +74,7 @@ const EditPopup: React.FC<EditPopupProps> = ({ task, onClose }) => {
   };
   const handleSaveDetails = async () => {
     try {
+      console.log(editDetials, "editTaskThunk");
       await dispatch(editTaskThunk(editDetials));
 
       await dispatch(fetchTasksThunk());
