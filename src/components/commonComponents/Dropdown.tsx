@@ -17,7 +17,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   options,
   selectOption,
   selectedOption,
-  normalisedStatus,
+  // normalisedStatus,
 }) => {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
@@ -39,8 +39,8 @@ const Dropdown: React.FC<DropdownProps> = ({
     };
   }, [isOpen, onToggle]);
 
-  const normalised =
-    normalisedStatus || ((status: string) => status.toLowerCase());
+  // const normalised =
+  //   normalisedStatus || ((status: string) => status.toLowerCase());
 
   return (
     <div ref={dropdownRef}>
@@ -63,7 +63,7 @@ const Dropdown: React.FC<DropdownProps> = ({
               style={{
                 border:
                   label === "Status"
-                    ? normalised(option) === normalised(selectedOption)
+                    ? option.toLowerCase() === selectedOption.toLowerCase()
                       ? "1px solid #000"
                       : "none"
                     : label === "Priority"

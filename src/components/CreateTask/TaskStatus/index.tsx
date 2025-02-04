@@ -34,11 +34,11 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
     selectedPriority,
     selectedCategory,
   } = filters;
-  const statuses: string[] = ["All", "Pending", "Completed", "In Progress"];
+  const statuses: string[] = ["Pending", "Completed", "In Progress"];
 
   const priority: string[] = ["Low", "Medium", "High"];
 
-  const categories: string[] = ["All", "Work", "Personal", "Study"];
+  const categories: string[] = ["Work", "Personal", "Study"];
 
   const normalisedStatus = (str: string): string =>
     str.includes("-")

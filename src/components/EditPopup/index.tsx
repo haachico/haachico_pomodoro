@@ -52,16 +52,16 @@ const EditPopup: React.FC<EditPopupProps> = ({ task, onClose }) => {
     selectedCategory,
   } = filters;
 
-  const statuses: string[] = ["All", "Pending", "Completed", "In Progress"];
+  const statuses: string[] = ["Pending", "Completed", "In Progress"];
 
   const priority: string[] = ["Low", "Medium", "High"];
 
-  const categories: string[] = ["All", "Work", "Personal", "Study"];
+  const categories: string[] = ["Work", "Personal", "Study"];
 
-  const normalisedStatus = (str: string): string =>
-    str.includes("-")
-      ? str.split("-").join("").toLowerCase()
-      : str.split(" ").join("").toLowerCase();
+  // const normalisedStatus = (str: string): string =>
+  //   str.includes("-")
+  //     ? str.split("-").join("").toLowerCase()
+  //     : str.split(" ").join("").toLowerCase();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -124,9 +124,10 @@ const EditPopup: React.FC<EditPopupProps> = ({ task, onClose }) => {
               };
             });
             setFilter("isCategoryFilterOpen", false);
+            setFilter("selectedCategory", option);
           }}
-          selectedOption={selectedCategory}
-          normalisedStatus={normalisedStatus}
+          selectedOption={editDetials.category || selectedCategory}
+          // normalisedStatus={normalisedStatus}
         />
         <Dropdown
           label={"Status"}
@@ -141,9 +142,10 @@ const EditPopup: React.FC<EditPopupProps> = ({ task, onClose }) => {
               };
             });
             setFilter("isStatusFilterOpen", false);
+            setFilter("selectedStatus", option);
           }}
-          selectedOption={selectedStatus}
-          normalisedStatus={normalisedStatus}
+          selectedOption={editDetials.status || selectedStatus}
+          // normalisedStatus={normalisedStatus}
         />
         <Dropdown
           label={"Priority"}
@@ -160,9 +162,10 @@ const EditPopup: React.FC<EditPopupProps> = ({ task, onClose }) => {
               };
             });
             setFilter("isPriorityFilterOpen", false);
+            setFilter("selectedPriority", option);
           }}
-          selectedOption={selectedPriority}
-          normalisedStatus={normalisedStatus}
+          selectedOption={editDetials.priority || selectedPriority}
+          // normalisedStatus={normalisedStatus}
         />
       </div>
       <div>

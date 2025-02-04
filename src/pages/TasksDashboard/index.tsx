@@ -44,36 +44,42 @@ const TasksDashboard = () => {
 
   const countStatus = {
     pending: tasksList.filter(
-      (task) => task.category === selectedCategory && task.status === "pending"
+      (task) =>
+        task.category.toLowerCase() === selectedCategory.toLowerCase() &&
+        task.status.toLowerCase() === "pending"
     ).length,
+
     "in progress": tasksList.filter(
       (task) =>
-        task.category === selectedCategory && task.status === "in progress"
+        task.category.toLowerCase() === selectedCategory.toLowerCase() &&
+        task.status.toLowerCase() === "in progress"
     ).length,
     completed: tasksList.filter(
       (task) =>
-        task.category === selectedCategory && task.status === "completed"
+        task.category.toLowerCase() === selectedCategory.toLowerCase() &&
+        task.status.toLowerCase() === "completed"
     ).length,
   };
 
+  console.log(selectedCategory, countStatus, "countStatus");
   const countPriority = {
     low: tasksList.filter(
       (task) =>
-        task.category === selectedCategory &&
-        task.status === selectedStatus &&
-        task.priority === "low"
+        task.category.toLowerCase() === selectedCategory.toLowerCase() &&
+        task.status.toLowerCase() === selectedStatus.toLowerCase() &&
+        task.priority.toLowerCase() === "low"
     ).length,
     medium: tasksList.filter(
       (task) =>
-        task.category === selectedCategory &&
-        task.status === selectedStatus &&
-        task.priority === "medium"
+        task.category.toLowerCase() === selectedCategory.toLowerCase() &&
+        task.status.toLowerCase() === selectedStatus.toLowerCase() &&
+        task.priority.toLowerCase() === "medium"
     ).length,
     high: tasksList.filter(
       (task) =>
-        task.category === selectedCategory &&
-        task.status === selectedStatus &&
-        task.priority === "high"
+        task.category.toLowerCase() === selectedCategory.toLowerCase() &&
+        task.status.toLowerCase() === selectedStatus.toLowerCase() &&
+        task.priority.toLowerCase() === "high"
     ).length,
   };
 

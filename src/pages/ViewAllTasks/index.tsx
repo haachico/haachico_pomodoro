@@ -32,7 +32,7 @@ const ViewAllTasks = () => {
     };
 
     fetchTasks();
-  });
+  }, []);
 
   const setFilter = (key: string, value: any) => {
     setFilters((prevFilters) => ({

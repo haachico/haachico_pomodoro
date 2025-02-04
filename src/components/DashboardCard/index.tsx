@@ -19,11 +19,13 @@ const DashboardCard = ({ title, status, priority, id }: DashboardCardProps) => {
     high: "#dc3545", // Red
   };
 
+  console.log(priority.toLowerCase(), "check");
+
   return (
     <div
       className="dashboard-card"
       style={{
-        border: `2px solid ${priorityColors[priority]}`,
+        border: `2px solid ${priorityColors[priority.toLowerCase()]}`,
       }}
       onClick={() => {
         navigate(`/task/${id}`);
