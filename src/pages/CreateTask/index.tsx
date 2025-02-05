@@ -12,6 +12,8 @@ import { v4 as uuidv4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../store";
+import Toggle from "react-toggle";
+import "react-toggle/style.css"; // Import the CSS file for react-toggle
 // import { Timestamp } from "firebase/firestore";
 
 const CreateTask = () => {
@@ -30,16 +32,17 @@ const CreateTask = () => {
     // id: "",
     title: "",
     description: "",
-    status: filters.selectedStatus,
+    status: "Pending",
     pomodoroCount: 0,
     completedPomodoros: 0,
     dueDate: new Date(),
     priority: filters.selectedPriority,
     category: filters.selectedCategory,
+    isPomodoroAllowed: false,
   });
 
   const dispatch = useDispatch<AppDispatch>();
-  const store = useSelector((state) => state);
+  // const store = useSelector((state) => state);
   const navigate = useNavigate();
 
   const { title, description } = payload;

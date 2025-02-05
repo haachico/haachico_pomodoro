@@ -3,9 +3,10 @@ import Dropdown from "../../commonComponents/Dropdown";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { CreateTaskType } from "../../../types";
-import { set } from "react-datepicker/dist/date_utils";
 import { Timestamp } from "firebase/firestore";
-import Time from "react-datepicker/dist/time";
+import { ChangeEvent, useState } from "react";
+import Toggle from "react-toggle";
+import "react-toggle/style.css"; // Import the CSS file for react-toggle
 
 type TaskStatusProps = {
   filters: {
@@ -34,6 +35,9 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
     selectedPriority,
     selectedCategory,
   } = filters;
+
+  // const [allowPomodoro, setAllowPomodoro] = useState<boolean>(false);
+
   const statuses: string[] = ["Pending", "Completed", "In Progress"];
 
   const priority: string[] = ["Low", "Medium", "High"];
@@ -66,7 +70,7 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
           selectedOption={selectedCategory}
           normalisedStatus={normalisedStatus}
         />
-        <Dropdown
+        {/* <Dropdown
           label={"Status"}
           onToggle={() => setFilter("isStatusFilterOpen", !isStatusFilterOpen)}
           isOpen={isStatusFilterOpen}
@@ -84,7 +88,7 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
           }}
           selectedOption={selectedStatus}
           normalisedStatus={normalisedStatus}
-        />
+        /> */}
         <Dropdown
           label={"Priority"}
           onToggle={() =>
@@ -131,21 +135,37 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
             }}
           />
         </div>
-        <div>
-          <label htmlFor="pomodorosCount">Number of Pomodoros : </label>
-          <input
-            name="pomodoroCount"
-            type="number"
-            id="pomodorosCount"
-            value={payload.pomodoroCount}
-            onChange={(e) => {
-              setPayload({
-                ...payload,
-                pomodoroCount: parseInt(e.target.value),
-              });
-            }}
-          />
+        <div className="toggle-container">
+          <label>
+            <span>Allow Pomodoro</span>
+            <Toggle
+              defaultChecked={payload.isPomodoroAllowed}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                setPayload({
+                  ...payload,
+                  isPomodoroAllowed: e.target.checked,
+                });
+              }}
+            />
+          </label>
         </div>
+        {payload.isPomodoroAllowed && (
+          <div>
+            <label htmlFor="pomodorosCount">Number of Pomodoros : </label>
+            <input
+              name="pomodoroCount"
+              type="number"
+              id="pomodorosCount"
+              value={payload.pomodoroCount}
+              onChange={(e) => {
+                setPayload({
+                  ...payload,
+                  pomodoroCount: parseInt(e.target.value),
+                });
+              }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

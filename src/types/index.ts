@@ -10,6 +10,7 @@ export type Task = {
   dueDate: Date | Timestamp | null | "";
   priority: "medium" | "high" | "low" | "";
   category: string;
+  isPomodoroAllowed: boolean;
 };
 
 export type Filters = {
