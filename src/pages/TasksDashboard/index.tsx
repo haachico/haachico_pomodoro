@@ -122,26 +122,61 @@ const TasksDashboard = () => {
         View all Tasks
       </button>
       <div className="categories-cards">
-        {Object.entries(countCategories).length > 0
-          ? Object.entries(filtersToShow()).map(([countText, count]) => (
-              <div
-                className={`filter-card ${
-                  countText === "in progress" ? "inProgress" : countText
-                }`}
-                key={countText}
-                onClick={() => handleFilterClick(countText)}
-              >
-                <h4>{count}</h4>
-                <p>
-                  {countText === "inProgress"
-                    ? "In Progress"
-                    : `${countText.slice(0, 1).toUpperCase()}${countText
-                        .slice(1)
-                        .toLowerCase()}`}
-                </p>
-              </div>
-            ))
-          : "No tasks available. Please create a task."}
+        {selectedCategory === "" &&
+          Object.entries(countCategories).map(([countText, count]) => (
+            <div
+              className={`filter-card ${countText}`}
+              key={countText}
+              onClick={() => handleFilterClick(countText)}
+            >
+              <h4>{count}</h4>
+              <p>
+                {countText === "inProgress"
+                  ? "In Progress"
+                  : `${countText.slice(0, 1).toUpperCase()}${countText
+                      .slice(1)
+                      .toLowerCase()}`}
+              </p>
+            </div>
+          ))}
+        {selectedCategory !== "" &&
+          selectedStatus === "" &&
+          Object.entries(countStatus).map(([countText, count]) => (
+            <div
+              className={`filter-card ${
+                countText === "in progress" ? "inProgress" : countText
+              }`}
+              key={countText}
+              onClick={() => handleFilterClick(countText)}
+            >
+              <h4>{count}</h4>
+              <p>
+                {countText === "inProgress"
+                  ? "In Progress"
+                  : `${countText.slice(0, 1).toUpperCase()}${countText
+                      .slice(1)
+                      .toLowerCase()}`}
+              </p>
+            </div>
+          ))}
+        {selectedCategory !== "" &&
+          selectedStatus !== "" &&
+          Object.entries(countPriority).map(([countText, count]) => (
+            <div
+              className={`filter-card ${countText}`}
+              key={countText}
+              onClick={() => handleFilterClick(countText)}
+            >
+              <h4>{count}</h4>
+              <p>
+                {countText === "inProgress"
+                  ? "In Progress"
+                  : `${countText.slice(0, 1).toUpperCase()}${countText
+                      .slice(1)
+                      .toLowerCase()}`}
+              </p>
+            </div>
+          ))}
       </div>
 
       <button

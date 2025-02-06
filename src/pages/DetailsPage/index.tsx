@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 // import tasks from "../../db/tasksData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PomodoroPopup from "../../components/Pomodoro";
 import "./index.css";
 import { deleteTaskThunk } from "../../redux/tasks/tasksSlice";
@@ -14,6 +14,7 @@ const DetailsPage = () => {
   const [openPomodoro, setOpenPomodoro] = useState(false);
   const [showDeletePopup, setDeletePopup] = useState(false);
   const [showEditPopup, setEditPopup] = useState(false);
+  const [showNote, setShowNote] = useState(false);
 
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
   const { id: taskId } = useParams<{ id: string }>();
@@ -34,8 +35,25 @@ const DetailsPage = () => {
       console.error("Error deleting task", error);
     }
   };
+
+  useEffect(() => {
+    const showNotification = setTimeout(() => {
+      setShowNote(true);
+      setTimeout(() => {
+        setShowNote(false);
+      }, 5000);
+    }, 5000);
+
+    return () => clearTimeout(showNotification);
+  }, []);
   return (
     <div>
+      {showNote && (
+        <div className="notification">
+          NOTE: If you want to gain access for pomodoro for this task, kindly
+          edit and allow pomodoro for this task
+        </div>
+      )}
       {showEditPopup && task && (
         <div className="editPopup-modal">
           <EditPopup task={task} onClose={handleClose} />
@@ -43,7 +61,7 @@ const DetailsPage = () => {
       )}
       {openPomodoro && (
         <div className="pomodoro-modal">
-          <PomodoroPopup onClose={handleClose} />
+          <PomodoroPopup onClose={handleClose} task={task as Task} />
         </div>
       )}
       {showDeletePopup && (
@@ -54,13 +72,15 @@ const DetailsPage = () => {
           />
         </div>
       )}
-      <button
-        onClick={() => {
-          setOpenPomodoro(true);
-        }}
-      >
-        Open Pomodoro
-      </button>
+      {task?.isPomodoroAllowed && (
+        <button
+          onClick={() => {
+            setOpenPomodoro(true);
+          }}
+        >
+          Open Pomodoro
+        </button>
+      )}
       <button
         onClick={() => {
           setDeletePopup(true);

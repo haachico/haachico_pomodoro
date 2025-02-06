@@ -1,15 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import "./index.css";
+import { AppDispatch } from "../../store";
+import { useDispatch } from "react-redux";
+import { editTaskThunk } from "../../redux/tasks/tasksSlice";
+import { Task } from "../../types";
 
 type DashboardCardProps = {
-  title: string;
-  status: string;
-  priority: string;
-  id: string;
+  task: Task;
 };
 
-const DashboardCard = ({ title, status, priority, id }: DashboardCardProps) => {
+const DashboardCard = ({ task }: DashboardCardProps) => {
+  const { id, title, status, priority } = task;
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
   const priorityColors: {
     [key: string]: string;
@@ -19,7 +22,15 @@ const DashboardCard = ({ title, status, priority, id }: DashboardCardProps) => {
     high: "#dc3545", // Red
   };
 
-  console.log(priority.toLowerCase(), "check");
+  const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newStatus = e.target.value;
+    dispatch(
+      editTaskThunk({
+        ...task,
+        status: newStatus,
+      })
+    );
+  };
 
   return (
     <div
@@ -34,6 +45,18 @@ const DashboardCard = ({ title, status, priority, id }: DashboardCardProps) => {
       <h4 className={`${status === "in progress" ? "inProgress" : status}`}>
         {title}
       </h4>
+
+      <label>
+        <select
+          value={status}
+          onChange={handleStatusChange}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <option value="pending">Pending</option>
+          <option value="in progress">In Progress</option>
+          <option value="completed">Completed</option>
+        </select>
+      </label>
     </div>
   );
 };

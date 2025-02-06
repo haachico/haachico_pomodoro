@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 import "./index.css";
 import { set } from "react-datepicker/dist/date_utils";
+import { Task } from "../../types";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store";
+import { editTaskThunk } from "../../redux/tasks/tasksSlice";
 
 type PomodoroPopupProps = {
   onClose: () => void;
+  task: Task;
 };
 
-const PomodoroPopup: React.FC<PomodoroPopupProps> = ({ onClose }) => {
+const PomodoroPopup: React.FC<PomodoroPopupProps> = ({ onClose, task }) => {
   const [timeLeft, setTimeLeft] = useState(25 * 60);
   const [isTimerActive, setIsTimerActive] = useState(false);
   const [isPomodoroTime, setIsPomodoroTime] = useState(true);
@@ -15,7 +20,7 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({ onClose }) => {
   const [shortbreakTImeLeft, setShortBreakTimeLeft] = useState(5 * 60);
   const [longBreakTimeLeft, setLongBreakTimeLeft] = useState(15 * 60);
   const [showNotification, setShowNotification] = useState(false);
-
+  const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (isTimerActive) {
@@ -116,8 +121,14 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({ onClose }) => {
         </h1>
         <div className="pomodoro-popup__timer__buttons">
           <button
-            onClick={() => {
+            onClick={async () => {
               setIsTimerActive(true);
+              dispatch(
+                editTaskThunk({
+                  ...task,
+                  status: "in progress",
+                })
+              );
             }}
           >
             Start

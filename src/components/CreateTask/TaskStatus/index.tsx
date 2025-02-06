@@ -140,7 +140,7 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
             <span>Allow Pomodoro</span>
             <Toggle
               defaultChecked={payload.isPomodoroAllowed}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setPayload({
                   ...payload,
                   isPomodoroAllowed: e.target.checked,

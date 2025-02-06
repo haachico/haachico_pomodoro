@@ -202,14 +202,7 @@ const ViewAllTasks = () => {
         }}
       >
         {searchedTasks.length > 0
-          ? searchedTasks.map((task) => (
-              <DashboardCard
-                title={task.title}
-                status={task.status}
-                priority={task.priority}
-                id={task.id}
-              />
-            ))
+          ? searchedTasks.map((task) => <DashboardCard task={task} />)
           : "No tasks found"}
       </div>
     </div>

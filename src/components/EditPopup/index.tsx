@@ -10,6 +10,8 @@ import {
 import { useDispatch } from "react-redux";
 import { Timestamp } from "firebase/firestore";
 import { AppDispatch } from "../../store";
+import Toggle from "react-toggle";
+import "react-toggle/style.css";
 
 type EditPopupProps = {
   task: Task;
@@ -19,10 +21,7 @@ type EditPopupProps = {
 const EditPopup: React.FC<EditPopupProps> = ({ task, onClose }) => {
   const [editDetials, setEditDetails] = useState<Task>({
     ...task,
-    dueDate:
-      task.dueDate instanceof Timestamp
-        ? task.dueDate.toDate()
-        : new Date(task.dueDate as Date), // Ensure dueDate is a Date object
+    dueDate: new Date(task.dueDate as Date), // Ensure dueDate is a Date object
   });
   const [filters, setFilters] = useState({
     isStatusFilterOpen: false,
@@ -129,7 +128,7 @@ const EditPopup: React.FC<EditPopupProps> = ({ task, onClose }) => {
           selectedOption={editDetials.category || selectedCategory}
           // normalisedStatus={normalisedStatus}
         />
-        <Dropdown
+        {/* <Dropdown
           label={"Status"}
           onToggle={() => setFilter("isStatusFilterOpen", !isStatusFilterOpen)}
           isOpen={isStatusFilterOpen}
@@ -146,7 +145,7 @@ const EditPopup: React.FC<EditPopupProps> = ({ task, onClose }) => {
           }}
           selectedOption={editDetials.status || selectedStatus}
           // normalisedStatus={normalisedStatus}
-        />
+        /> */}
         <Dropdown
           label={"Priority"}
           onToggle={() =>
@@ -168,6 +167,38 @@ const EditPopup: React.FC<EditPopupProps> = ({ task, onClose }) => {
           // normalisedStatus={normalisedStatus}
         />
       </div>
+      <label>
+        <span>Allow Pomodoro</span>
+        <Toggle
+          defaultChecked={editDetials.isPomodoroAllowed}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setEditDetails((prevDetails) => {
+              return {
+                ...prevDetails,
+                isPomodoroAllowed: e.target.checked,
+              };
+            });
+          }}
+        />
+      </label>
+
+      {editDetials.isPomodoroAllowed && (
+        <div>
+          <label htmlFor="pomodorosCount">Number of Pomodoros : </label>
+          <input
+            name="pomodoroCount"
+            type="number"
+            id="pomodorosCount"
+            value={editDetials.pomodoroCount}
+            onChange={(e) => {
+              setEditDetails({
+                ...editDetials,
+                pomodoroCount: parseInt(e.target.value),
+              });
+            }}
+          />
+        </div>
+      )}
       <div>
         <DatePicker
           name="dueDate"
