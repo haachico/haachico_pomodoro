@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import DashboardCard from "../../components/DashboardCard";
 import "./index.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Dropdown from "../../components/commonComponents/Dropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
@@ -15,6 +15,7 @@ const ViewAllTasks = () => {
 
   const tasksList = useSelector((state: RootState) => state.tasks.tasks);
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const [filters, setFilters] = useState({
     isStatusFilterOpen: false,
@@ -116,7 +117,10 @@ const ViewAllTasks = () => {
     setFilter("isCategoryFilterOpen", false);
     setFilter("isSearchBarOpen", false);
     setInputField("");
+    navigate(".", { replace: true, state: {} });
   };
+
+  console.log(filters, "filters");
 
   return (
     <div className="viewAll-page">
