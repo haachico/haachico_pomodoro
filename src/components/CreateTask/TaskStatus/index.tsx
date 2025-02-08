@@ -51,7 +51,7 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
 
   return (
     <div className="form-status">
-      <div>
+      <div className="`dropdown-container`">
         <Dropdown
           label={"Category"}
           onToggle={() =>
@@ -108,7 +108,7 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
           normalisedStatus={normalisedStatus}
         />
       </div>
-      <div>
+      <div className="date-container">
         <div>
           <DatePicker
             name="dueDate"

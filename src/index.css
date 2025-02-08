@@ -1,8 +1,9 @@
 :root {
   font-family: "Poppins", sans-serif;
   /* font-size: 10px; */
+
   /* Primary Colors */
-  --primary-color: #d4a055; /* Warm Orange/Gold */
+  --primary-color: #b3782d; /* Deep Gold */
   --primary-dark: #704214; /* Deep Brown */
 
   /* Secondary Colors */
@@ -11,8 +12,11 @@
 
   /* Neutral Colors */
   --background-color: #faf4e5; /* Warm Cream */
-  --text-color: #403d39; /* Charcoal Gray */
   --border-color: #a08d79; /* Muted Grayish Brown */
+
+  /* Text Colors */
+  --text-primary: #333333;
+  --text-secondary: #666666;
 
   /* Accent Colors */
   --success-color: #6b8e23; /* Muted Olive Green */
@@ -21,10 +25,16 @@
   --medium-priority: #e8a04b; /* Warm Golden Orange */
   --low-priority: #6aab9c; /* Soft Teal (Balanced, calming) */
 
+  /* Status Colors */
   --completed-color: #6aab9c; /* Soft Teal (Balanced, calming, completion) */
   --in-progress-color: #e8a04b; /* Warm Golden Orange (Active but not alarming) */
   --pending-color: #547aa5; /* Muted Blue (Waiting, yet stable) */
 
+  /* Button Colors */
+  --button-primary: #b3782d; /* Deep Gold (Stronger, richer action color) */
+  --button-primary-hover: #8a4820; /* Darkened shade for hover */
+  --button-secondary: #c16e3e; /* Muted Terracotta */
+  --button-secondary-hover: #a04e30; /* Darker terracotta for hover */
   --button-text-color: #ffffff;
 }
 
@@ -43,11 +53,13 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  color: var(--text-primary);
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  color: var(--text-primary);
 }
 
 button {

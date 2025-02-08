@@ -3,21 +3,16 @@ import TaskDescription from "../../components/CreateTask/TaskDescription";
 import TaskStatus from "../../components/CreateTask/TaskStatus";
 import "./index.css";
 import { Task, Filters, CreateTaskType } from "../../types";
-import {
-  add,
-  addTaskThunk,
-  fetchTasksThunk,
-} from "../../redux/tasks/tasksSlice";
-import { v4 as uuidv4 } from "uuid";
+import { addTaskThunk, fetchTasksThunk } from "../../redux/tasks/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../store";
-import Toggle from "react-toggle";
 import "react-toggle/style.css"; // Import the CSS file for react-toggle
+import { Box, Step, StepLabel, Stepper, StepButton } from "@mui/material";
 // import { Timestamp } from "firebase/firestore";
 
 const CreateTask = () => {
-  const [step, setStep] = useState(1);
+  const [activeStep, setActiveStep] = useState(0);
   const [filters, setFilters] = useState<Filters>({
     isStatusFilterOpen: false,
     isPriorityFilterOpen: false,
@@ -42,7 +37,6 @@ const CreateTask = () => {
   });
 
   const dispatch = useDispatch<AppDispatch>();
-  // const store = useSelector((state) => state);
   const navigate = useNavigate();
 
   const { title, description } = payload;
@@ -50,7 +44,7 @@ const CreateTask = () => {
   console.log(payload, "payload");
 
   useEffect(() => {
-    if (step === 1) {
+    if (activeStep === 0) {
       if (title.length > 0 && description.length > 0) {
         setEnableNextBtn(true);
       } else {
@@ -58,14 +52,14 @@ const CreateTask = () => {
       }
     }
 
-    if (step === 2) {
+    if (activeStep === 1) {
       if (payload.priority !== "") {
         setEnableNextBtn(true);
       } else {
         setEnableNextBtn(false);
       }
     }
-  }, [payload, step, filters]);
+  }, [payload, activeStep, filters]);
 
   const setFilter = (key: string, value: any) => {
     setFilters((prevState) => {
@@ -75,11 +69,12 @@ const CreateTask = () => {
       };
     });
   };
+
   const displayComponent = () => {
-    switch (step) {
-      case 1:
+    switch (activeStep) {
+      case 0:
         return <TaskDescription payload={payload} setPayload={setPayload} />;
-      case 2:
+      case 1:
         return (
           <TaskStatus
             filters={filters}
@@ -94,16 +89,19 @@ const CreateTask = () => {
   };
 
   const handlePrevClick = () => {
-    if (step > 1) {
-      setStep((prev) => prev - 1);
+    if (activeStep > 0) {
+      setActiveStep((prev) => prev - 1);
     }
   };
 
   const handleNextClick = () => {
-    if (step < 2) {
-      setStep((prev) => prev + 1);
-      setEnableNextBtn(false);
+    if (activeStep < 2) {
+      setActiveStep((prev) => prev + 1);
     }
+  };
+
+  const handleStep = (step: number) => () => {
+    setActiveStep(step);
   };
 
   const handleCreateTask = async () => {
@@ -123,23 +121,50 @@ const CreateTask = () => {
     }
   };
 
+  const steps = ["Task Description", "Task Status"];
+
   return (
     <div className="create-page">
-      <div className="stepper">
-        <button onClick={handlePrevClick}>Previous</button>
-
-        {step === 2 && (
-          <>
-            <button onClick={handleCreateTask} disabled={!enableNextBtn}>
-              Create
-            </button>
-          </>
-        )}
-        {step !== 2 && (
-          <button onClick={handleNextClick} disabled={!enableNextBtn}>
+      <div className="navigation-buttons">
+        <button onClick={handlePrevClick} disabled={activeStep === 0}>
+          Previous
+        </button>
+        {activeStep === 1 ? (
+          <button
+            onClick={handleCreateTask}
+            disabled={!enableNextBtn}
+            style={{
+              opacity: !enableNextBtn ? 0.5 : 1,
+              cursor: !enableNextBtn ? "default" : "pointer",
+            }}
+          >
+            Create Task
+          </button>
+        ) : (
+          <button
+            onClick={handleNextClick}
+            disabled={!enableNextBtn}
+            style={{
+              opacity: !enableNextBtn ? 0.5 : 1,
+              cursor: !enableNextBtn ? "default" : "pointer",
+            }}
+          >
             Next
           </button>
         )}
+      </div>
+      <div className="stepper">
+        <Box sx={{ width: "100%" }}>
+          <Stepper nonLinear activeStep={activeStep}>
+            {steps.map((label, index) => (
+              <Step key={label} completed={activeStep > index}>
+                <StepButton color="inherit" onClick={handleStep(index)}>
+                  {label}
+                </StepButton>
+              </Step>
+            ))}
+          </Stepper>
+        </Box>
       </div>
       <div>
         <div>{displayComponent()}</div>

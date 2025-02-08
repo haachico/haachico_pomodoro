@@ -11,6 +11,8 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "./store";
 import { fetchTasksThunk } from "./redux/tasks/tasksSlice";
+import PomodoroPopup from "./components/Pomodoro";
+import PomodoroPage from "./pages/PomodoroPage";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -32,6 +34,7 @@ function App() {
             <Route path="createTask" element={<CreateTask />} />
             <Route path="tasks" element={<ViewAllTasks />} />
             <Route path="task/:id" element={<DetailsPage />} />
+            <Route path="/pomodoro" element={<PomodoroPage />} />
           </Route>
         </Routes>
       </Router>

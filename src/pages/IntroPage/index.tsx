@@ -29,7 +29,7 @@ function IntroPage() {
         </button>
         <button
           onClick={() => {
-            setShowPomodoro(true);
+            navigate("/pomodoro");
           }}
         >
           Use Pomodoro!

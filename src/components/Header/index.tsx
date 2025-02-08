@@ -13,7 +13,9 @@ const Header = () => {
         haachicoductive
       </h1>
       {/* <NavLink to="">Tasks</NavLink> */}
-      <NavLink to="aboutus">About</NavLink>
+      <NavLink className="about" to="aboutus">
+        About
+      </NavLink>
     </div>
   );
 };

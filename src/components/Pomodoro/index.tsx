@@ -8,10 +8,15 @@ import { editTaskThunk } from "../../redux/tasks/tasksSlice";
 
 type PomodoroPopupProps = {
   onClose: () => void;
-  task: Task;
+  isFullPage?: boolean;
+  task?: Task;
 };
 
-const PomodoroPopup: React.FC<PomodoroPopupProps> = ({ onClose, task }) => {
+const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
+  onClose,
+  isFullPage,
+  task,
+}) => {
   const [timeLeft, setTimeLeft] = useState(25 * 60);
   const [isTimerActive, setIsTimerActive] = useState(false);
   const [isPomodoroTime, setIsPomodoroTime] = useState(true);
@@ -56,21 +61,26 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({ onClose, task }) => {
       .padStart(2, "0")}`;
   };
   return (
-    <div className="pomodoro-popup" style={{ position: "relative" }}>
-      <button
-        style={{
-          position: "absolute",
-          right: "4px",
-          top: "4px",
-        }}
-        onClick={() => {
-          setShowNotification(false);
-          setIsTimerActive(false);
-          onClose();
-        }}
-      >
-        X
-      </button>
+    <div
+      className={`${isFullPage ? "pomodoro-page" : "pomodoro-popup"}`}
+      style={{ position: "relative" }}
+    >
+      {!isFullPage && (
+        <button
+          style={{
+            position: "absolute",
+            right: "4px",
+            top: "4px",
+          }}
+          onClick={() => {
+            setShowNotification(false);
+            setIsTimerActive(false);
+            onClose();
+          }}
+        >
+          X
+        </button>
+      )}
       <div className="pomodoro-popup__header">
         <h4
           onClick={() => {
@@ -174,6 +184,18 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({ onClose, task }) => {
             </button>
           </div>
         )}
+      </div>
+      <div className="spotify-embed">
+        <iframe
+          // style="border-radius:12px"
+          src="https://open.spotify.com/embed/playlist/0vvXsWCC9xrXsKd4FyS8kM?utm_source=generator"
+          width="50%"
+          height="352"
+          frameBorder="0"
+          // allowfullscreen=""
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+        ></iframe>
       </div>
     </div>
   );
