@@ -1,5 +1,6 @@
 import { CreateTaskType } from "../../../types";
 import "./index.css";
+import TextField from "@mui/material/TextField";
 
 type TaskDescriptionProps = {
   payload: CreateTaskType;
@@ -23,23 +24,27 @@ const TaskDescription: React.FC<TaskDescriptionProps> = ({
   return (
     <div className="description-form">
       <div>
-        <label htmlFor="title">Title:</label>
-        <input
+        <TextField
           name="title"
           value={payload.title}
           id="title"
           placeholder="Title"
           onChange={handleChange}
+          label="Title"
+          variant="standard"
+          fullWidth
         />
       </div>
       <div>
-        <label htmlFor="description">Description:</label>
-        <input
+        <TextField
           name="description"
           value={payload.description}
           id="description"
+          label="Description"
           placeholder="Description"
+          variant="standard"
           onChange={handleChange}
+          fullWidth
         />
       </div>
     </div>

@@ -120,7 +120,6 @@ const ViewAllTasks = () => {
     navigate(".", { replace: true, state: {} });
   };
 
-  console.log(filters, "filters");
 
   return (
     <div className="viewAll-page">

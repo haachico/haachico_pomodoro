@@ -6,7 +6,7 @@
 .viewAll-page nav {
   display: flex;
   gap: 20px;
-  border-bottom: 1px solid #eaeaea;
+  border-bottom: 2px solid var(--border-color);
 }
 
 .viewAll-page nav h4 {
@@ -21,10 +21,13 @@
 
 .drop-down {
   position: absolute;
-  background-color: white;
-  opacity: 0.5;
-  color: black;
+  color: var(--button-text-color);
   z-index: 1;
+  background-color: var(--primary-dark);
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 5px;
+  opacity: 0.9;
 }
 
 .drop-down p {

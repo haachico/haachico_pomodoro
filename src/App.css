@@ -1,31 +1,31 @@
-body {
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
-}
-
 #root {
   width: 100%;
 }
 
+body {
+  font-size: 16px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
 .low {
-  color: #28a745; /* Green */
+  color: var(--low-priority); /* Green */
 }
 
 .medium {
-  color: #ffc107; /* Yellow */
+  color: var(--medium-priority); /* Yellow */
 }
 .high {
-  color: #dc3545; /* Red */
+  color: var(--high-priority); /* Red */
 }
 
 .completed {
-  color: #28a745; /* Green */
+  color: var(--completed-color); /* Green */
 }
 
 .inProgress {
-  color: #fd7e14; /* Orange */
+  color: var(--in-progress-color); /* Orange */
 }
 
 .pending {
-  color: #007bff; /* Blue */
+  color: var(--pending-color); /* Blue */
 }

@@ -1,5 +1,5 @@
 .dashboard-card {
-  /* border: 1px solid #eaeaea; */
+  border: 2px solid var(--border-color);
   width: 300px;
   cursor: pointer;
 }
