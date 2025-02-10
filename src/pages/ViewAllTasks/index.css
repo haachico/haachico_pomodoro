@@ -19,17 +19,6 @@
   gap: 20px;
 }
 
-.drop-down {
-  position: absolute;
-  color: var(--button-text-color);
-  z-index: 1;
-  background-color: var(--primary-dark);
-  font-size: 14px;
-  padding: 5px;
-  border-radius: 5px;
-  opacity: 0.9;
-}
-
 .drop-down p {
   cursor: pointer;
 }
@@ -37,6 +26,7 @@
 .filters-nav {
   display: flex;
   align-items: center;
+  border: 2px solid var(--border-color);
 }
 
 .filters-nav > div:nth-child(1) {
@@ -50,6 +40,6 @@
 }
 
 .search-bar {
-  width: 100%;
+  width: 98%;
   padding: 10px;
 }

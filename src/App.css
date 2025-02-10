@@ -7,25 +7,3 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
 }
-.low {
-  color: var(--low-priority); /* Green */
-}
-
-.medium {
-  color: var(--medium-priority); /* Yellow */
-}
-.high {
-  color: var(--high-priority); /* Red */
-}
-
-.completed {
-  color: var(--completed-color); /* Green */
-}
-
-.inProgress {
-  color: var(--in-progress-color); /* Orange */
-}
-
-.pending {
-  color: var(--pending-color); /* Blue */
-}

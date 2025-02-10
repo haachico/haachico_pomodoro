@@ -91,6 +91,8 @@ const CreateTask = () => {
   const handlePrevClick = () => {
     if (activeStep > 0) {
       setActiveStep((prev) => prev - 1);
+    } else {
+      navigate("/pomodoros/dashboard");
     }
   };
 
@@ -126,9 +128,7 @@ const CreateTask = () => {
   return (
     <div className="create-page">
       <div className="navigation-buttons">
-        <button onClick={handlePrevClick} disabled={activeStep === 0}>
-          Previous
-        </button>
+        <button onClick={handlePrevClick}>Previous</button>
         {activeStep === 1 ? (
           <button
             onClick={handleCreateTask}

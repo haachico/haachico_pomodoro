@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import "./Dropdown.css";
 
 type DropdownProps = {
   label: string;
@@ -8,6 +9,7 @@ type DropdownProps = {
   selectOption: (option: string) => void;
   selectedOption: string;
   normalisedStatus?: (status: string) => string;
+  source?: string;
 };
 
 const Dropdown: React.FC<DropdownProps> = ({
@@ -17,6 +19,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   options,
   selectOption,
   selectedOption,
+  source,
   // normalisedStatus,
 }) => {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -43,17 +46,19 @@ const Dropdown: React.FC<DropdownProps> = ({
   //   normalisedStatus || ((status: string) => status.toLowerCase());
 
   return (
-    <div ref={dropdownRef}>
+    <div
+      ref={dropdownRef}
+      className={`dropdown-mainContainer ${
+        source === "viewAll" ? "viewAll" : ""
+      }`}
+      onClick={onToggle}
+      style={{
+        cursor: "pointer",
+      }}
+    >
       <div>
-        <h4
-          onClick={onToggle}
-          style={{
-            cursor: "pointer",
-          }}
-        >
-          {selectedOption !== ""
-            ? `${selectedOption} selected`
-            : `Select ${label}`}
+        <h4>
+          {selectedOption !== "" ? `${selectedOption}` : `Select ${label}`}
         </h4>
       </div>
       {isOpen && (
@@ -68,15 +73,15 @@ const Dropdown: React.FC<DropdownProps> = ({
                 border:
                   label === "Status"
                     ? option.toLowerCase() === selectedOption.toLowerCase()
-                      ? "1px solid #000"
+                      ? "1px solid #ffffff"
                       : "none"
                     : label === "Priority"
                     ? option.toLowerCase() === selectedOption.toLowerCase()
-                      ? "1px solid #000"
+                      ? "1px solid #ffffff"
                       : "none"
                     : label === "Category"
                     ? option.toLowerCase() === selectedOption.toLowerCase()
-                      ? "1px solid #000"
+                      ? "1px solid #ffffff"
                       : "none"
                     : "none",
               }}

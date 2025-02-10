@@ -2,4 +2,12 @@
   display: grid;
   gap: 20px;
   grid-template-columns: 1fr 1fr;
+  color: var(--text-primary);
+}
+
+.dropdown-container {
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

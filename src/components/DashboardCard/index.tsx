@@ -34,19 +34,16 @@ const DashboardCard = ({ task }: DashboardCardProps) => {
 
   return (
     <div
-      className="dashboard-card"
-      style={{
-        border: `2px solid ${priorityColors[priority.toLowerCase()]}`,
-      }}
+      className={`dashboard-card ${
+        status === "in progress" ? "inProgress" : status
+      } ${priority.toLowerCase()}`}
       onClick={() => {
         navigate(`/task/${id}`);
       }}
     >
-      <h4 className={`${status === "in progress" ? "inProgress" : status}`}>
-        {title}
-      </h4>
+      <h4>{title}</h4>
 
-      <label>
+      <label className="status-label">
         <select
           value={status}
           onChange={handleStatusChange}

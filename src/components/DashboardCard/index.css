@@ -2,4 +2,39 @@
   border: 2px solid var(--border-color);
   width: 300px;
   cursor: pointer;
+  border-radius: 5px;
+  padding: 0px 10px;
+  position: relative;
+}
+
+.status-label {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+.pending {
+  background-color: #b39ddb;
+  color: #ffffff;
+}
+
+.completed {
+  background-color: #26a69a;
+  color: #ffffff;
+}
+
+.inProgress {
+  background-color: #ff7043;
+  color: #ffffff;
+}
+
+.low {
+  border: 5px solid #64b5f6;
+}
+
+.medium {
+  border: 5px solid #ffb74d;
+}
+
+.high {
+  border: 5px solid #e91e63;
 }

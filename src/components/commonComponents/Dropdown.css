@@ -1,0 +1,34 @@
+.dropdown-mainContainer {
+  width: 25rem;
+  position: relative;
+  border: 2px solid var(--border-color);
+  border-radius: 8px 8px 0px 0px;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.viewAll {
+  width: 15rem;
+  border-radius: 0px;
+  border-top: none;
+  border-bottom: none;
+}
+
+.drop-down {
+  position: absolute;
+  top: 80px;
+  left: -2px;
+  width: 98%;
+  border-radius: 0px 0px 8px 8px;
+}
+.drop-down {
+  position: absolute;
+  color: var(--button-text-color);
+  z-index: 1;
+  background-color: var(--primary-dark);
+  font-size: 14px;
+  padding: 5px;
+  opacity: 0.9;
+}

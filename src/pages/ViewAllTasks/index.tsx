@@ -120,7 +120,6 @@ const ViewAllTasks = () => {
     navigate(".", { replace: true, state: {} });
   };
 
-
   return (
     <div className="viewAll-page">
       <nav className="filters-nav">
@@ -138,6 +137,7 @@ const ViewAllTasks = () => {
             }}
             selectedOption={selectedCategory}
             normalisedStatus={normalisedStatus}
+            source={"viewAll"}
           />
           <Dropdown
             label={"Status"}
@@ -152,6 +152,7 @@ const ViewAllTasks = () => {
             }}
             selectedOption={selectedStatus}
             normalisedStatus={normalisedStatus}
+            source={"viewAll"}
           />
           <Dropdown
             label={"Priority"}
@@ -166,12 +167,15 @@ const ViewAllTasks = () => {
             }}
             selectedOption={selectedPriority}
             normalisedStatus={normalisedStatus}
+            source={"viewAll"}
           />
         </div>
         <div
           style={{
             display: "flex",
             gap: "10px",
+            height: "100%",
+            width: "100%",
           }}
         >
           {(selectedStatus !== "All" ||
