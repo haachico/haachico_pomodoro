@@ -54,11 +54,11 @@ const DetailsPage = () => {
           edit and allow pomodoro for this task
         </div>
       )}
-      {showEditPopup && task && (
+      {/* {showEditPopup && task && (
         <div className="editPopup-modal">
           <EditPopup task={task} onClose={handleClose} />
         </div>
-      )}
+      )} */}
       {openPomodoro && (
         <div className="pomodoro-modal">
           <PomodoroPopup onClose={handleClose} task={task as Task} />
@@ -90,7 +90,7 @@ const DetailsPage = () => {
       </button>
       <button
         onClick={() => {
-          setEditPopup(true);
+          navigate("/editTask", { state: { task, taskId } });
         }}
       >
         Edit task

@@ -13,6 +13,7 @@ import { AppDispatch } from "./store";
 import { fetchTasksThunk } from "./redux/tasks/tasksSlice";
 import PomodoroPopup from "./components/Pomodoro";
 import PomodoroPage from "./pages/PomodoroPage";
+import EditTask from "./pages/EditTask";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -31,7 +32,8 @@ function App() {
             <Route index element={<IntroPage />} />
             <Route path="pomodoros/dashboard" element={<TasksDashboard />} />
             <Route path="aboutus" element={<AboutPage />} />
-            <Route path="createTask" element={<CreateTask />} />
+            <Route path="createTask" element={<CreateTask mode="create" />} />
+            <Route path="editTask" element={<EditTask />} />
             <Route path="tasks" element={<ViewAllTasks />} />
             <Route path="task/:id" element={<DetailsPage />} />
             <Route path="/pomodoro" element={<PomodoroPage />} />

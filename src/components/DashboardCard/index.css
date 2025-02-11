@@ -1,10 +1,13 @@
 .dashboard-card {
   border: 2px solid var(--border-color);
   width: 300px;
+  height: 100px;
   cursor: pointer;
   border-radius: 5px;
   padding: 0px 10px;
   position: relative;
+  background-color: #b3782d;
+  color: #ffffff;
 }
 
 .status-label {
@@ -12,7 +15,7 @@
   right: 0px;
   top: 0px;
 }
-.pending {
+/* .pending {
   background-color: #b39ddb;
   color: #ffffff;
 }
@@ -37,4 +40,4 @@
 
 .high {
   border: 5px solid #e91e63;
-}
+} */

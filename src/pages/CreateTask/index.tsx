@@ -3,7 +3,11 @@ import TaskDescription from "../../components/CreateTask/TaskDescription";
 import TaskStatus from "../../components/CreateTask/TaskStatus";
 import "./index.css";
 import { Task, Filters, CreateTaskType } from "../../types";
-import { addTaskThunk, fetchTasksThunk } from "../../redux/tasks/tasksSlice";
+import {
+  addTaskThunk,
+  editTaskThunk,
+  fetchTasksThunk,
+} from "../../redux/tasks/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../store";
@@ -11,7 +15,12 @@ import "react-toggle/style.css"; // Import the CSS file for react-toggle
 import { Box, Step, StepLabel, Stepper, StepButton } from "@mui/material";
 // import { Timestamp } from "firebase/firestore";
 
-const CreateTask = () => {
+type CreateTaskProps = {
+  mode: "create" | "edit";
+  task?: Task;
+  id?: string;
+};
+const CreateTask: React.FC<CreateTaskProps> = ({ mode, task, id }) => {
   const [activeStep, setActiveStep] = useState(0);
   const [filters, setFilters] = useState<Filters>({
     isStatusFilterOpen: false,
@@ -38,6 +47,12 @@ const CreateTask = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (mode === "edit" && task) {
+      setPayload(task);
+    }
+  }, [mode, task]);
 
   const { title, description } = payload;
 
@@ -97,7 +112,7 @@ const CreateTask = () => {
   };
 
   const handleNextClick = () => {
-    if (activeStep < 2) {
+    if (activeStep < steps.length - 1) {
       setActiveStep((prev) => prev + 1);
     }
   };
@@ -123,7 +138,30 @@ const CreateTask = () => {
     }
   };
 
+  const handleEdit = async () => {
+    const updatedTask: Task = {
+      ...payload,
+      id: id as string,
+    };
+
+    try {
+      await dispatch(editTaskThunk(updatedTask));
+      await dispatch(fetchTasksThunk());
+      navigate(`task/${id}`);
+    } catch (error) {
+      console.error("Failed to update task:", error);
+    }
+  };
+
   const steps = ["Task Description", "Task Status"];
+
+  const handleSubmit = () => {
+    if (mode === "create") {
+      handleCreateTask();
+    } else {
+      handleEdit();
+    }
+  };
 
   return (
     <div className="create-page">
@@ -131,14 +169,14 @@ const CreateTask = () => {
         <button onClick={handlePrevClick}>Previous</button>
         {activeStep === 1 ? (
           <button
-            onClick={handleCreateTask}
+            onClick={handleSubmit}
             disabled={!enableNextBtn}
             style={{
               opacity: !enableNextBtn ? 0.5 : 1,
               cursor: !enableNextBtn ? "default" : "pointer",
             }}
           >
-            Create Task
+            {mode === "create" ? "Create Task" : "Edit Task"}
           </button>
         ) : (
           <button

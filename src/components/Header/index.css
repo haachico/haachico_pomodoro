@@ -5,12 +5,14 @@
   padding: 0px 20px;
   border-bottom: 2px solid var(--border-color);
   height: 100px;
+  background-color: #b3782d;
 }
 
 .header h1 {
   font-size: 30px;
   cursor: pointer;
-  color: var(--text-primary);
+  /* color: var(--text-primary); */
+  color: #ffffff;
 }
 
 .about {
