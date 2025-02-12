@@ -33,7 +33,7 @@ function App() {
             <Route path="pomodoros/dashboard" element={<TasksDashboard />} />
             <Route path="aboutus" element={<AboutPage />} />
             <Route path="createTask" element={<CreateTask mode="create" />} />
-            <Route path="editTask" element={<EditTask />} />
+            <Route path="editTask/:id" element={<EditTask />} />
             <Route path="tasks" element={<ViewAllTasks />} />
             <Route path="task/:id" element={<DetailsPage />} />
             <Route path="/pomodoro" element={<PomodoroPage />} />

@@ -30,7 +30,7 @@ export const fetchTasksThunk = createAsyncThunk(
     const tasksList = tasksSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
-      dueDate: doc.data().dueDate.toDate().toISOString(), // Convert Timestamp to ISO string
+      dueDate: doc.data().dueDate.toDate(),
     })) as Task[];
     return tasksList;
   }

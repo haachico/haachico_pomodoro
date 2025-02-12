@@ -137,7 +137,7 @@ const CreateTask: React.FC<CreateTaskProps> = ({ mode, task, id }) => {
       console.log("error");
     }
   };
-
+  console.log(id, "id ch");
   const handleEdit = async () => {
     const updatedTask: Task = {
       ...payload,
@@ -205,7 +205,9 @@ const CreateTask: React.FC<CreateTaskProps> = ({ mode, task, id }) => {
         </Box>
       </div>
       <div>
-        <div>{displayComponent()}</div>
+        <div>
+          {mode === "edit" && task ? displayComponent() : displayComponent()}
+        </div>
       </div>
     </div>
   );

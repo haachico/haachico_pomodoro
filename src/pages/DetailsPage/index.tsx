@@ -22,6 +22,8 @@ const DetailsPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
+  console.log(task, "task detai");
+
   const handleClose = () => {
     setOpenPomodoro(false);
     setEditPopup(false);
@@ -90,7 +92,7 @@ const DetailsPage = () => {
       </button>
       <button
         onClick={() => {
-          navigate("/editTask", { state: { task, taskId } });
+          navigate(`/editTask/${taskId}`);
         }}
       >
         Edit task

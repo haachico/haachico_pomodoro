@@ -120,6 +120,8 @@ const ViewAllTasks = () => {
     navigate(".", { replace: true, state: {} });
   };
 
+  console.log(tasksList, "tasksList");
+
   return (
     <div className="viewAll-page">
       <nav className="filters-nav">

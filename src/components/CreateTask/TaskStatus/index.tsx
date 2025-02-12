@@ -4,7 +4,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { CreateTaskType } from "../../../types";
 import { Timestamp } from "firebase/firestore";
-import { ChangeEvent, useState } from "react";
 import Toggle from "react-toggle";
 import "react-toggle/style.css"; // Import the CSS file for react-toggle
 
