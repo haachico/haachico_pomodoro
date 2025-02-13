@@ -1,24 +1,24 @@
 import React from "react";
 import CreateTask from "../CreateTask";
-import { useLocation, useParams } from "react-router";
 import { Task } from "../../types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { useParams } from "react-router-dom";
 
 function EditTask() {
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
-  const { id: taskId } = useParams();
 
-  const task: Task | undefined = tasks.find((task) => task.id == taskId);
+  const params = useParams<{ id: string }>();
 
-  console.log({
-    taskId,
-    task,
-  });
+  const task: Task | undefined = tasks?.find(
+    (task: Task) => task.id == params.id
+  );
+
+  console.log({ tasks, params, task }, "edit task");
 
   return (
     <div>
-      <CreateTask mode="edit" task={task} id={taskId} />
+      <CreateTask mode="edit" task={task} id={params.id} />
     </div>
   );
 }

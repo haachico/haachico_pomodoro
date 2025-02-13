@@ -137,7 +137,6 @@ const CreateTask: React.FC<CreateTaskProps> = ({ mode, task, id }) => {
       console.log("error");
     }
   };
-  console.log(id, "id ch");
   const handleEdit = async () => {
     const updatedTask: Task = {
       ...payload,
@@ -147,7 +146,7 @@ const CreateTask: React.FC<CreateTaskProps> = ({ mode, task, id }) => {
     try {
       await dispatch(editTaskThunk(updatedTask));
       await dispatch(fetchTasksThunk());
-      navigate(`task/${id}`);
+      navigate(`/task/${id}`);
     } catch (error) {
       console.error("Failed to update task:", error);
     }

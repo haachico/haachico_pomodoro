@@ -3,15 +3,15 @@
   /* font-size: 10px; */
 
   /* Primary Colors */
-  --primary-color: #b3782d; /* Deep Gold */
-  --primary-dark: #704214; /* Deep Brown */
+  --primary-color: #ddbea9; /* Deep Gold */
+  --primary-dark: #cb997e; /* Deep Brown */
 
   /* Secondary Colors */
   --secondary-color: #f2e1c2; /* Soft Beige/Sand */
   --secondary-dark: #c16e3e; /* Muted Terracotta */
 
   /* Neutral Colors */
-  --background-color: #e3bc85; /* Warm Cream */
+  --background-color: #ffe8d6; /* Warm Cream */
   --border-color: #000000; /* Muted Grayish Brown */
 
   /* Text Colors */
@@ -35,7 +35,7 @@
   --button-primary-hover: #8a4820; /* Darkened shade for hover */
   --button-secondary: #c16e3e; /* Muted Terracotta */
   --button-secondary-hover: #a04e30; /* Darker terracotta for hover */
-  --button-text-color: #ffffff;
+  --button-text-color: #000000;
 }
 
 a {

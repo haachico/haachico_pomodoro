@@ -14,6 +14,8 @@ import { fetchTasksThunk } from "./redux/tasks/tasksSlice";
 import PomodoroPopup from "./components/Pomodoro";
 import PomodoroPage from "./pages/PomodoroPage";
 import EditTask from "./pages/EditTask";
+import Login from "./pages/Login";
+import Signup from "./pages/Singup";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -37,6 +39,8 @@ function App() {
             <Route path="tasks" element={<ViewAllTasks />} />
             <Route path="task/:id" element={<DetailsPage />} />
             <Route path="/pomodoro" element={<PomodoroPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
           </Route>
         </Routes>
       </Router>

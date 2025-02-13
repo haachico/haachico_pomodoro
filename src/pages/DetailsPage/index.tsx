@@ -17,8 +17,8 @@ const DetailsPage = () => {
   const [showNote, setShowNote] = useState(false);
 
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
-  const { id: taskId } = useParams<{ id: string }>();
-  const task: Task | undefined = tasks.find((task) => task.id === taskId);
+  const { id } = useParams<{ id: string }>();
+  const task: Task | undefined = tasks.find((task) => task.id === id);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
@@ -31,7 +31,7 @@ const DetailsPage = () => {
 
   const handleDeleteTask = async () => {
     try {
-      await dispatch(deleteTaskThunk(taskId as string));
+      await dispatch(deleteTaskThunk(id as string));
       navigate("/pomodoros/dashboard");
     } catch (error) {
       console.error("Error deleting task", error);
@@ -92,7 +92,7 @@ const DetailsPage = () => {
       </button>
       <button
         onClick={() => {
-          navigate(`/editTask/${taskId}`);
+          navigate(`/editTask/${id}`);
         }}
       >
         Edit task

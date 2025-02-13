@@ -13,9 +13,14 @@ const Header = () => {
         haachicoductive
       </h1>
       {/* <NavLink to="">Tasks</NavLink> */}
-      <NavLink className="about" to="aboutus">
-        About
-      </NavLink>
+      <div className="nav-links">
+        <NavLink className="login" to="/login">
+          Log in
+        </NavLink>
+        <NavLink className="about" to="aboutus">
+          About
+        </NavLink>
+      </div>
     </div>
   );
 };

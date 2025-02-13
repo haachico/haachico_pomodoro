@@ -5,17 +5,23 @@
   padding: 0px 20px;
   border-bottom: 2px solid var(--border-color);
   height: 100px;
-  background-color: #b3782d;
+  background-color: #cb997e;
 }
 
 .header h1 {
   font-size: 30px;
   cursor: pointer;
   /* color: var(--text-primary); */
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
-.about {
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.about,
+.login {
   color: var(--text-primary);
   font-weight: 800;
   font-size: 20px;
