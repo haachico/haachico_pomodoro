@@ -1,16 +1,20 @@
-import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
-import { RootState } from "../store";
-import { ReactNode } from "react";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 type AuthGuardProps = {
-  children: ReactNode;
+  isLoggedIn: boolean;
 };
 
-function AuthGuard({ children }: AuthGuardProps) {
+function AuthGuard({ isLoggedIn }: AuthGuardProps) {
   const token = sessionStorage.getItem("token");
+  const location = useLocation();
 
-  return token ? children : <Navigate to="/login" />;
+  console.log(location, "location in auth");
+
+  return true ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/login" replace state={{ from: location?.pathname }} />
+  );
 }
 
 export default AuthGuard;

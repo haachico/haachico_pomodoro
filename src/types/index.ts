@@ -5,6 +5,7 @@ export type Task = {
   title: string;
   description: string;
   status: string;
+  pomodoroTarget: number;
   pomodoroCount: number;
   completedPomodoros: number;
   dueDate: Date | Timestamp | null | "";

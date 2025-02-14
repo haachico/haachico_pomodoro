@@ -152,16 +152,16 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
         </div>
         {payload.isPomodoroAllowed && (
           <div>
-            <label htmlFor="pomodorosCount">Number of Pomodoros : </label>
+            <label htmlFor="pomodorosTarget">Number of Pomodoros : </label>
             <input
-              name="pomodoroCount"
+              name="pomodoroTarget"
               type="number"
-              id="pomodorosCount"
-              value={payload.pomodoroCount}
+              id="pomodorosTarget"
+              value={payload.pomodoroTarget}
               onChange={(e) => {
                 setPayload({
                   ...payload,
-                  pomodoroCount: parseInt(e.target.value),
+                  pomodoroTarget: parseInt(e.target.value),
                 });
               }}
             />

@@ -11,18 +11,15 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./store";
 import { fetchTasksThunk } from "./redux/tasks/tasksSlice";
-import PomodoroPopup from "./components/Pomodoro";
 import PomodoroPage from "./pages/PomodoroPage";
 import EditTask from "./pages/EditTask";
 import Login from "./pages/Login";
 import Signup from "./pages/Singup";
 import AuthGuard from "./components/AuthGuard";
 
-
 function App() {
   const dispatch = useDispatch<AppDispatch>();
   const isLoggedIn = useSelector((state: RootState) => state.tasks.isLoggedIn);
-
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -32,27 +29,27 @@ function App() {
   }, []);
   return (
     <div className="app">
+      <Router>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<IntroPage />} />
-            <Route path="pomodoros/dashboard" element={
-              <AuthGuard >
-              <TasksDashboard />
-              </AuthGuard>
-              
-              } />
 
-          
+            <Route element={<AuthGuard isLoggedIn={isLoggedIn} />}>
+              <Route path="pomodoros/dashboard" element={<TasksDashboard />} />
+              <Route path="createTask" element={<CreateTask mode="create" />} />
+              <Route path="editTask/:id" element={<EditTask />} />
+              <Route path="tasks" element={<ViewAllTasks />} />
+              <Route path="task/:id" element={<DetailsPage />} />
+            </Route>
+
             <Route path="aboutus" element={<AboutPage />} />
-            <Route path="createTask" element={<CreateTask mode="create" />} />
-            <Route path="editTask/:id" element={<EditTask />} />
-            <Route path="tasks" element={<ViewAllTasks />} />
-            <Route path="task/:id" element={<DetailsPage />} />
+
             <Route path="/pomodoro" element={<PomodoroPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
           </Route>
         </Routes>
+      </Router>
     </div>
   );
 }

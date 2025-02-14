@@ -37,6 +37,7 @@ const CreateTask: React.FC<CreateTaskProps> = ({ mode, task, id }) => {
     title: "",
     description: "",
     status: "Pending",
+    pomodoroTarget: 0,
     pomodoroCount: 0,
     completedPomodoros: 0,
     dueDate: new Date(),

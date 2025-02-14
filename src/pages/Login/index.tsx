@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./index.css";
 import { auth } from "../../firebaseConfig";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setLoggedIn } from "../../redux/tasks/tasksSlice";
-import { AppDispatch } from "../../store";
+import { AppDispatch, RootState } from "../../store";
+import { useLocation, useNavigate } from "react-router";
 
 const Login = () => {
+  const isLoggedIn = useSelector((state: RootState) => state.tasks.isLoggedIn);
   const [loginDetails, setLoginDetails] = useState({
     email: "",
     password: "",
@@ -21,6 +23,10 @@ const Login = () => {
   });
   const [isType, setIsType] = useState("login");
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  console.log(location, location.state?.from?.pathname, "location");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -46,7 +52,6 @@ const Login = () => {
         signupDetails.email,
         signupDetails.password
       );
-      console.log(userCredential, "check");
 
       if (userCredential) {
         console.log("User signed up successfully");
@@ -55,6 +60,13 @@ const Login = () => {
       console.error("Error signing up:", error);
     }
   };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      const from = location?.state?.from || "/"; // ✅ Use optional chaining to avoid errors
+      navigate(from, { replace: true });
+    }
+  }, [isLoggedIn, location, navigate]);
 
   const handleLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -67,13 +79,13 @@ const Login = () => {
       );
 
       if (user) {
-        await dispatch(setLoggedIn(true))
-        console.log(user, "User logged in successfully");
+        dispatch(setLoggedIn(true));
         const token = await user.user.getIdToken();
 
+        sessionStorage.setItem("token", token);
 
-        sessionStorage.setItem("token", token
-        );
+        const from = location?.state?.from || "/";
+        navigate(from, { replace: true });
       }
     } catch (error) {
       console.error(error, "Error logging in");

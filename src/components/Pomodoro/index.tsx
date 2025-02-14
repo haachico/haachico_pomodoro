@@ -17,7 +17,7 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
   isFullPage,
   task,
 }) => {
-  const [timeLeft, setTimeLeft] = useState(25 * 60);
+  const [timeLeft, setTimeLeft] = useState(10);
   const [isTimerActive, setIsTimerActive] = useState(false);
   const [isPomodoroTime, setIsPomodoroTime] = useState(true);
   const [isShortBreak, setIsShortBreak] = useState(false);
@@ -26,6 +26,8 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
   const [longBreakTimeLeft, setLongBreakTimeLeft] = useState(15 * 60);
   const [showNotification, setShowNotification] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
+
+  const [pomodoroCount, setPomodoroCount] = useState(0);
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (isTimerActive) {
@@ -47,11 +49,31 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
       }
     }
 
+    if (timeLeft === 0) {
+      setPomodoroCount((prevCount) => prevCount + 1);
+      setTimeLeft(25 * 60);
+      // setIsPomodoroTime(false);
+      setIsShortBreak(true);
+    }
+
     return () => {
       clearTimeout(timer);
     };
   }, [timeLeft, shortbreakTImeLeft, longBreakTimeLeft, isTimerActive]);
 
+  useEffect(() => {
+    const updateTask = async () => {
+      if (timeLeft === 0) {
+        await dispatch(
+          editTaskThunk({
+            ...(task as Task),
+            pomodoroCount: pomodoroCount,
+          })
+        );
+      }
+    };
+    updateTask();
+  }, [pomodoroCount, dispatch, task, timeLeft]);
   const handleTimeFormat = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -135,7 +157,7 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
               setIsTimerActive(true);
               dispatch(
                 editTaskThunk({
-                  ...task,
+                  ...(task as Task),
                   status: "in progress",
                 })
               );
