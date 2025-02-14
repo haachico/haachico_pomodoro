@@ -1,22 +1,16 @@
-import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
-import { RootState } from '../store';
-import { ReactNode } from 'react';
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { RootState } from "../store";
+import { ReactNode } from "react";
 
+type AuthGuardProps = {
+  children: ReactNode;
+};
 
-type  AuthGuardProps = {
-    children: ReactNode;
-  }
-  
-function AuthGuard({ children}: AuthGuardProps) {
-const isLoggedIn = useSelector((state: RootState) => state.tasks.isLoggedIn);
+function AuthGuard({ children }: AuthGuardProps) {
+  const token = sessionStorage.getItem("token");
 
-
-  if (!isLoggedIn) {
-    return <Navigate to={"/login"} replace />;
-  }
-
-  return <>{children}</>;
+  return token ? children : <Navigate to="/login" />;
 }
 
 export default AuthGuard;

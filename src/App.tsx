@@ -8,8 +8,8 @@ import CreateTask from "./pages/CreateTask";
 import ViewAllTasks from "./pages/ViewAllTasks";
 import DetailsPage from "./pages/DetailsPage";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "./store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "./store";
 import { fetchTasksThunk } from "./redux/tasks/tasksSlice";
 import PomodoroPopup from "./components/Pomodoro";
 import PomodoroPage from "./pages/PomodoroPage";
@@ -18,8 +18,11 @@ import Login from "./pages/Login";
 import Signup from "./pages/Singup";
 import AuthGuard from "./components/AuthGuard";
 
+
 function App() {
   const dispatch = useDispatch<AppDispatch>();
+  const isLoggedIn = useSelector((state: RootState) => state.tasks.isLoggedIn);
+
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -33,7 +36,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<IntroPage />} />
             <Route path="pomodoros/dashboard" element={
-              <AuthGuard>
+              <AuthGuard >
               <TasksDashboard />
               </AuthGuard>
               

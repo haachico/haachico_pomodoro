@@ -7,12 +7,14 @@ import {
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { setLoggedIn } from "../../redux/tasks/tasksSlice";
+import { AppDispatch } from "../../store";
 
 const Login = () => {
   const [loginDetails, setLoginDetails] = useState({
     email: "",
     password: "",
   });
+
   const [signupDetails, setSignupDetails] = useState({
     email: "",
     password: "",
@@ -67,7 +69,11 @@ const Login = () => {
       if (user) {
         await dispatch(setLoggedIn(true))
         console.log(user, "User logged in successfully");
+        const token = await user.user.getIdToken();
 
+
+        sessionStorage.setItem("token", token
+        );
       }
     } catch (error) {
       console.error(error, "Error logging in");
