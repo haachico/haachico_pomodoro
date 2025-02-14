@@ -16,10 +16,12 @@ const initialState: {
   tasks: Task[];
   loading: boolean;
   error: string | null;
+  isLoggedIn : boolean;
 } = {
   tasks: [],
   loading: false,
   error: null,
+  isLoggedIn : false
 };
 
 export const fetchTasksThunk = createAsyncThunk(
@@ -99,6 +101,9 @@ const tasksSlice = createSlice({
         });
       },
     },
+    setLoggedIn(state, action: PayloadAction<boolean>){
+      state.isLoggedIn = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchTasksThunk.pending, (state) => {
@@ -165,6 +170,6 @@ const tasksSlice = createSlice({
   },
 });
 
-export const { add, remove, edit } = tasksSlice.actions;
+export const { add, remove, edit, setLoggedIn } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

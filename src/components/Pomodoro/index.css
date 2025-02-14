@@ -1,8 +1,9 @@
 .pomodoro-popup {
   height: auto;
   padding: 20px;
-  background-color: #c16e3e;
+  background-color: #cb997e;
   border-radius: 10px;
+  border: 2px solid black;
 }
 
 .pomodoro-page {

@@ -38,6 +38,20 @@ const DetailsPage = () => {
     }
   };
 
+  const formatDueDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+    });
+  };
+
   useEffect(() => {
     const showNotification = setTimeout(() => {
       setShowNote(true);
@@ -49,8 +63,8 @@ const DetailsPage = () => {
     return () => clearTimeout(showNotification);
   }, []);
   return (
-    <div>
-      {showNote && (
+    <div className="details-page">
+      {showNote && !task?.isPomodoroAllowed  && (
         <div className="notification">
           NOTE: If you want to gain access for pomodoro for this task, kindly
           edit and allow pomodoro for this task
@@ -74,6 +88,13 @@ const DetailsPage = () => {
           />
         </div>
       )}
+      
+      <div>
+      <h1> {task?.title}</h1>
+      <p>{task?.description}</p>
+      <p>Due date : {formatDueDate(task?.dueDate)}</p>
+      </div>
+      <div className="details-page-buttons">
       {task?.isPomodoroAllowed && (
         <button
           onClick={() => {
@@ -97,8 +118,7 @@ const DetailsPage = () => {
       >
         Edit task
       </button>
-      <h1> {task?.title}</h1>
-      <p>{task?.description}</p>
+      </div>
     </div>
   );
 };

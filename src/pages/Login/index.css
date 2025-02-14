@@ -1,0 +1,17 @@
+.login-page {
+    /* background-color: red; */
+    margin: 0 auto;
+    width: 1024px;
+    height: calc(100vh - 101px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}

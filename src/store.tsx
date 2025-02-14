@@ -4,6 +4,7 @@ import tasksReducer from "./redux/tasks/tasksSlice";
 const store = configureStore({
   reducer: {
     tasks: tasksReducer,
+    
   },
 });
 

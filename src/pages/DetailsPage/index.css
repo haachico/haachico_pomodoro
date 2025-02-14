@@ -7,3 +7,28 @@
   transform: translate(-50%, -50%);
   width: 50%;
 }
+
+.notification {
+  position: absolute;
+}
+
+.details-page {
+  width: 1024px;
+  height: calc(100vh - 101px);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+ 
+}
+
+.details-page-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.details-page-buttons button {
+  height: 100px;
+  border-bottom: 1px solid #000000;
+
+}

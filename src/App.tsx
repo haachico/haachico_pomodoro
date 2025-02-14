@@ -16,6 +16,7 @@ import PomodoroPage from "./pages/PomodoroPage";
 import EditTask from "./pages/EditTask";
 import Login from "./pages/Login";
 import Signup from "./pages/Singup";
+import AuthGuard from "./components/AuthGuard";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -28,11 +29,17 @@ function App() {
   }, []);
   return (
     <div className="app">
-      <Router>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<IntroPage />} />
-            <Route path="pomodoros/dashboard" element={<TasksDashboard />} />
+            <Route path="pomodoros/dashboard" element={
+              <AuthGuard>
+              <TasksDashboard />
+              </AuthGuard>
+              
+              } />
+
+          
             <Route path="aboutus" element={<AboutPage />} />
             <Route path="createTask" element={<CreateTask mode="create" />} />
             <Route path="editTask/:id" element={<EditTask />} />
@@ -43,7 +50,6 @@ function App() {
             <Route path="/signup" element={<Signup />} />
           </Route>
         </Routes>
-      </Router>
     </div>
   );
 }
