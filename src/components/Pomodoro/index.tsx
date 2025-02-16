@@ -27,7 +27,10 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
   const [showNotification, setShowNotification] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
 
-  const [pomodoroCount, setPomodoroCount] = useState(0);
+  const storedPomodoroCount = task && task.pomodoroCount;
+
+  const [pomodoroCount, setPomodoroCount] = useState(storedPomodoroCount || 0);
+
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (isTimerActive) {
@@ -49,13 +52,6 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
       }
     }
 
-    if (timeLeft === 0) {
-      setPomodoroCount((prevCount) => prevCount + 1);
-      setTimeLeft(25 * 60);
-      // setIsPomodoroTime(false);
-      setIsShortBreak(true);
-    }
-
     return () => {
       clearTimeout(timer);
     };
@@ -63,17 +59,27 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
 
   useEffect(() => {
     const updateTask = async () => {
-      if (timeLeft === 0) {
-        await dispatch(
-          editTaskThunk({
-            ...(task as Task),
-            pomodoroCount: pomodoroCount,
-          })
-        );
+      if (timeLeft === 0 && isPomodoroTime) {
+        setPomodoroCount((prevCount) => {
+          const newCount = prevCount + 1;
+
+          if (task) {
+            dispatch(
+              editTaskThunk({
+                ...(task as Task),
+                pomodoroCount: newCount,
+              })
+            );
+          }
+          return newCount;
+        });
+
+        setTimeLeft(25 * 60);
+        setIsShortBreak(true);
       }
     };
     updateTask();
-  }, [pomodoroCount, dispatch, task, timeLeft]);
+  }, [pomodoroCount, dispatch, task, timeLeft, isPomodoroTime]);
   const handleTimeFormat = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;

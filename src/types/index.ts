@@ -8,7 +8,7 @@ export type Task = {
   pomodoroTarget: number;
   pomodoroCount: number;
   completedPomodoros: number;
-  dueDate: Date | Timestamp | null | "";
+  dueDate: null | string;
   priority: "medium" | "high" | "low" | "";
   category: string;
   isPomodoroAllowed: boolean;

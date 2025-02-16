@@ -27,10 +27,8 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
   setPayload,
 }) => {
   const {
-    isStatusFilterOpen,
     isPriorityFilterOpen,
     isCategoryFilterOpen,
-    selectedStatus,
     selectedPriority,
     selectedCategory,
   } = filters;
@@ -114,18 +112,16 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
           <DatePicker
             name="dueDate"
             value={
-              payload.dueDate instanceof Timestamp
-                ? payload.dueDate.toDate().toISOString().split("T")[0]
-                : payload.dueDate
-                ? payload.dueDate.toISOString().split("T")[0]
-                : ""
+              payload.dueDate ? (payload.dueDate as string).split("T")[0] : ""
             }
-            selected={payload.dueDate as Date}
+            selected={
+              payload.dueDate ? new Date(payload.dueDate as string) : null
+            }
             onChange={(date) => {
               if (date) {
                 setPayload({
                   ...payload,
-                  dueDate: date,
+                  dueDate: date.toISOString(),
                 });
               } else {
                 setPayload({

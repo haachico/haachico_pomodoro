@@ -1,20 +1,24 @@
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Navigate, Outlet } from "react-router-dom";
+import { RootState } from "../store";
 
-type AuthGuardProps = {
-  isLoggedIn: boolean;
-};
+function AuthGuard() {
+  const isLoggedIn = useSelector((state: RootState) => state.tasks.isLoggedIn);
 
-function AuthGuard({ isLoggedIn }: AuthGuardProps) {
   const token = sessionStorage.getItem("token");
-  const location = useLocation();
+  // const location = useLocation();
+  // const from = location.pathname;
+  // sessionStorage.setItem("from", from);
 
-  console.log(location, "location in auth");
+  const pathname = new URL(window.location.href).pathname;
 
-  return true ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/login" replace state={{ from: location?.pathname }} />
-  );
+  // const storedLoginStatus = sessionStorage.getItem("isLoggedIn") === "true";
+
+  if (!isLoggedIn && !token) {
+    return <Navigate to={`/login?redirectTo=${pathname}`} />;
+  }
+
+  return <Outlet />;
 }
 
 export default AuthGuard;

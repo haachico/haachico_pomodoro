@@ -1,7 +1,7 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./index.css";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store";
 import { useEffect, useState } from "react";
 import { fetchTasksThunk } from "../../redux/tasks/tasksSlice";
 import { Task } from "../../types";
@@ -61,7 +61,6 @@ const TasksDashboard = () => {
     ).length,
   };
 
-  console.log(selectedCategory, countStatus, "countStatus");
   const countPriority = {
     low: tasksList.filter(
       (task) =>
@@ -83,15 +82,15 @@ const TasksDashboard = () => {
     ).length,
   };
 
-  const filtersToShow = () => {
-    if (selectedCategory === "") {
-      return countCategories;
-    } else if (selectedCategory !== "" && selectedStatus === "") {
-      return countStatus;
-    } else {
-      return countPriority;
-    }
-  };
+  // const filtersToShow = () => {
+  //   if (selectedCategory === "") {
+  //     return countCategories;
+  //   } else if (selectedCategory !== "" && selectedStatus === "") {
+  //     return countStatus;
+  //   } else {
+  //     return countPriority;
+  //   }
+  // };
 
   const handleFilterClick = (filter: string) => {
     if (selectedCategory === "") {

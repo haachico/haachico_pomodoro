@@ -8,10 +8,11 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { setLoggedIn } from "../../redux/tasks/tasksSlice";
 import { AppDispatch, RootState } from "../../store";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const isLoggedIn = useSelector((state: RootState) => state.tasks.isLoggedIn);
+
   const [loginDetails, setLoginDetails] = useState({
     email: "",
     password: "",
@@ -24,9 +25,12 @@ const Login = () => {
   const [isType, setIsType] = useState("login");
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const location = useLocation();
 
-  console.log(location, location.state?.from?.pathname, "location");
+  const location = useLocation();
+  const pathname =
+    new URLSearchParams(location.search).get("redirectTo") || "/";
+
+  console.log(new URL(window.location.href), pathname, "pathname in ");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -61,12 +65,14 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      const from = location?.state?.from || "/"; // ✅ Use optional chaining to avoid errors
-      navigate(from, { replace: true });
-    }
-  }, [isLoggedIn, location, navigate]);
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     const storedFrom = sessionStorage.getItem("from") || "/";
+  //     const from = location.state?.from || storedFrom;
+
+  //     navigate(pathname, { replace: true });
+  //   }
+  // }, [isLoggedIn, navigate, pathname]);
 
   const handleLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -80,12 +86,14 @@ const Login = () => {
 
       if (user) {
         dispatch(setLoggedIn(true));
+
         const token = await user.user.getIdToken();
 
         sessionStorage.setItem("token", token);
 
-        const from = location?.state?.from || "/";
-        navigate(from, { replace: true });
+        navigate(pathname, {
+          replace: true,
+        });
       }
     } catch (error) {
       console.error(error, "Error logging in");

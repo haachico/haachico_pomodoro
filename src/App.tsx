@@ -21,6 +21,7 @@ function App() {
   const dispatch = useDispatch<AppDispatch>();
   const isLoggedIn = useSelector((state: RootState) => state.tasks.isLoggedIn);
 
+  console.log(isLoggedIn, "is logged in");
   useEffect(() => {
     const fetchTasks = async () => {
       await dispatch(fetchTasksThunk());
@@ -29,27 +30,25 @@ function App() {
   }, []);
   return (
     <div className="app">
-      <Router>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<IntroPage />} />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<IntroPage />} />
 
-            <Route element={<AuthGuard isLoggedIn={isLoggedIn} />}>
-              <Route path="pomodoros/dashboard" element={<TasksDashboard />} />
-              <Route path="createTask" element={<CreateTask mode="create" />} />
-              <Route path="editTask/:id" element={<EditTask />} />
-              <Route path="tasks" element={<ViewAllTasks />} />
-              <Route path="task/:id" element={<DetailsPage />} />
-            </Route>
-
-            <Route path="aboutus" element={<AboutPage />} />
-
-            <Route path="/pomodoro" element={<PomodoroPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+          <Route element={<AuthGuard />}>
+            <Route path="pomodoros/dashboard" element={<TasksDashboard />} />
+            <Route path="createTask" element={<CreateTask mode="create" />} />
+            <Route path="editTask/:id" element={<EditTask />} />
+            <Route path="tasks" element={<ViewAllTasks />} />
+            <Route path="task/:id" element={<DetailsPage />} />
           </Route>
-        </Routes>
-      </Router>
+
+          <Route path="aboutus" element={<AboutPage />} />
+
+          <Route path="/pomodoro" element={<PomodoroPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Route>
+      </Routes>
     </div>
   );
 }

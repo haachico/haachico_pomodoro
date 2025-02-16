@@ -16,12 +16,12 @@ const initialState: {
   tasks: Task[];
   loading: boolean;
   error: string | null;
-  isLoggedIn : boolean;
+  isLoggedIn: boolean;
 } = {
   tasks: [],
   loading: false,
   error: null,
-  isLoggedIn : false
+  isLoggedIn: false,
 };
 
 export const fetchTasksThunk = createAsyncThunk(
@@ -32,7 +32,7 @@ export const fetchTasksThunk = createAsyncThunk(
     const tasksList = tasksSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
-      dueDate: doc.data().dueDate.toDate(),
+      dueDate: doc.data().dueDate.toDate().toISOString(),
     })) as Task[];
     return tasksList;
   }
@@ -44,7 +44,7 @@ export const addTaskThunk = createAsyncThunk(
     const taskCollection = collection(db, "tasks");
     const docRef = await addDoc(taskCollection, {
       ...task,
-      dueDate: Timestamp.fromDate(new Date(task.dueDate as Date)), // Convert ISO string to Timestamp
+      dueDate: Timestamp.fromDate(new Date(task.dueDate as string)), // Convert ISO string to Timestamp
     });
     return { ...task, id: docRef.id };
   }
@@ -66,7 +66,7 @@ export const editTaskThunk = createAsyncThunk(
     const docRef = doc(taskCollection, task.id);
     await updateDoc(docRef, {
       ...task,
-      dueDate: Timestamp.fromDate(new Date(task.dueDate as Date)), // Convert ISO string to Timestamp
+      dueDate: Timestamp.fromDate(new Date(task.dueDate as string)), // Convert ISO string to Timestamp
     });
     return task;
   }
@@ -76,34 +76,34 @@ const tasksSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
-    add(state, action: PayloadAction<Task>) {
-      state.tasks.push(action.payload);
-    },
-    remove(state, action: PayloadAction<string>) {
-      state.tasks = state.tasks.filter((item) => item.id !== action.payload);
-    },
-    edit: {
-      prepare(id: string, editedText: Partial<Task>) {
-        return {
-          payload: { id, ...editedText },
-        };
-      },
-      reducer(state, action: PayloadAction<Task>) {
-        state.tasks = state.tasks.map((item) => {
-          if (item.id === action.payload.id) {
-            return {
-              ...item,
-              ...action.payload,
-            };
-          } else {
-            return item;
-          }
-        });
-      },
-    },
-    setLoggedIn(state, action: PayloadAction<boolean>){
+    // add(state, action: PayloadAction<Task>) {
+    //   state.tasks.push(action.payload);
+    // },
+    // remove(state, action: PayloadAction<string>) {
+    //   state.tasks = state.tasks.filter((item) => item.id !== action.payload);
+    // },
+    // edit: {
+    //   prepare(id: string, editedText: Partial<Task>) {
+    //     return {
+    //       payload: { id, ...editedText },
+    //     };
+    //   },
+    //   reducer(state, action: PayloadAction<Task>) {
+    //     state.tasks = state.tasks.map((item) => {
+    //       if (item.id === action.payload.id) {
+    //         return {
+    //           ...item,
+    //           ...action.payload,
+    //         };
+    //       } else {
+    //         return item;
+    //       }
+    //     });
+    //   },
+    // },
+    setLoggedIn(state, action: PayloadAction<boolean>) {
       state.isLoggedIn = action.payload;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchTasksThunk.pending, (state) => {
