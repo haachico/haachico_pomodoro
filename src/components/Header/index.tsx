@@ -1,8 +1,30 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import "./index.css";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
+import { setLoggedIn } from "../../redux/tasks/tasksSlice";
+import { useCallback } from "react";
 
 const Header = () => {
   const navigate = useNavigate();
+  const isLoggedIn = useSelector((state: RootState) => state.tasks.isLoggedIn);
+const dispatch = useDispatch()
+
+const handleLogout = useCallback(async () => {
+  try {
+    await signOut(auth);
+    dispatch(setLoggedIn(false));
+    sessionStorage.removeItem("token");
+    navigate("/");
+  } catch (error) {
+    console.error("Error logging out:", error);
+  }
+}, [dispatch, navigate]);
+
+
+
   return (
     <div className="header">
       <h1
@@ -14,9 +36,20 @@ const Header = () => {
       </h1>
       {/* <NavLink to="">Tasks</NavLink> */}
       <div className="nav-links">
-        <NavLink className="login" to="/login">
-          Log in
-        </NavLink>
+        <div>
+       {
+          isLoggedIn ? (
+            <button className="logout" onClick={()=> {
+              handleLogout()
+            }}>Log out</button>
+          ) : (
+            <NavLink className="login" to="/login">
+            Log in
+          </NavLink>
+          )
+       }
+        </div>
+        
         <NavLink className="about" to="aboutus">
           About
         </NavLink>

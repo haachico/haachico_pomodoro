@@ -6,12 +6,14 @@ import { useEffect, useState } from "react";
 import { fetchTasksThunk } from "../../redux/tasks/tasksSlice";
 import { Task } from "../../types";
 import { unwrapResult } from "@reduxjs/toolkit";
+import TasksGraph from "../../components/TasksGraph";
 
 const TasksDashboard = () => {
   const navigate = useNavigate();
   // const tasksList = useSelector((state: RootState) => state.tasks.tasks);
   const [tasksList, setTasksList] = useState<Task[]>([]);
   const dispatch = useDispatch<AppDispatch>();
+  const [showGraph, setShowGraph] = useState(false);
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -111,7 +113,21 @@ const TasksDashboard = () => {
 
   return (
     <div className="dashboard">
+      {
+        showGraph && <div >
+          <TasksGraph onClose={ ()=> {
+            setShowGraph(false)
+
+          }
+          } />
+        </div>
+      }
       <h2>Tasks Dashboard</h2>
+      <button className="view-graph-btn" onClick={() => {
+        setShowGraph(true)
+      }}>
+        View Graph
+      </button>
       <button
         className="view-all-btn"
         onClick={() => {

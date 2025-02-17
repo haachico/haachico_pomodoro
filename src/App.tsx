@@ -16,6 +16,7 @@ import EditTask from "./pages/EditTask";
 import Login from "./pages/Login";
 import Signup from "./pages/Singup";
 import AuthGuard from "./components/AuthGuard";
+import TasksGraph from "./pages/TasksGraph";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -40,6 +41,7 @@ function App() {
             <Route path="editTask/:id" element={<EditTask />} />
             <Route path="tasks" element={<ViewAllTasks />} />
             <Route path="task/:id" element={<DetailsPage />} />
+      
           </Route>
 
           <Route path="aboutus" element={<AboutPage />} />

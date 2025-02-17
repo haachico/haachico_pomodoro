@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import "./index.css";
 import { auth } from "../../firebaseConfig";
 import {
@@ -11,7 +11,7 @@ import { AppDispatch, RootState } from "../../store";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const isLoggedIn = useSelector((state: RootState) => state.tasks.isLoggedIn);
+  // const isLoggedIn = useSelector((state: RootState) => state.tasks.isLoggedIn);
 
   const [loginDetails, setLoginDetails] = useState({
     email: "",
