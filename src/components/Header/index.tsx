@@ -10,20 +10,18 @@ import { useCallback } from "react";
 const Header = () => {
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state: RootState) => state.tasks.isLoggedIn);
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-const handleLogout = useCallback(async () => {
-  try {
-    await signOut(auth);
-    dispatch(setLoggedIn(false));
-    sessionStorage.removeItem("token");
-    navigate("/");
-  } catch (error) {
-    console.error("Error logging out:", error);
-  }
-}, [dispatch, navigate]);
-
-
+  const handleLogout = useCallback(async () => {
+    try {
+      await signOut(auth);
+      sessionStorage.removeItem("token");
+      dispatch(setLoggedIn(false));
+      navigate("/");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  }, [dispatch, navigate]);
 
   return (
     <div className="header">
@@ -37,19 +35,22 @@ const handleLogout = useCallback(async () => {
       {/* <NavLink to="">Tasks</NavLink> */}
       <div className="nav-links">
         <div>
-       {
-          isLoggedIn ? (
-            <button className="logout" onClick={()=> {
-              handleLogout()
-            }}>Log out</button>
+          {isLoggedIn ? (
+            <button
+              className="logout"
+              onClick={() => {
+                handleLogout();
+              }}
+            >
+              Log out
+            </button>
           ) : (
             <NavLink className="login" to="/login">
-            Log in
-          </NavLink>
-          )
-       }
+              Log in
+            </NavLink>
+          )}
         </div>
-        
+
         <NavLink className="about" to="aboutus">
           About
         </NavLink>

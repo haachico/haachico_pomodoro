@@ -1,14 +1,16 @@
-import {  useState } from "react";
+import { useState } from "react";
 import "./index.css";
 import { auth } from "../../firebaseConfig";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
 } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoggedIn } from "../../redux/tasks/tasksSlice";
 import { AppDispatch, RootState } from "../../store";
 import { useLocation, useNavigate } from "react-router-dom";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const Login = () => {
   // const isLoggedIn = useSelector((state: RootState) => state.tasks.isLoggedIn);
@@ -25,6 +27,8 @@ const Login = () => {
   const [isType, setIsType] = useState("login");
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+
+  const provider = new GoogleAuthProvider();
 
   const location = useLocation();
   const pathname =
@@ -65,6 +69,33 @@ const Login = () => {
     }
   };
 
+  const handleGoogleSignIn = (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        // The signed-in user info.
+        const token = credential?.accessToken;
+
+        if (token) {
+          sessionStorage.setItem("token", token);
+        }
+
+        const user = result.user;
+
+        if (user) {
+          dispatch(setLoggedIn(true));
+
+          navigate(pathname || "/", {
+            replace: true,
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Google Sign-In Error:", error);
+      });
+  };
   // useEffect(() => {
   //   if (isLoggedIn) {
   //     const storedFrom = sessionStorage.getItem("from") || "/";
@@ -144,6 +175,13 @@ const Login = () => {
           type="submit"
         >
           {isType === "login" ? "Log in" : "Sign up"}
+        </button>
+        <button
+          onClick={(e) => {
+            handleGoogleSignIn(e);
+          }}
+        >
+          {isType === "login" && "Sign in with Google!"}
         </button>
       </form>
       {isType === "login" && (

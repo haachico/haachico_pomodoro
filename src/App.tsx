@@ -10,13 +10,15 @@ import DetailsPage from "./pages/DetailsPage";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./store";
-import { fetchTasksThunk } from "./redux/tasks/tasksSlice";
+import { fetchTasksThunk, setLoggedIn } from "./redux/tasks/tasksSlice";
 import PomodoroPage from "./pages/PomodoroPage";
 import EditTask from "./pages/EditTask";
 import Login from "./pages/Login";
 import Signup from "./pages/Singup";
 import AuthGuard from "./components/AuthGuard";
 import TasksGraph from "./pages/TasksGraph";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebaseConfig";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -29,6 +31,23 @@ function App() {
     };
     fetchTasks();
   }, []);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in
+        dispatch(setLoggedIn(true));
+        sessionStorage.setItem("token", user.refreshToken);
+      } else {
+        // User is signed out
+        dispatch(setLoggedIn(false));
+        sessionStorage.removeItem("token");
+      }
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, [dispatch]);
   return (
     <div className="app">
       <Routes>
@@ -41,7 +60,6 @@ function App() {
             <Route path="editTask/:id" element={<EditTask />} />
             <Route path="tasks" element={<ViewAllTasks />} />
             <Route path="task/:id" element={<DetailsPage />} />
-      
           </Route>
 
           <Route path="aboutus" element={<AboutPage />} />

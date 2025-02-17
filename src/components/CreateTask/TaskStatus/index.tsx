@@ -112,7 +112,9 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
           <DatePicker
             name="dueDate"
             value={
-              payload.dueDate ? (payload.dueDate as string).split("T")[0] : ""
+              typeof payload.dueDate === "string"
+                ? payload.dueDate.split("T")[0]
+                : ""
             }
             selected={
               payload.dueDate ? new Date(payload.dueDate as string) : null
