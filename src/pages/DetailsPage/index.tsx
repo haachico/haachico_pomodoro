@@ -64,7 +64,7 @@ const DetailsPage = () => {
   }, []);
   return (
     <div className="details-page">
-      {showNote && !task?.isPomodoroAllowed  && (
+      {showNote && !task?.isPomodoroAllowed && (
         <div className="notification">
           NOTE: If you want to gain access for pomodoro for this task, kindly
           edit and allow pomodoro for this task
@@ -88,36 +88,36 @@ const DetailsPage = () => {
           />
         </div>
       )}
-      
+
       <div>
-      <h1> {task?.title}</h1>
-      <p>{task?.description}</p>
-      <p>Due date : {formatDueDate(task?.dueDate)}</p>
+        <h1> {task?.title}</h1>
+        <p>{task?.description}</p>
+        <p>Due date : {formatDueDate(task?.dueDate as string)}</p>
       </div>
       <div className="details-page-buttons">
-      {task?.isPomodoroAllowed && (
+        {task?.isPomodoroAllowed && (
+          <button
+            onClick={() => {
+              setOpenPomodoro(true);
+            }}
+          >
+            Open Pomodoro
+          </button>
+        )}
         <button
           onClick={() => {
-            setOpenPomodoro(true);
+            setDeletePopup(true);
           }}
         >
-          Open Pomodoro
+          Delete task
         </button>
-      )}
-      <button
-        onClick={() => {
-          setDeletePopup(true);
-        }}
-      >
-        Delete task
-      </button>
-      <button
-        onClick={() => {
-          navigate(`/editTask/${id}`);
-        }}
-      >
-        Edit task
-      </button>
+        <button
+          onClick={() => {
+            navigate(`/editTask/${id}`);
+          }}
+        >
+          Edit task
+        </button>
       </div>
     </div>
   );

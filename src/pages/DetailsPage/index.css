@@ -18,7 +18,6 @@
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
- 
 }
 
 .details-page-buttons {
@@ -29,6 +28,6 @@
 
 .details-page-buttons button {
   height: 100px;
+  background-color: #ffce62;
   border-bottom: 1px solid #000000;
-
 }

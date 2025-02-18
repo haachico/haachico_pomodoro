@@ -10,7 +10,7 @@ import {
   Timestamp,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "../../firebaseConfig";
+import { auth, db } from "../../firebaseConfig";
 
 const initialState: {
   tasks: Task[];
@@ -27,7 +27,13 @@ const initialState: {
 export const fetchTasksThunk = createAsyncThunk(
   "tasks/fetchTasks",
   async () => {
-    const tasksCollection = collection(db, "tasks");
+    if (!auth.currentUser) return;
+    const tasksCollection = collection(
+      db,
+      "users",
+      auth.currentUser.uid,
+      "tasks"
+    );
     const tasksSnapshot = await getDocs(tasksCollection);
     const tasksList = tasksSnapshot.docs.map((doc) => ({
       id: doc.id,
@@ -41,10 +47,17 @@ export const fetchTasksThunk = createAsyncThunk(
 export const addTaskThunk = createAsyncThunk(
   "tasks/addTask",
   async (task: CreateTaskType) => {
-    const taskCollection = collection(db, "tasks");
+    if (!auth.currentUser) return;
+
+    const taskCollection = collection(
+      db,
+      "users",
+      auth.currentUser.uid,
+      "tasks"
+    );
     const docRef = await addDoc(taskCollection, {
       ...task,
-      dueDate: Timestamp.fromDate(new Date(task.dueDate as string)), // Convert ISO string to Timestamp
+      dueDate: Timestamp.fromDate(new Date(task.dueDate as string)),
     });
     return { ...task, id: docRef.id };
   }
@@ -53,7 +66,13 @@ export const addTaskThunk = createAsyncThunk(
 export const deleteTaskThunk = createAsyncThunk(
   "tassks/deleteTask",
   async (id: string) => {
-    const taskCollection = collection(db, "tasks");
+    if (!auth.currentUser) return;
+    const taskCollection = collection(
+      db,
+      "users",
+      auth.currentUser.uid,
+      "tasks"
+    );
     await deleteDoc(doc(taskCollection, id));
     return id;
   }
@@ -62,7 +81,13 @@ export const deleteTaskThunk = createAsyncThunk(
 export const editTaskThunk = createAsyncThunk(
   "tasks/editTask",
   async (task: Task) => {
-    const taskCollection = collection(db, "tasks");
+    if (!auth.currentUser) return;
+    const taskCollection = collection(
+      db,
+      "users",
+      auth.currentUser.uid,
+      "tasks"
+    );
     const docRef = doc(taskCollection, task.id);
     await updateDoc(docRef, {
       ...task,

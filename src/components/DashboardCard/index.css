@@ -6,7 +6,7 @@
   border-radius: 5px;
   padding: 0px 10px;
   position: relative;
-  background-color: #cb997e;
+  /* background-color: #cb997e; */
   color: #000000;
 }
 
@@ -15,22 +15,20 @@
   right: 0px;
   top: 0px;
 }
-/* .pending {
-  background-color: #b39ddb;
-  color: #ffffff;
+
+.pending {
+  background-color: var(--pending-color);
 }
 
 .completed {
-  background-color: #26a69a;
-  color: #ffffff;
+  background-color: var(--completed-color);
 }
 
 .inProgress {
-  background-color: #ff7043;
-  color: #ffffff;
+  background-color: var(--in-progress-color);
 }
 
-.low {
+/* .low {
   border: 5px solid #64b5f6;
 }
 

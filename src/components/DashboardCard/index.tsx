@@ -14,14 +14,6 @@ const DashboardCard = ({ task }: DashboardCardProps) => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
-  const priorityColors: {
-    [key: string]: string;
-  } = {
-    low: "#28a745", // Green
-    medium: "#ffc107", // Yellow
-    high: "#dc3545", // Red
-  };
-
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newStatus = e.target.value;
     dispatch(
@@ -35,7 +27,7 @@ const DashboardCard = ({ task }: DashboardCardProps) => {
   return (
     <div
       className={`dashboard-card ${
-        status === "in progress" ? "inProgress" : status
+        status === "in progress" ? "inProgress" : status.toLowerCase()
       } ${priority.toLowerCase()}`}
       onClick={() => {
         navigate(`/task/${id}`);

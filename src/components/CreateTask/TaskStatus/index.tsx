@@ -116,6 +116,7 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
                 ? payload.dueDate.split("T")[0]
                 : ""
             }
+            nd
             selected={
               payload.dueDate ? new Date(payload.dueDate as string) : null
             }

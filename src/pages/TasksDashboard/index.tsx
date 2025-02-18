@@ -7,6 +7,7 @@ import { fetchTasksThunk } from "../../redux/tasks/tasksSlice";
 import { Task } from "../../types";
 import { unwrapResult } from "@reduxjs/toolkit";
 import TasksGraph from "../../components/TasksGraph";
+import { auth } from "../../firebaseConfig";
 
 const TasksDashboard = () => {
   const navigate = useNavigate();
@@ -16,8 +17,11 @@ const TasksDashboard = () => {
   const [showGraph, setShowGraph] = useState(false);
 
   useEffect(() => {
+    if (!auth.currentUser) return;
+
     const fetchTasks = async () => {
       try {
+        const userId = auth.currentUser && auth.currentUser.uid;
         const response = await dispatch(fetchTasksThunk());
         const tasks = unwrapResult(response);
         console.log(tasks, "tasks chek");
@@ -41,8 +45,6 @@ const TasksDashboard = () => {
     personal: tasksList.filter((task) => task.category === "personal").length,
     study: tasksList.filter((task) => task.category === "study").length,
   };
-
-  console.log(selectedStatus, selectedCategory, selectedCategory, "selected");
 
   const countStatus = {
     pending: tasksList.filter(
@@ -113,19 +115,22 @@ const TasksDashboard = () => {
 
   return (
     <div className="dashboard">
-      {
-        showGraph && <div >
-          <TasksGraph onClose={ ()=> {
-            setShowGraph(false)
-
-          }
-          } />
+      {showGraph && (
+        <div>
+          <TasksGraph
+            onClose={() => {
+              setShowGraph(false);
+            }}
+          />
         </div>
-      }
+      )}
       <h2>Tasks Dashboard</h2>
-      <button className="view-graph-btn" onClick={() => {
-        setShowGraph(true)
-      }}>
+      <button
+        className="view-graph-btn"
+        onClick={() => {
+          setShowGraph(true);
+        }}
+      >
         View Graph
       </button>
       <button

@@ -4,14 +4,14 @@
 
   /* Primary Colors */
   --primary-color: #ddbea9; /* Deep Gold */
-  --primary-dark: #cb997e; /* Deep Brown */
+  --primary-dark: #d9a83e; /* Deep Brown */
 
   /* Secondary Colors */
   --secondary-color: #f2e1c2; /* Soft Beige/Sand */
   --secondary-dark: #c16e3e; /* Muted Terracotta */
 
   /* Neutral Colors */
-  --background-color: #ffe8d6; /* Warm Cream */
+  --background-color: #fffae5; /* Warm Cream */
   --border-color: #000000; /* Muted Grayish Brown */
 
   /* Text Colors */
@@ -26,9 +26,9 @@
   --low-priority: #6aab9c; /* Soft Teal (Balanced, calming) */
 
   /* Status Colors */
-  --completed-color: #6aab9c; /* Soft Teal (Balanced, calming, completion) */
-  --in-progress-color: #e8a04b; /* Warm Golden Orange (Active but not alarming) */
-  --pending-color: #547aa5; /* Muted Blue (Waiting, yet stable) */
+  --completed-color: #15b569; /* Soft Teal (Balanced, calming, completion) */
+  --in-progress-color: #ffc23d; /* Warm Golden Orange (Active but not alarming) */
+  --pending-color: #ff7ca4; /* Muted Blue (Waiting, yet stable) */
 
   /* Button Colors */
   --button-primary: #b3782d; /* Deep Gold (Stronger, richer action color) */

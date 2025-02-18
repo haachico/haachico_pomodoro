@@ -25,6 +25,7 @@ const Login = () => {
     password: "",
   });
   const [isType, setIsType] = useState("login");
+  const [isSuccessfullySignedUp, setIsSuccessfullySignedUp] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
@@ -63,6 +64,7 @@ const Login = () => {
 
       if (userCredential) {
         console.log("User signed up successfully");
+        setIsSuccessfullySignedUp(true);
       }
     } catch (error) {
       console.error("Error signing up:", error);
@@ -176,15 +178,17 @@ const Login = () => {
         >
           {isType === "login" ? "Log in" : "Sign up"}
         </button>
-        <button
-          onClick={(e) => {
-            handleGoogleSignIn(e);
-          }}
-        >
-          {isType === "login" && "Sign in with Google!"}
-        </button>
+        {isType === "login" && (
+          <button
+            onClick={(e) => {
+              handleGoogleSignIn(e);
+            }}
+          >
+            Sign in with Google
+          </button>
+        )}
       </form>
-      {isType === "login" && (
+      {isType === "login" ? (
         <div>
           <p>Not signed up yet?</p>
           <p
@@ -195,6 +199,19 @@ const Login = () => {
             <strong>Create a account here!</strong>
           </p>
         </div>
+      ) : isType === "signup" && isSuccessfullySignedUp ? (
+        <button>
+          <p>Successfully signed up!</p>
+          <p
+            onClick={() => {
+              setIsType("login");
+            }}
+          >
+            <strong>Log in here!</strong>
+          </p>
+        </button>
+      ) : (
+        ""
       )}
     </div>
   );
