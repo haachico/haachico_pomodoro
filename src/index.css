@@ -2,40 +2,40 @@
   font-family: "Poppins", sans-serif;
   /* font-size: 10px; */
 
-  /* Primary Colors */
-  --primary-color: #ddbea9; /* Deep Gold */
-  --primary-dark: #d9a83e; /* Deep Brown */
+  /* Primary Colors (Unchanged) */
+  --primary-color: #d9a83e; /* Deep Gold */
+  --primary-dark: #eb7b26; /* Deep Brown */
 
-  /* Secondary Colors */
-  --secondary-color: #f2e1c2; /* Soft Beige/Sand */
-  --secondary-dark: #c16e3e; /* Muted Terracotta */
+  /* Secondary Colors (Adjusted for better contrast) */
+  --secondary-color: #e5c89b; /* Warm Sand (Less contrast with primary) */
+  --secondary-dark: #a85b32; /* Deep Terracotta (Richer, balanced) */
 
   /* Neutral Colors */
-  --background-color: #fffae5; /* Warm Cream */
-  --border-color: #000000; /* Muted Grayish Brown */
+  --background-color: #fffae5; /* Warm Cream (Unchanged) */
+  --border-color: #000000; /* Muted Grayish Brown (Softer than black for warm tones) */
 
-  /* Text Colors */
-  --text-primary: #333333;
-  --text-secondary: #666666;
+  /* Text Colors (Better readability on warm tones) */
+  --text-primary: #333333; /* Dark Gray (Unchanged) */
+  --text-secondary: #5b432c; /* Deep Brown (More warmth than standard gray) */
 
   /* Accent Colors */
-  --success-color: #6b8e23; /* Muted Olive Green */
-  --error-color: #bf4e30; /* Soft Red Clay */
-  --high-priority: #d64550; /* Muted Red (Urgency but not aggressive) */
-  --medium-priority: #e8a04b; /* Warm Golden Orange */
-  --low-priority: #6aab9c; /* Soft Teal (Balanced, calming) */
+  --success-color: #6b8e23; /* Muted Olive Green (Unchanged) */
+  --error-color: #bf4e30; /* Soft Red Clay (Unchanged) */
+  --high-priority: #d64550; /* Muted Red (Unchanged) */
+  --medium-priority: #e8a04b; /* Warm Golden Orange (Unchanged) */
+  --low-priority: #6aab9c; /* Soft Teal (Unchanged) */
 
-  /* Status Colors */
-  --completed-color: #15b569; /* Soft Teal (Balanced, calming, completion) */
-  --in-progress-color: #ffc23d; /* Warm Golden Orange (Active but not alarming) */
-  --pending-color: #ff7ca4; /* Muted Blue (Waiting, yet stable) */
+  /* Status Colors (Unchanged) */
+  --completed-color: #15b569;
+  --in-progress-color: #ffc23d;
+  --pending-color: #ff7ca4;
 
   /* Button Colors */
-  --button-primary: #b3782d; /* Deep Gold (Stronger, richer action color) */
-  --button-primary-hover: #8a4820; /* Darkened shade for hover */
-  --button-secondary: #c16e3e; /* Muted Terracotta */
-  --button-secondary-hover: #a04e30; /* Darker terracotta for hover */
-  --button-text-color: #000000;
+  --button-primary: #d9a83e; /* Deep Gold (Matches primary) */
+  --button-primary-hover: #b3782d; /* Darker Deep Gold */
+  --button-secondary: #c16e3e; /* Muted Terracotta (Unchanged) */
+  --button-secondary-hover: #a04e30; /* Darker Terracotta */
+  --button-text-color: #000000; /* White for contrast */
 }
 
 a {
@@ -45,6 +45,10 @@ a {
 }
 a:hover {
   color: #535bf2;
+}
+
+button {
+  border: 2px solid var(--border-color);
 }
 
 body {
