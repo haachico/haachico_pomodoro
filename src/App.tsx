@@ -19,6 +19,8 @@ import AuthGuard from "./components/AuthGuard";
 import TasksGraph from "./pages/TasksGraph";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebaseConfig";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -49,27 +51,29 @@ function App() {
     return () => unsubscribe();
   }, [dispatch]);
   return (
-    <div className="app">
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<IntroPage />} />
+    <DndProvider backend={HTML5Backend}>
+      <div className="app">
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<IntroPage />} />
 
-          <Route element={<AuthGuard />}>
-            <Route path="pomodoros/dashboard" element={<TasksDashboard />} />
-            <Route path="createTask" element={<CreateTask mode="create" />} />
-            <Route path="editTask/:id" element={<EditTask />} />
-            <Route path="tasks" element={<ViewAllTasks />} />
-            <Route path="task/:id" element={<DetailsPage />} />
+            <Route element={<AuthGuard />}>
+              <Route path="pomodoros/dashboard" element={<TasksDashboard />} />
+              <Route path="createTask" element={<CreateTask mode="create" />} />
+              <Route path="editTask/:id" element={<EditTask />} />
+              <Route path="tasks" element={<ViewAllTasks />} />
+              <Route path="task/:id" element={<DetailsPage />} />
+            </Route>
+
+            <Route path="aboutus" element={<AboutPage />} />
+
+            <Route path="/pomodoro" element={<PomodoroPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
           </Route>
-
-          <Route path="aboutus" element={<AboutPage />} />
-
-          <Route path="/pomodoro" element={<PomodoroPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-        </Route>
-      </Routes>
-    </div>
+        </Routes>
+      </div>
+    </DndProvider>
   );
 }
 

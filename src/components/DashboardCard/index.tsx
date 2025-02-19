@@ -4,6 +4,7 @@ import { AppDispatch } from "../../store";
 import { useDispatch } from "react-redux";
 import { editTaskThunk } from "../../redux/tasks/tasksSlice";
 import { Task } from "../../types";
+import { useDrag } from "react-dnd";
 
 type DashboardCardProps = {
   task: Task;
@@ -13,6 +14,14 @@ const DashboardCard = ({ task }: DashboardCardProps) => {
   const { id, title, status, priority } = task;
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
+
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "TASK",
+    item: { id: id },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
 
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newStatus = e.target.value;
@@ -31,6 +40,13 @@ const DashboardCard = ({ task }: DashboardCardProps) => {
       } ${priority.toLowerCase()}`}
       onClick={() => {
         navigate(`/task/${id}`);
+      }}
+      ref={drag}
+      style={{
+        opacity: isDragging ? 0.4 : 1,
+        cursor: "move",
+        transform: isDragging ? "scale(0.8)" : "scale(1)",
+        transition: "transform 0.3s ease-in-out",
       }}
     >
       <h4>{title}</h4>

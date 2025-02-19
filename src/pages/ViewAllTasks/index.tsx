@@ -6,13 +6,14 @@ import Dropdown from "../../components/commonComponents/Dropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
 import { fetchTasksThunk } from "../../redux/tasks/tasksSlice";
+import DragNDrop from "../../components/DragNDrop";
 
 const ViewAllTasks = () => {
   const location = useLocation();
   const selectedStatusFilter = location.state?.status || "All";
   const selectedPriorityFilter = location.state?.priority || "";
   const selectedCategoryFilter = location.state?.category || "";
-
+  const [changeStatus, setChangeStatus] = useState(false);
   const tasksList = useSelector((state: RootState) => state.tasks.tasks);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -192,6 +193,13 @@ const ViewAllTasks = () => {
             Search
           </div>
         </div>
+        <button
+          onClick={() => {
+            setChangeStatus(!changeStatus);
+          }}
+        >
+          Change status
+        </button>
       </nav>
       <div ref={searchBarRef}>
         {isSearchBarOpen && (
@@ -210,9 +218,16 @@ const ViewAllTasks = () => {
           opacity: isStatusFilterOpen || isPriorityFilterOpen ? 0.2 : 1,
         }}
       >
-        {searchedTasks.length > 0
-          ? searchedTasks.map((task) => <DashboardCard task={task} />)
-          : "No tasks found"}
+        {changeStatus ? (
+          <DragNDrop tasks={tasksList} />
+        ) : (
+          <div>
+            {" "}
+            {searchedTasks.length > 0
+              ? searchedTasks.map((task) => <DashboardCard task={task} />)
+              : "No tasks found"}
+          </div>
+        )}
       </div>
     </div>
   );

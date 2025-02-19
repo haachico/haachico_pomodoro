@@ -1,0 +1,9 @@
+.drag-n-drop-container {
+  width: 1024px;
+  margin: 0 auto;
+}
+
+.drag-n-drop {
+  display: flex;
+  justify-content: space-between;
+}
