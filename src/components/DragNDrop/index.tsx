@@ -8,9 +8,10 @@ import DashboardCard from "../DashboardCard";
 
 type DragNDropProps = {
   tasks: Task[];
+  type: string
 };
 
-const DragNDrop: React.FC<DragNDropProps> = ({ tasks }) => {
+const DragNDrop: React.FC<DragNDropProps> = ({ tasks, type }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [{ isOver: isOverAdded }, dropAdded] = useDrop(
@@ -81,7 +82,7 @@ const DragNDrop: React.FC<DragNDropProps> = ({ tasks }) => {
             {tasks
               .filter((task) => task.status === "pending")
               .map((task) => (
-                <DashboardCard task={task} key={task.id} />
+                <DashboardCard task={task} key={task.id} type="dragDrop"/>
               ))}
           </div>
         </div>
@@ -95,7 +96,7 @@ const DragNDrop: React.FC<DragNDropProps> = ({ tasks }) => {
             {tasks
             .filter((task) => task.status === "in progress")
             .map((task) => (
-                <DashboardCard task={task} key={task.id} />
+                <DashboardCard task={task} key={task.id} type="dragDrop" />
               ))}
           </div>
         </div>
@@ -109,7 +110,7 @@ const DragNDrop: React.FC<DragNDropProps> = ({ tasks }) => {
             {tasks
               .filter((task) => task.status === "completed")
               .map((task) => (
-                <DashboardCard task={task} key={task.id} />
+                <DashboardCard task={task} key={task.id} type="dragDrop" />
               ))}
           </div>
         </div>

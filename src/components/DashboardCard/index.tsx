@@ -8,9 +8,10 @@ import { useDrag } from "react-dnd";
 
 type DashboardCardProps = {
   task: Task;
+  type?: string;
 };
 
-const DashboardCard = ({ task }: DashboardCardProps) => {
+const DashboardCard = ({ task, type }: DashboardCardProps) => {
   const { id, title, status, priority } = task;
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
@@ -39,12 +40,14 @@ const DashboardCard = ({ task }: DashboardCardProps) => {
         status === "in progress" ? "inProgress" : status.toLowerCase()
       } ${priority.toLowerCase()}`}
       onClick={() => {
-        navigate(`/task/${id}`);
+       if(type !== "dragDrop") {
+         navigate(`/tasks/${id}`);
+       }
       }}
       ref={drag}
       style={{
         opacity: isDragging ? 0.4 : 1,
-        cursor: "move",
+      cursor: type=== "dragDrop"? "move" : "pointer",
         transform: isDragging ? "scale(0.8)" : "scale(1)",
         transition: "transform 0.3s ease-in-out",
       }}
