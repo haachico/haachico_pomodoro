@@ -193,13 +193,15 @@ const ViewAllTasks = () => {
             Search
           </div>
         </div>
-        <button
+        {changeStatus ? <button onClick={() => setChangeStatus(false)}>
+          View All
+          </button>:<button
           onClick={() => {
-            setChangeStatus(!changeStatus);
+            setChangeStatus(true);
           }}
         >
           Change status
-        </button>
+        </button>}
       </nav>
       <div ref={searchBarRef}>
         {isSearchBarOpen && (

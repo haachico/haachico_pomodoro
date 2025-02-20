@@ -1,9 +1,26 @@
 .drag-n-drop-container {
   width: 1024px;
   margin: 0 auto;
+
 }
 
 .drag-n-drop {
   display: flex;
   justify-content: space-between;
+  
 }
+
+.dropzone {
+  border: 2px dashed #000;
+  width: 350px;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* .drag-n-drop div {
+  border: 1px solid #000;
+  width: 350px;
+} */

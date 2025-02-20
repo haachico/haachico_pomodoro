@@ -20,7 +20,7 @@ const DragNDrop: React.FC<DragNDropProps> = ({ tasks }) => {
         dispatch(
           editTaskThunk({
             ...task,
-            status: "Pending",
+            status: "pending",
           })
         ),
       collect: (monitor) => ({
@@ -28,7 +28,12 @@ const DragNDrop: React.FC<DragNDropProps> = ({ tasks }) => {
       }),
     }),
     [tasks]
+
+    
   );
+
+
+  
 
   const [{ isOver: isOverStarted }, dropStarted] = useDrop(
     () => ({
@@ -37,7 +42,7 @@ const DragNDrop: React.FC<DragNDropProps> = ({ tasks }) => {
         dispatch(
           editTaskThunk({
             ...task,
-            status: "In Progress",
+            status: "in progress",
           })
         ),
       collect: (monitor) => ({
@@ -54,7 +59,7 @@ const DragNDrop: React.FC<DragNDropProps> = ({ tasks }) => {
         dispatch(
           editTaskThunk({
             ...task,
-            status: "Completed",
+            status: "completed",
           })
         ),
       collect: (monitor) => ({
@@ -68,12 +73,13 @@ const DragNDrop: React.FC<DragNDropProps> = ({ tasks }) => {
       <div className="drag-n-drop">
         <div
           ref={dropAdded}
+          className="dropzone"
           style={{ backgroundColor: isOverAdded ? "lightgreen" : "white" }}
-        >
+          >
           <h2>Pending</h2>
           <div>
             {tasks
-              .filter((task) => task.status === "Pending")
+              .filter((task) => task.status === "pending")
               .map((task) => (
                 <DashboardCard task={task} key={task.id} />
               ))}
@@ -82,12 +88,13 @@ const DragNDrop: React.FC<DragNDropProps> = ({ tasks }) => {
         <div
           ref={dropStarted}
           style={{ backgroundColor: isOverStarted ? "lightblue" : "white" }}
-        >
+          className="dropzone"
+          >
           <h2> In Progress</h2>
           <div>
             {tasks
-              .filter((task) => task.status === "In Progress")
-              .map((task) => (
+            .filter((task) => task.status === "in progress")
+            .map((task) => (
                 <DashboardCard task={task} key={task.id} />
               ))}
           </div>
@@ -95,11 +102,12 @@ const DragNDrop: React.FC<DragNDropProps> = ({ tasks }) => {
         <div
           ref={dropCompleted}
           style={{ backgroundColor: isOverCompleted ? "lightcoral" : "white" }}
-        >
+            className="dropzone"
+          >
           <h2>Completed</h2>
           <div>
             {tasks
-              .filter((task) => task.status === "Completed")
+              .filter((task) => task.status === "completed")
               .map((task) => (
                 <DashboardCard task={task} key={task.id} />
               ))}

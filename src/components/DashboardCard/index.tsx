@@ -17,7 +17,7 @@ const DashboardCard = ({ task }: DashboardCardProps) => {
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "TASK",
-    item: { id: id },
+    item: task,
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
@@ -51,7 +51,7 @@ const DashboardCard = ({ task }: DashboardCardProps) => {
     >
       <h4>{title}</h4>
 
-      <label className="status-label">
+      {/* <label className="status-label">
         <select
           value={status}
           onChange={handleStatusChange}
@@ -61,7 +61,7 @@ const DashboardCard = ({ task }: DashboardCardProps) => {
           <option value="in progress">In Progress</option>
           <option value="completed">Completed</option>
         </select>
-      </label>
+      </label> */}
     </div>
   );
 };

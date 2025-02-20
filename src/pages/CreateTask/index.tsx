@@ -46,6 +46,9 @@ const CreateTask: React.FC<CreateTaskProps> = ({ mode, task, id }) => {
     isPomodoroAllowed: false,
   });
 
+
+  console.log(payload)
+
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
