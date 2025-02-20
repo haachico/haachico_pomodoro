@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./index.css";
 import { set } from "react-datepicker/dist/date_utils";
 import { Task } from "../../types";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store";
 import { editTaskThunk } from "../../redux/tasks/tasksSlice";
+import pomodoroSound from "../../assets/audio/pomodoro.mp3";
 
 type PomodoroPopupProps = {
   onClose: () => void;
@@ -31,6 +32,17 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
 
   const [pomodoroCount, setPomodoroCount] = useState(storedPomodoroCount || 0);
 
+  const audioRef = useRef(new Audio(pomodoroSound));
+
+  const playSound = () => {
+    audioRef.current.play();
+  };
+
+  const stopSound = () => {
+    audioRef.current.pause();
+    audioRef.current.currentTime = 0;
+  };
+
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (isTimerActive) {
@@ -47,6 +59,7 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
           setLongBreakTimeLeft((prevTime) => prevTime - 1);
         }, 1000);
       } else {
+        playSound();
         setIsTimerActive(false);
         setShowNotification(true);
       }
@@ -195,6 +208,7 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
             </p>
             <button
               onClick={() => {
+                stopSound();
                 setShowNotification(false);
                 if (isPomodoroTime) {
                   setTimeLeft(25 * 60);

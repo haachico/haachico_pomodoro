@@ -40,14 +40,14 @@ const DashboardCard = ({ task, type }: DashboardCardProps) => {
         status === "in progress" ? "inProgress" : status.toLowerCase()
       } ${priority.toLowerCase()}`}
       onClick={() => {
-       if(type !== "dragDrop") {
-         navigate(`/tasks/${id}`);
-       }
+        if (type !== "dragDrop") {
+          navigate(`/task/${id}`);
+        }
       }}
       ref={drag}
       style={{
         opacity: isDragging ? 0.4 : 1,
-      cursor: type=== "dragDrop"? "move" : "pointer",
+        cursor: type === "dragDrop" ? "move" : "pointer",
         transform: isDragging ? "scale(0.8)" : "scale(1)",
         transition: "transform 0.3s ease-in-out",
       }}

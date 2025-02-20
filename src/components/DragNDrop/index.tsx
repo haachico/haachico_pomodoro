@@ -8,10 +8,9 @@ import DashboardCard from "../DashboardCard";
 
 type DragNDropProps = {
   tasks: Task[];
-  type: string
 };
 
-const DragNDrop: React.FC<DragNDropProps> = ({ tasks, type }) => {
+const DragNDrop: React.FC<DragNDropProps> = ({ tasks }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [{ isOver: isOverAdded }, dropAdded] = useDrop(
@@ -29,12 +28,7 @@ const DragNDrop: React.FC<DragNDropProps> = ({ tasks, type }) => {
       }),
     }),
     [tasks]
-
-    
   );
-
-
-  
 
   const [{ isOver: isOverStarted }, dropStarted] = useDrop(
     () => ({
@@ -76,13 +70,13 @@ const DragNDrop: React.FC<DragNDropProps> = ({ tasks, type }) => {
           ref={dropAdded}
           className="dropzone"
           style={{ backgroundColor: isOverAdded ? "lightgreen" : "white" }}
-          >
+        >
           <h2>Pending</h2>
           <div>
             {tasks
               .filter((task) => task.status === "pending")
               .map((task) => (
-                <DashboardCard task={task} key={task.id} type="dragDrop"/>
+                <DashboardCard task={task} key={task.id} type="dragDrop" />
               ))}
           </div>
         </div>
@@ -90,12 +84,12 @@ const DragNDrop: React.FC<DragNDropProps> = ({ tasks, type }) => {
           ref={dropStarted}
           style={{ backgroundColor: isOverStarted ? "lightblue" : "white" }}
           className="dropzone"
-          >
+        >
           <h2> In Progress</h2>
           <div>
             {tasks
-            .filter((task) => task.status === "in progress")
-            .map((task) => (
+              .filter((task) => task.status === "in progress")
+              .map((task) => (
                 <DashboardCard task={task} key={task.id} type="dragDrop" />
               ))}
           </div>
@@ -103,8 +97,8 @@ const DragNDrop: React.FC<DragNDropProps> = ({ tasks, type }) => {
         <div
           ref={dropCompleted}
           style={{ backgroundColor: isOverCompleted ? "lightcoral" : "white" }}
-            className="dropzone"
-          >
+          className="dropzone"
+        >
           <h2>Completed</h2>
           <div>
             {tasks

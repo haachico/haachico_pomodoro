@@ -193,15 +193,17 @@ const ViewAllTasks = () => {
             Search
           </div>
         </div>
-        {changeStatus ? <button onClick={() => setChangeStatus(false)}>
-          View All
-          </button>:<button
-          onClick={() => {
-            setChangeStatus(true);
-          }}
-        >
-          Change status
-        </button>}
+        {changeStatus ? (
+          <button onClick={() => setChangeStatus(false)}>View All</button>
+        ) : (
+          <button
+            onClick={() => {
+              setChangeStatus(true);
+            }}
+          >
+            Change status
+          </button>
+        )}
       </nav>
       <div ref={searchBarRef}>
         {isSearchBarOpen && (
@@ -223,7 +225,7 @@ const ViewAllTasks = () => {
         {changeStatus ? (
           <DragNDrop tasks={tasksList} />
         ) : (
-          <div>
+          <div className="tasks-container">
             {" "}
             {searchedTasks.length > 0
               ? searchedTasks.map((task) => <DashboardCard task={task} />)

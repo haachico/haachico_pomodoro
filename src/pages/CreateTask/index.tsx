@@ -36,18 +36,17 @@ const CreateTask: React.FC<CreateTaskProps> = ({ mode, task, id }) => {
     // id: "",
     title: "",
     description: "",
-    status: "Pending",
+    status: "pending",
     pomodoroTarget: 0,
     pomodoroCount: 0,
     completedPomodoros: 0,
-    dueDate: new Date(),
+    dueDate: new Date().toISOString(),
     priority: filters.selectedPriority,
     category: filters.selectedCategory,
     isPomodoroAllowed: false,
   });
 
-
-  console.log(payload)
+  console.log(payload);
 
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
