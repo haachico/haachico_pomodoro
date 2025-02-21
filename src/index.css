@@ -60,11 +60,11 @@ body {
   color: var(--text-primary);
 }
 
-h1 {
+/* h1 {
   font-size: 3.2em;
   line-height: 1.1;
   color: var(--text-primary);
-}
+} */
 
 button {
   /* border-radius: 8px; */

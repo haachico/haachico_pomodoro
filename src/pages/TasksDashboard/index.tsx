@@ -7,6 +7,7 @@ import { fetchTasksThunk } from "../../redux/tasks/tasksSlice";
 import { Task } from "../../types";
 import { unwrapResult } from "@reduxjs/toolkit";
 import TasksGraph from "../../components/TasksGraph";
+import TasksDueDates from "../../components/TasksDueDates";
 
 const TasksDashboard = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const TasksDashboard = () => {
   const [tasksList, setTasksList] = useState<Task[]>([]);
   const dispatch = useDispatch<AppDispatch>();
   const [showGraph, setShowGraph] = useState(false);
+  const [showDueDates, setShowDueDates] = useState(false);
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -21,7 +23,7 @@ const TasksDashboard = () => {
         const response = await dispatch(fetchTasksThunk());
         const tasks = unwrapResult(response);
         console.log(tasks, "tasks chek");
-        if(tasks) {
+        if (tasks) {
           setTasksList(tasks);
         }
       } catch (error) {
@@ -115,20 +117,40 @@ const TasksDashboard = () => {
 
   return (
     <div className="dashboard">
-      {
-        showGraph && <div >
-          <TasksGraph onClose={ ()=> {
-            setShowGraph(false)
-
-          }
-          } />
+      {showGraph && (
+        <div>
+          <TasksGraph
+            onClose={() => {
+              setShowGraph(false);
+            }}
+          />
         </div>
-      }
+      )}
+      {showDueDates && (
+        <div>
+          <TasksDueDates
+            onClose={() => {
+              setShowDueDates(false);
+            }}
+          />
+        </div>
+      )}
       <h2>Tasks Dashboard</h2>
-      <button className="view-graph-btn" onClick={() => {
-        setShowGraph(true)
-      }}>
+      <button
+        className="view-graph-btn"
+        onClick={() => {
+          setShowGraph(true);
+        }}
+      >
         View Graph
+      </button>
+      <button
+        className="view-due-dates-btn"
+        onClick={() => {
+          setShowDueDates(true);
+        }}
+      >
+        View Due Dates
       </button>
       <button
         className="view-all-btn"

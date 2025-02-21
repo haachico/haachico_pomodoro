@@ -38,6 +38,11 @@
   align-items: center;
 }
 
+.pomodoro-popup__timer .time-display {
+  /* width: 300px; */
+  font-weight: 800;
+}
+
 .pomodoro-popup__timer__buttons {
   display: flex;
   justify-content: space-around;

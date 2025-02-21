@@ -1,0 +1,63 @@
+.tasks-due-dates-container {
+  background-color: #5e3d2e;
+  color: #f9f9f9f9;
+  padding: 20px;
+  height: 500px;
+  width: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  z-index: 9999;
+}
+
+.tasks-due-dates-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.dueDates-btn-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.date-next-btn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
+.date-prev-btn {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+}
+/* .tasks-due-dates-container button {
+  margin: 5px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+} */
+
+.tasks-due-dates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.task-due-date {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  width: 150px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+}
+
+.task-due-date p {
+  margin: 5px 0;
+}

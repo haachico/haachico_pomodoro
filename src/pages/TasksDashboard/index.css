@@ -103,3 +103,9 @@
 .dashboard button {
   border: 2px solid var(--border-color);
 }
+
+.view-due-dates-btn {
+  position: absolute;
+  left: 90px;
+  bottom: 90px;
+}

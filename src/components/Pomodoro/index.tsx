@@ -161,7 +161,10 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
         </h4>
       </div>
       <div className="pomodoro-popup__timer">
-        <h1>
+        <h1
+          className="time-display"
+          style={{ fontSize: isFullPage ? "200px" : "100px" }}
+        >
           {isPomodoroTime
             ? handleTimeFormat(timeLeft)
             : isLongBreak
