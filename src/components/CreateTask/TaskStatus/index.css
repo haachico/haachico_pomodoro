@@ -1,13 +1,56 @@
 .form-status {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: 1fr 1fr;
-  color: var(--text-primary);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+  border: 2px solid var(--border-color);
+  height: 20rem;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .dropdown-container {
-  /* background-color: red; */
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.date-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.date-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toggle-container label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pomodoro-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+label {
+  font-weight: bold;
+}
+
+.pomodoro-input input {
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
 }

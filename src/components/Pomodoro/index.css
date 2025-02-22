@@ -24,15 +24,16 @@
 }
 
 .pomodoro-popup__header h4 {
-  padding: 5px;
+  padding: 10px;
   border-radius: 5px;
   cursor: pointer;
-  background-color: var(--button-primary);
+  background-color: var(--primary-dark);
   color: var(--button-text-color);
   border: 1px solid #ffffff;
 }
 
 .pomodoro-popup__timer {
+  height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;

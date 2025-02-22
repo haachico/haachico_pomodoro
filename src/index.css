@@ -4,7 +4,7 @@
 
   /* Primary Colors (Unchanged) */
   --primary-color: #d9a83e; /* Deep Gold */
-  --primary-dark: #eb7b26; /* Deep Brown */
+  --primary-dark: #b3782d; /* Deep Brown */
 
   /* Secondary Colors (Adjusted for better contrast) */
   --secondary-color: #e5c89b; /* Warm Sand (Less contrast with primary) */
@@ -35,7 +35,7 @@
   --button-primary-hover: #b3782d; /* Darker Deep Gold */
   --button-secondary: #c16e3e; /* Muted Terracotta (Unchanged) */
   --button-secondary-hover: #a04e30; /* Darker Terracotta */
-  --button-text-color: #000000; /* White for contrast */
+  --button-text-color: #ffffff; /* White for contrast */
 }
 
 a {

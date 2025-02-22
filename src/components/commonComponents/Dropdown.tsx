@@ -50,7 +50,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     <div
       ref={dropdownRef}
       className={`dropdown-mainContainer ${
-        source === "viewAll" ? "viewAll" : ""
+        source === "viewAll" ? "viewAll" : "createTask"
       }`}
       onClick={onToggle}
       style={{
@@ -65,7 +65,17 @@ const Dropdown: React.FC<DropdownProps> = ({
         </h4>
       </div>
       {isOpen && (
-        <div className="drop-down">
+        <div
+          className="drop-down"
+          style={{
+            width:
+              source === "viewAll"
+                ? "95%"
+                : source === "createTask"
+                ? "97%"
+                : "100%",
+          }}
+        >
           {options.map((option) => (
             <p
               key={option}

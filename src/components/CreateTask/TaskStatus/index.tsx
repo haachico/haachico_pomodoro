@@ -3,7 +3,6 @@ import Dropdown from "../../commonComponents/Dropdown";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { CreateTaskType } from "../../../types";
-import { Timestamp } from "firebase/firestore";
 import Toggle from "react-toggle";
 import "react-toggle/style.css"; // Import the CSS file for react-toggle
 
@@ -20,6 +19,7 @@ type TaskStatusProps = {
   payload: CreateTaskType;
   setPayload: React.Dispatch<React.SetStateAction<CreateTaskType>>;
 };
+
 const TaskStatus: React.FC<TaskStatusProps> = ({
   filters,
   setFilter,
@@ -33,12 +33,8 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
     selectedCategory,
   } = filters;
 
-  // const [allowPomodoro, setAllowPomodoro] = useState<boolean>(false);
-
   const statuses: string[] = ["Pending", "Completed", "In Progress"];
-
   const priority: string[] = ["Low", "Medium", "High"];
-
   const categories: string[] = ["Work", "Personal", "Study"];
 
   const normalisedStatus = (str: string): string =>
@@ -48,7 +44,7 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
 
   return (
     <div className="form-status">
-      <div className="  dropdown-container">
+      <div className="dropdown-container">
         <Dropdown
           label={"Category"}
           onToggle={() =>
@@ -68,25 +64,6 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
           normalisedStatus={normalisedStatus}
           source={"createTask"}
         />
-        {/* <Dropdown
-          label={"Status"}
-          onToggle={() => setFilter("isStatusFilterOpen", !isStatusFilterOpen)}
-          isOpen={isStatusFilterOpen}
-          options={statuses}
-          selectOption={(option) => {
-            setPayload({
-              ...payload,
-              status: option.toLowerCase() as
-                | "pending"
-                | "completed"
-                | "in progress",
-            });
-            setFilter("isStatusFilterOpen", false);
-            setFilter("selectedStatus", option);
-          }}
-          selectedOption={selectedStatus}
-          normalisedStatus={normalisedStatus}
-        /> */}
         <Dropdown
           label={"Priority"}
           onToggle={() =>
@@ -108,8 +85,10 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
         />
       </div>
       <div className="date-container">
-        <div>
+        <div className="date-picker">
+          <label htmlFor="dueDate">Due Date</label>
           <DatePicker
+            id="dueDate"
             name="dueDate"
             value={
               typeof payload.dueDate === "string"
@@ -149,8 +128,8 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
           </label>
         </div>
         {payload.isPomodoroAllowed && (
-          <div>
-            <label htmlFor="pomodorosTarget">Number of Pomodoros : </label>
+          <div className="pomodoro-input">
+            <label htmlFor="pomodorosTarget">Number of Pomodoros</label>
             <input
               name="pomodoroTarget"
               type="number"

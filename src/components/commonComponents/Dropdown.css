@@ -5,12 +5,16 @@
   border-radius: 8px 8px 0px 0px;
   display: flex;
   align-items: center;
-  padding: 5px;
+  padding: 5px 5px 5px 10px;
   cursor: pointer;
   position: relative;
+  background-color: var(--primary-dark);
+  justify-content: flex-start;
+
+  /* opacity: 0.8; */
 }
 
-.dropdown-mainContainer::after {
+.viewAll::after {
   content: "";
   position: absolute;
   right: 0;
@@ -31,8 +35,8 @@
 .drop-down {
   position: absolute;
   top: 80px;
-  right: 10px;
-  width: 98%;
+  right: 0px;
+
   border-radius: 0px 0px 8px 8px;
 }
 .drop-down {

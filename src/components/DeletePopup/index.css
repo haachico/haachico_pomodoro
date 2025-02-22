@@ -1,6 +1,6 @@
 .delete-popup {
-  background-color: #ffce62;
-  color: #000000;
+  background-color: #5e3d2e;
+  color: #ffffff;
   padding: 20px;
   height: 300px;
   width: 500px;
@@ -27,6 +27,6 @@
   width: 100px;
   border-radius: 5px;
   cursor: pointer;
-  background-color: var(--button-primary);
+  background-color: var(--primary-dark);
   border: 2px solid #000000;
 }
