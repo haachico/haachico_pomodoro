@@ -1,9 +1,10 @@
 .pomodoro-popup {
   height: auto;
   padding: 20px;
-  background-color: #ffce62;
+  background-color: #5e3d2e;
   border-radius: 10px;
-  border: 2px solid black;
+  border: 2px solid #ffffff;
+  color: #ffffff;
 }
 
 .pomodoro-page {
@@ -26,7 +27,7 @@
   padding: 5px;
   border-radius: 5px;
   cursor: pointer;
-  background-color: var(--primary-color);
+  background-color: var(--button-primary);
   color: var(--button-text-color);
   border: 1px solid #ffffff;
 }

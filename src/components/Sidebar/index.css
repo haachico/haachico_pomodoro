@@ -1,0 +1,25 @@
+.sidebar {
+  width: 200px;
+  height: calc(100vh - 101px); /* Adjust based on the height of your navbar */
+  background-color: var(-- background-color);
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 101px; /* Adjust based on the height of your navbar */
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto; /* Add scroll if content exceeds the height */
+}
+.sidebar-btn {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: var(--primary-dark);
+  color: var(--button-text-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}

@@ -72,7 +72,7 @@ const DragNDrop: React.FC<DragNDropProps> = ({ tasks }) => {
           style={{ backgroundColor: isOverAdded ? "lightgreen" : "white" }}
         >
           <h2>Pending</h2>
-          <div>
+          <div className="pending-tasks-body">
             {tasks
               .filter((task) => task.status === "pending")
               .map((task) => (
@@ -86,7 +86,7 @@ const DragNDrop: React.FC<DragNDropProps> = ({ tasks }) => {
           className="dropzone"
         >
           <h2> In Progress</h2>
-          <div>
+          <div className="in-progress-tasks-body">
             {tasks
               .filter((task) => task.status === "in progress")
               .map((task) => (
@@ -100,7 +100,7 @@ const DragNDrop: React.FC<DragNDropProps> = ({ tasks }) => {
           className="dropzone"
         >
           <h2>Completed</h2>
-          <div>
+          <div className="completed-tasks-body">
             {tasks
               .filter((task) => task.status === "completed")
               .map((task) => (

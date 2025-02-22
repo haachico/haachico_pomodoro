@@ -36,14 +36,14 @@ const Header = () => {
       <div className="nav-links">
         <div>
           {isLoggedIn ? (
-            <button
+            <h3
               className="logout"
               onClick={() => {
                 handleLogout();
               }}
             >
               Log out
-            </button>
+            </h3>
           ) : (
             <NavLink className="login" to="/login">
               Log in

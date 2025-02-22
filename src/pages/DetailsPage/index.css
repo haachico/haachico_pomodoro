@@ -5,7 +5,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 50%;
+  width: 70%;
 }
 
 .notification {
@@ -18,6 +18,30 @@
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  border: 1px solid var(--border-color);
+  border-width: 0px 1px;
+}
+
+.task-details {
+  flex: 1;
+  padding: 20px;
+}
+
+.task-details h1 {
+  margin-bottom: 20px;
+}
+
+.task-details p {
+  margin: 20px 0;
+}
+
+.task-detail-value {
+  font-weight: bold;
+}
+
+.task-detail-title {
+  font-size: 0.8em;
+  color: #555;
 }
 
 .details-page-buttons {
@@ -28,6 +52,6 @@
 
 .details-page-buttons button {
   height: 100px;
-  background-color: #ffce62;
+  background-color: var (--button-primary);
   border-bottom: 1px solid #000000;
 }

@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from "react-router-dom";
-// import tasks from "../../db/tasksData";
 import { useEffect, useState } from "react";
 import PomodoroPopup from "../../components/Pomodoro";
 import "./index.css";
@@ -9,6 +8,7 @@ import { Task } from "../../types";
 import DeletePopup from "../../components/DeletePopup";
 import EditPopup from "../../components/EditPopup";
 import { AppDispatch, RootState } from "../../store";
+import { capitaliseHeading } from "../../utils";
 
 const DetailsPage = () => {
   const [openPomodoro, setOpenPomodoro] = useState(false);
@@ -22,7 +22,7 @@ const DetailsPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  console.log(task, "task detai");
+  console.log(task, "task detail");
 
   const handleClose = () => {
     setOpenPomodoro(false);
@@ -62,6 +62,7 @@ const DetailsPage = () => {
 
     return () => clearTimeout(showNotification);
   }, []);
+
   return (
     <div className="details-page">
       {showNote && !task?.isPomodoroAllowed && (
@@ -70,11 +71,6 @@ const DetailsPage = () => {
           edit and allow pomodoro for this task
         </div>
       )}
-      {/* {showEditPopup && task && (
-        <div className="editPopup-modal">
-          <EditPopup task={task} onClose={handleClose} />
-        </div>
-      )} */}
       {openPomodoro && (
         <div className="pomodoro-modal">
           <PomodoroPopup onClose={handleClose} task={task as Task} />
@@ -89,10 +85,43 @@ const DetailsPage = () => {
         </div>
       )}
 
-      <div>
-        <h1> {task?.title}</h1>
-        <p>{task?.description}</p>
-        <p>Due date : {formatDueDate(task?.dueDate as string)}</p>
+      <div className="task-details">
+        <h1>{capitaliseHeading(task?.title as string)}</h1>
+        <p>
+          <span className="task-detail-value">
+            {capitaliseHeading(task?.description as string)}
+          </span>
+          <br />
+          <span className="task-detail-title">Description</span>
+        </p>
+        <p>
+          <span className="task-detail-value">
+            {formatDueDate(task?.dueDate as string)}
+          </span>
+          <br />
+          <span className="task-detail-title">Due date</span>
+        </p>
+        <p>
+          <span className="task-detail-value">
+            {capitaliseHeading(task?.status as string)}
+          </span>
+          <br />
+          <span className="task-detail-title">Status</span>
+        </p>
+        <p>
+          <span className="task-detail-value">
+            {capitaliseHeading(task?.category as string)}
+          </span>
+          <br />
+          <span className="task-detail-title">Category</span>
+        </p>
+        <p>
+          <span className="task-detail-value">
+            {capitaliseHeading(task?.priority as string)}
+          </span>
+          <br />
+          <span className="task-detail-title">Priority</span>
+        </p>
       </div>
       <div className="details-page-buttons">
         {task?.isPomodoroAllowed && (

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import "./Dropdown.css";
+import { capitaliseHeading } from "../../utils";
 
 type DropdownProps = {
   label: string;
@@ -58,7 +59,9 @@ const Dropdown: React.FC<DropdownProps> = ({
     >
       <div>
         <h4>
-          {selectedOption !== "" ? `${selectedOption}` : `Select ${label}`}
+          {selectedOption !== ""
+            ? `${capitaliseHeading(selectedOption)}`
+            : `Select ${label}`}
         </h4>
       </div>
       {isOpen && (

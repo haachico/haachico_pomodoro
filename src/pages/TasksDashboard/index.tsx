@@ -8,10 +8,10 @@ import { Task } from "../../types";
 import { unwrapResult } from "@reduxjs/toolkit";
 import TasksGraph from "../../components/TasksGraph";
 import TasksDueDates from "../../components/TasksDueDates";
+import Sidebar from "../../components/Sidebar";
 
 const TasksDashboard = () => {
   const navigate = useNavigate();
-  // const tasksList = useSelector((state: RootState) => state.tasks.tasks);
   const [tasksList, setTasksList] = useState<Task[]>([]);
   const dispatch = useDispatch<AppDispatch>();
   const [showGraph, setShowGraph] = useState(false);
@@ -22,7 +22,7 @@ const TasksDashboard = () => {
       try {
         const response = await dispatch(fetchTasksThunk());
         const tasks = unwrapResult(response);
-        console.log(tasks, "tasks chek");
+        console.log(tasks, "tasks check");
         if (tasks) {
           setTasksList(tasks);
         }
@@ -32,7 +32,7 @@ const TasksDashboard = () => {
     };
 
     fetchTasks();
-  }, []);
+  }, [dispatch]);
 
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedStatus, setSelectedStatus] = useState<string>("");
@@ -88,16 +88,6 @@ const TasksDashboard = () => {
     ).length,
   };
 
-  // const filtersToShow = () => {
-  //   if (selectedCategory === "") {
-  //     return countCategories;
-  //   } else if (selectedCategory !== "" && selectedStatus === "") {
-  //     return countStatus;
-  //   } else {
-  //     return countPriority;
-  //   }
-  // };
-
   const handleFilterClick = (filter: string) => {
     if (selectedCategory === "") {
       setSelectedCategory(filter);
@@ -117,6 +107,14 @@ const TasksDashboard = () => {
 
   return (
     <div className="dashboard">
+      <Sidebar
+        openDueDates={() => {
+          setShowDueDates(true);
+        }}
+        openGraph={() => {
+          setShowGraph(true);
+        }}
+      />
       {showGraph && (
         <div>
           <TasksGraph
@@ -136,30 +134,6 @@ const TasksDashboard = () => {
         </div>
       )}
       <h2>Tasks Dashboard</h2>
-      <button
-        className="view-graph-btn"
-        onClick={() => {
-          setShowGraph(true);
-        }}
-      >
-        View Graph
-      </button>
-      <button
-        className="view-due-dates-btn"
-        onClick={() => {
-          setShowDueDates(true);
-        }}
-      >
-        View Due Dates
-      </button>
-      <button
-        className="view-all-btn"
-        onClick={() => {
-          navigate("/tasks");
-        }}
-      >
-        View all Tasks
-      </button>
       <div className="categories-cards">
         {selectedCategory === "" &&
           Object.entries(countCategories).map(([countText, count]) => (
@@ -182,9 +156,7 @@ const TasksDashboard = () => {
           selectedStatus === "" &&
           Object.entries(countStatus).map(([countText, count]) => (
             <div
-              className={`filter-card ${
-                countText === "in progress" ? "inProgress" : countText
-              }`}
+              className={`filter-card`}
               key={countText}
               onClick={() => handleFilterClick(countText)}
             >
@@ -231,15 +203,6 @@ const TasksDashboard = () => {
         }}
       >
         Back
-      </button>
-
-      <button
-        className="create-btn"
-        onClick={() => {
-          navigate("/createTask");
-        }}
-      >
-        Create Task
       </button>
     </div>
   );

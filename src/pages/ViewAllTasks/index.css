@@ -8,8 +8,8 @@
 .viewAll-page nav {
   display: flex;
   gap: 20px;
-  border-bottom: 2px solid var(--border-color);
-  border-top: none;
+  border: 2px solid var(--border-color);
+  border-width: 0 0 2px 0;
 }
 
 .viewAll-page nav h4 {
@@ -26,6 +26,11 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+}
+
+.view-all-nav-button {
+  width: 14rem;
+  margin-right: 10px;
 }
 
 .drop-down p {

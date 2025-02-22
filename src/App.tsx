@@ -35,9 +35,23 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const fetchQuote = async () => {
+      try {
+        const response = await fetch("https://type.fit/api/quotes");
+        const data = await response.json();
+        console.log(data, "quote data");
+      } catch (error) {
+        console.log(error, "error in quote");
+      }
+    };
+    fetchQuote();
+  }, []);
+
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in
+
         dispatch(setLoggedIn(true));
         sessionStorage.setItem("token", user.refreshToken);
       } else {

@@ -178,7 +178,7 @@ const ViewAllTasks = () => {
             display: "flex",
             gap: "10px",
             height: "100%",
-            width: "100%",
+            width: "8rem",
           }}
         >
           {(selectedStatus !== "All" ||
@@ -194,9 +194,15 @@ const ViewAllTasks = () => {
           </div>
         </div>
         {changeStatus ? (
-          <button onClick={() => setChangeStatus(false)}>View All</button>
+          <button
+            className="view-all-nav-button"
+            onClick={() => setChangeStatus(false)}
+          >
+            View All
+          </button>
         ) : (
           <button
+            className="view-all-nav-button"
             onClick={() => {
               setChangeStatus(true);
             }}

@@ -1,13 +1,11 @@
 .drag-n-drop-container {
   width: 1024px;
   margin: 0 auto;
-
 }
 
 .drag-n-drop {
   display: flex;
   justify-content: space-between;
-  
 }
 
 .dropzone {
@@ -18,6 +16,14 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+}
+
+.pending-tasks-body,
+.in-progress-tasks-body,
+.completed-tasks-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 /* .drag-n-drop div {
