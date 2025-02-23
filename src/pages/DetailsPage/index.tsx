@@ -1,8 +1,12 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import PomodoroPopup from "../../components/Pomodoro";
 import "./index.css";
-import { deleteTaskThunk } from "../../redux/tasks/tasksSlice";
+import {
+  deleteTaskThunk,
+  getTaskDetails,
+  getTaskDetailsThunk,
+} from "../../redux/tasks/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Task } from "../../types";
 import DeletePopup from "../../components/DeletePopup";
@@ -15,14 +19,17 @@ const DetailsPage = () => {
   const [showDeletePopup, setDeletePopup] = useState(false);
   const [showEditPopup, setEditPopup] = useState(false);
   const [showNote, setShowNote] = useState(false);
+  // const [task, setTask] = useState<Task | undefined>(undefined);
 
-  const tasks = useSelector((state: RootState) => state.tasks.tasks);
+  // const tasks = useSelector((state: RootState) => state.tasks.tasks);
   const { id } = useParams<{ id: string }>();
-  const task: Task | undefined = tasks.find((task) => task.id === id);
+  // const task: Task | undefined = tasks.find((task) => task.id === id);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  console.log(task, "task detail");
+  // console.log(task, "task detail");
+
+  const task = useLoaderData() as Task;
 
   const handleClose = () => {
     setOpenPomodoro(false);

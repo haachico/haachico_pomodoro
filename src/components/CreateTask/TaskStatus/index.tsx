@@ -60,7 +60,7 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
             setFilter("isCategoryFilterOpen", false);
             setFilter("selectedCategory", option);
           }}
-          selectedOption={selectedCategory}
+          selectedOption={payload.category || selectedCategory}
           normalisedStatus={normalisedStatus}
           source={"createTask"}
         />
@@ -79,7 +79,7 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
             setFilter("isPriorityFilterOpen", false);
             setFilter("selectedPriority", option);
           }}
-          selectedOption={selectedPriority}
+          selectedOption={payload.priority || selectedPriority}
           normalisedStatus={normalisedStatus}
           source={"createTask"}
         />

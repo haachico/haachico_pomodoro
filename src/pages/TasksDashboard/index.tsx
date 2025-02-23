@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import "./index.css";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store";
@@ -9,30 +9,33 @@ import { unwrapResult } from "@reduxjs/toolkit";
 import TasksGraph from "../../components/TasksGraph";
 import TasksDueDates from "../../components/TasksDueDates";
 import Sidebar from "../../components/Sidebar";
+import viewAllTasksLoader from "../../Loaders/viewAllTasksLoader";
 
 const TasksDashboard = () => {
   const navigate = useNavigate();
-  const [tasksList, setTasksList] = useState<Task[]>([]);
+  // const [tasksList, setTasksList] = useState<Task[]>([]);
   const dispatch = useDispatch<AppDispatch>();
   const [showGraph, setShowGraph] = useState(false);
   const [showDueDates, setShowDueDates] = useState(false);
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const response = await dispatch(fetchTasksThunk());
-        const tasks = unwrapResult(response);
-        console.log(tasks, "tasks check");
-        if (tasks) {
-          setTasksList(tasks);
-        }
-      } catch (error) {
-        console.error("Error fetching tasks", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchTasks = async () => {
+  //     try {
+  //       const response = await dispatch(fetchTasksThunk());
+  //       const tasks = unwrapResult(response);
+  //       console.log(tasks, "tasks check");
+  //       if (tasks) {
+  //         setTasksList(tasks);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching tasks", error);
+  //     }
+  //   };
 
-    fetchTasks();
-  }, [dispatch]);
+  //   fetchTasks();
+  // }, [dispatch]);
+
+  const tasksList = useLoaderData() as Task[];
 
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedStatus, setSelectedStatus] = useState<string>("");

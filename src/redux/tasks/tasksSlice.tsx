@@ -6,6 +6,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   Timestamp,
   updateDoc,
@@ -97,6 +98,24 @@ export const editTaskThunk = createAsyncThunk(
   }
 );
 
+export const getTaskDetailsThunk = createAsyncThunk(
+  "tasks/getTaskDetails",
+  async (taskId: string, { rejectWithValue }) => {
+    try {
+      if (!auth.currentUser) return rejectWithValue("User not authenticated");
+      const taskRef = doc(db, "users", auth.currentUser.uid, "tasks", taskId);
+      const taskSnap = await getDoc(taskRef);
+
+      if (taskSnap.exists()) {
+        return taskSnap.data();
+      } else {
+        return rejectWithValue("No such task!");
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 const tasksSlice = createSlice({
   name: "tasks",
   initialState,
@@ -138,12 +157,27 @@ const tasksSlice = createSlice({
     builder.addCase(fetchTasksThunk.fulfilled, (state, action) => {
       state.loading = false;
       state.error = null;
-      state.tasks = action.payload;
+      state.tasks = action.payload as Task[];
     });
-    builder.addCase(fetchTasksThunk.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message || "Failed to fetch tasks!";
-    });
+
+    // builder.addCase(getTaskDetailsThunk.rejected, (state, action) => {
+    //   state.loading = false;
+    //   state.error = action.error.message || "Failed to fetch tasks!";
+    // });
+
+    // builder.addCase(getTaskDetailsThunk.pending, (state) => {
+    //   state.loading = true;
+    //   state.error = null;
+    // });
+    // builder.addCase(getTaskDetailsThunk.fulfilled, (state, action) => {
+    //   state.loading = false;
+    //   state.error = null;
+    //   state.tasks = action.payload;
+    // });
+    // builder.addCase(getTaskDetailsThunk.rejected, (state, action) => {
+    //   state.loading = false;
+    //   state.error = action.error.message || "Failed to fetch tasks!";
+    // });
     builder.addCase(addTaskThunk.pending, (state) => {
       state.loading = true;
       state.error = null;
@@ -195,6 +229,6 @@ const tasksSlice = createSlice({
   },
 });
 
-export const { add, remove, edit, setLoggedIn } = tasksSlice.actions;
+export const { setLoggedIn } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

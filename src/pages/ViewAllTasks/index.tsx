@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import DashboardCard from "../../components/DashboardCard";
 import "./index.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import Dropdown from "../../components/commonComponents/Dropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
 import { fetchTasksThunk } from "../../redux/tasks/tasksSlice";
 import DragNDrop from "../../components/DragNDrop";
+import { Task } from "../../types";
 
 const ViewAllTasks = () => {
   const location = useLocation();
@@ -14,8 +15,9 @@ const ViewAllTasks = () => {
   const selectedPriorityFilter = location.state?.priority || "";
   const selectedCategoryFilter = location.state?.category || "";
   const [changeStatus, setChangeStatus] = useState(false);
-  const tasksList = useSelector((state: RootState) => state.tasks.tasks);
-  const dispatch = useDispatch<AppDispatch>();
+  // const tasksList = useSelector((state: RootState) => state.tasks.tasks);
+
+  // const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   const [filters, setFilters] = useState({
@@ -28,13 +30,7 @@ const ViewAllTasks = () => {
     selectedCategory: selectedCategoryFilter || "All",
   });
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      await dispatch(fetchTasksThunk());
-    };
-
-    fetchTasks();
-  }, []);
+  const tasksList = useLoaderData() as { tasks: Task[] };
 
   const setFilter = (key: string, value: any) => {
     setFilters((prevFilters) => ({
