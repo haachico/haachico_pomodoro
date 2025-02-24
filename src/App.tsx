@@ -17,6 +17,11 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import Signup from "./pages/Singup";
 import viewTaskDetailsLoader from "./Loaders/viewTaskDetailsLoader";
 import viewAllTasksLoader from "./Loaders/viewAllTasksLoader";
+import { useEffect } from "react";
+import { auth } from "./firebaseConfig";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "./store";
+import { setLoggedIn } from "./redux/tasks/tasksSlice";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +67,19 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  // const dispatch = useDispatch<AppDispatch>();
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       dispatch(setLoggedIn(true));
+  //     } else {
+  //       dispatch(setLoggedIn(false));
+  //     }
+  //   });
+
+  //   return () => unsubscribe();
+  // }, [dispatch]);
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="app">

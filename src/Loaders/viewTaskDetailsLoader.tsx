@@ -3,7 +3,10 @@ import { getStoreDispatch } from "../utils/getStoreDispatch";
 
 const viewTaskDetailsLoader = async ({ params }: any) => {
   const dispatch = getStoreDispatch();
-  const result = await dispatch(getTaskDetailsThunk(params.id));
+  const { id } = params;
+  const result = await dispatch(getTaskDetailsThunk(id));
+
+  console.log(result, "result");
   return result.payload;
 };
 

@@ -44,12 +44,11 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
     audioRef.current.pause();
     audioRef.current.currentTime = 0;
   };
-
+  console.log(task, "taskkkk");
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (isTimerActive) {
       if (isPomodoroTime && timeLeft > 0) {
-      
         timer = setTimeout(() => {
           setTimeLeft((prevTime) => prevTime - 1);
         }, 1000);
@@ -84,6 +83,7 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
             dispatch(
               editTaskThunk({
                 ...(task as Task),
+                status: "in progress",
                 pomodoroCount: newCount,
               })
             );
@@ -97,6 +97,7 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
     };
     updateTask();
   }, [pomodoroCount, dispatch, task, timeLeft, isPomodoroTime]);
+
   const handleTimeFormat = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -105,6 +106,8 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
       .toString()
       .padStart(2, "0")}`;
   };
+
+  console.log(isFullPage, startTime, "ddd");
   return (
     <div
       className={`${isFullPage ? "pomodoro-page" : "pomodoro-popup"}`}
@@ -117,26 +120,30 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
             right: "4px",
             top: "4px",
           }}
-          onClick={ async() => {
+          onClick={async () => {
             setShowNotification(false);
             setIsTimerActive(false);
-          
-              setEndTime(new Date());
-              
-              if ( task && startTime) {
-                const endTime = new Date();
-                const duration = (endTime.getTime() - startTime.getTime()) / 1000;
-          
-                await dispatch(
-                  editTaskThunk({
-                    ...task as Task,
-                    status: 'In Progress',
-                    pomodoroSessions: [
-                      ...(task.pomodoroSessions || []),
-                      { startTime: startTime.toISOString(), endTime: endTime.toISOString(), duration },
-                    ],
-                  })
-                );
+
+            setEndTime(new Date());
+
+            if (task && startTime) {
+              const endTime = new Date();
+              const duration = (endTime.getTime() - startTime.getTime()) / 1000;
+
+              await dispatch(
+                editTaskThunk({
+                  ...(task as Task),
+                  status: "in progress",
+                  pomodoroSessions: [
+                    ...(task.pomodoroSessions || []),
+                    {
+                      startTime: startTime.toISOString(),
+                      endTime: endTime.toISOString(),
+                      duration,
+                    },
+                  ],
+                })
+              );
             }
             onClose();
           }}
@@ -198,16 +205,15 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
         <div className="pomodoro-popup__timer__buttons">
           <button
             onClick={async () => {
-              if(!isFullPage){
-                setStartTime(new Date());
-                dispatch(
-                  editTaskThunk({
-                    ...(task as Task),
-                    status: "in progress",
-                  })
-                );
-        
-                }
+              console.log(isFullPage, task, "isfull");
+              console.log("worksss");
+              setStartTime(new Date());
+              await dispatch(
+                editTaskThunk({
+                  ...(task as Task),
+                  status: "in progress",
+                })
+              );
               setIsTimerActive(true);
             }}
           >

@@ -10,8 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Task } from "../../types";
 import DeletePopup from "../../components/DeletePopup";
-import EditPopup from "../../components/EditPopup";
-import { AppDispatch, RootState } from "../../store";
+import { AppDispatch } from "../../store";
 import { capitaliseHeading } from "../../utils";
 
 const DetailsPage = () => {
@@ -19,7 +18,8 @@ const DetailsPage = () => {
   const [showDeletePopup, setDeletePopup] = useState(false);
   const [showEditPopup, setEditPopup] = useState(false);
   const [showNote, setShowNote] = useState(false);
-  // const [task, setTask] = useState<Task | undefined>(undefined);
+
+  const [task, setTask] = useState<Task | undefined>(undefined);
 
   // const tasks = useSelector((state: RootState) => state.tasks.tasks);
   const { id } = useParams<{ id: string }>();
@@ -29,12 +29,27 @@ const DetailsPage = () => {
 
   // console.log(task, "task detail");
 
-  const task = useLoaderData() as Task;
+  // const task = useLoaderData() as Task;
+
+  useEffect(() => {
+    const fetchTask = async () => {
+      // if (!id) return;
+      try {
+        const task = await dispatch(getTaskDetailsThunk(id as string));
+        setTask(task.payload as Task);
+      } catch (error) {
+        console.error("Error fetching task", error);
+      }
+    };
+
+    fetchTask();
+  }, [openPomodoro, id, dispatch]);
 
   const handleClose = () => {
     setOpenPomodoro(false);
     setEditPopup(false);
   };
+  useEffect(() => {}, [openPomodoro]);
 
   const handleDeleteTask = async () => {
     try {
@@ -70,7 +85,26 @@ const DetailsPage = () => {
     return () => clearTimeout(showNotification);
   }, []);
 
-  const totalTimeSpent = task.pomodoroSessions?.reduce((total, session) => total + session.duration, 0) || 0;
+  function formatTime(seconds: number) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+
+    if (hours > 0) {
+      return `${hours} hour${hours !== 1 ? "s" : ""}, ${minutes} minute${
+        minutes !== 1 ? "s" : ""
+      }`;
+    } else {
+      return `${minutes} minute${minutes !== 1 ? "s" : ""}`;
+    }
+  }
+
+  const totalTimeSpent =
+    (task &&
+      task.pomodoroSessions?.reduce(
+        (total, session) => total + session.duration,
+        0
+      )) ||
+    0;
   return (
     <div className="details-page">
       {showNote && !task?.isPomodoroAllowed && (
@@ -118,10 +152,10 @@ const DetailsPage = () => {
         </p>
         <p>
           <span className="task-detail-value">
-            {totalTimeSpent} minutes
+            {formatTime(totalTimeSpent)}
           </span>
           <br />
-          <span className="task-detail-title">Status</span>
+          <span className="task-detail-title">Time spent</span>
         </p>
         <p>
           <span className="task-detail-value">

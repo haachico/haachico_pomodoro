@@ -78,41 +78,47 @@ export const deleteTaskThunk = createAsyncThunk(
     return id;
   }
 );
-
 export const editTaskThunk = createAsyncThunk(
   "tasks/editTask",
   async (task: Task) => {
-    if (!auth.currentUser) return;
-    const taskCollection = collection(
-      db,
-      "users",
-      auth.currentUser.uid,
-      "tasks"
-    );
-    const docRef = doc(taskCollection, task.id);
-    await updateDoc(docRef, {
-      ...task,
-      dueDate: Timestamp.fromDate(new Date(task.dueDate as string)), // Convert ISO string to Timestamp
-    });
-    return task;
+    console.log(task, "tasss");
+    try {
+      if (!auth.currentUser) throw new Error("User not authenticated");
+      const taskCollection = collection(
+        db,
+        "users",
+        auth.currentUser.uid,
+        "tasks"
+      );
+      const docRef = doc(taskCollection, task.id);
+      await updateDoc(docRef, {
+        ...task,
+        dueDate: Timestamp.fromDate(new Date(task.dueDate as string)), // Convert ISO string to Timestamp
+      });
+
+      console.log("Task edited successfully", task);
+      return task;
+    } catch (error) {
+      console.error("Error editing task", error);
+    }
   }
 );
 
 export const getTaskDetailsThunk = createAsyncThunk(
   "tasks/getTaskDetails",
   async (taskId: string, { rejectWithValue }) => {
-    try {
-      if (!auth.currentUser) return rejectWithValue("User not authenticated");
-      const taskRef = doc(db, "users", auth.currentUser.uid, "tasks", taskId);
-      const taskSnap = await getDoc(taskRef);
+    if (!auth.currentUser) return rejectWithValue("User not authenticated");
+    const taskRef = doc(db, "users", auth.currentUser.uid, "tasks", taskId);
+    const taskSnap = await getDoc(taskRef);
 
-      if (taskSnap.exists()) {
-        return taskSnap.data();
-      } else {
-        return rejectWithValue("No such task!");
-      }
-    } catch (error) {
-      return rejectWithValue(error.message);
+    if (taskSnap.exists()) {
+      return {
+        id: taskSnap.id,
+        ...taskSnap.data(),
+        dueDate: taskSnap.data().dueDate.toDate().toISOString(),
+      } as Task;
+    } else {
+      return rejectWithValue("No such task!");
     }
   }
 );
