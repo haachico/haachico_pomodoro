@@ -27,6 +27,8 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
   const [longBreakTimeLeft, setLongBreakTimeLeft] = useState(15 * 60);
   const [showNotification, setShowNotification] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
+  const [startTime, setStartTime] = useState<Date | null>(null);
+  const [endTime, setEndTime] = useState<Date | null>(null);
 
   const storedPomodoroCount = task && task.pomodoroCount;
 
@@ -47,6 +49,7 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
     let timer: NodeJS.Timeout;
     if (isTimerActive) {
       if (isPomodoroTime && timeLeft > 0) {
+      
         timer = setTimeout(() => {
           setTimeLeft((prevTime) => prevTime - 1);
         }, 1000);
@@ -67,6 +70,7 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
 
     return () => {
       clearTimeout(timer);
+      setEndTime(new Date());
     };
   }, [timeLeft, shortbreakTImeLeft, longBreakTimeLeft, isTimerActive]);
 
@@ -113,9 +117,27 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
             right: "4px",
             top: "4px",
           }}
-          onClick={() => {
+          onClick={ async() => {
             setShowNotification(false);
             setIsTimerActive(false);
+          
+              setEndTime(new Date());
+              
+              if ( task && startTime) {
+                const endTime = new Date();
+                const duration = (endTime.getTime() - startTime.getTime()) / 1000;
+          
+                await dispatch(
+                  editTaskThunk({
+                    ...task as Task,
+                    status: 'In Progress',
+                    pomodoroSessions: [
+                      ...(task.pomodoroSessions || []),
+                      { startTime: startTime.toISOString(), endTime: endTime.toISOString(), duration },
+                    ],
+                  })
+                );
+            }
             onClose();
           }}
         >
@@ -176,13 +198,17 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
         <div className="pomodoro-popup__timer__buttons">
           <button
             onClick={async () => {
+              if(!isFullPage){
+                setStartTime(new Date());
+                dispatch(
+                  editTaskThunk({
+                    ...(task as Task),
+                    status: "in progress",
+                  })
+                );
+        
+                }
               setIsTimerActive(true);
-              dispatch(
-                editTaskThunk({
-                  ...(task as Task),
-                  status: "in progress",
-                })
-              );
             }}
           >
             Start

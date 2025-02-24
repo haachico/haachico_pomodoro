@@ -70,6 +70,7 @@ const DetailsPage = () => {
     return () => clearTimeout(showNotification);
   }, []);
 
+  const totalTimeSpent = task.pomodoroSessions?.reduce((total, session) => total + session.duration, 0) || 0;
   return (
     <div className="details-page">
       {showNote && !task?.isPomodoroAllowed && (
@@ -111,6 +112,13 @@ const DetailsPage = () => {
         <p>
           <span className="task-detail-value">
             {capitaliseHeading(task?.status as string)}
+          </span>
+          <br />
+          <span className="task-detail-title">Status</span>
+        </p>
+        <p>
+          <span className="task-detail-value">
+            {totalTimeSpent} minutes
           </span>
           <br />
           <span className="task-detail-title">Status</span>

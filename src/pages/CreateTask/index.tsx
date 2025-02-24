@@ -44,6 +44,7 @@ const CreateTask: React.FC<CreateTaskProps> = ({ mode, task, id }) => {
     priority: filters.selectedPriority,
     category: filters.selectedCategory,
     isPomodoroAllowed: false,
+    pomodoroSessions: [],
   });
 
   console.log(payload);

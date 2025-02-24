@@ -1,5 +1,12 @@
 import { Timestamp } from "firebase/firestore";
 
+
+export type PomodoroSession = {
+  startTime: string;
+  endTime: string;
+  duration: number;
+};
+
 export type Task = {
   id: string;
   title: string;
@@ -12,6 +19,7 @@ export type Task = {
   priority: "medium" | "high" | "low" | "";
   category: string;
   isPomodoroAllowed: boolean;
+  pomodoroSessions?: PomodoroSession[];
 };
 
 export type Filters = {
