@@ -13,6 +13,8 @@ type DashboardCardProps = {
 
 const DashboardCard = ({ task, type }: DashboardCardProps) => {
   const { id, title, status, priority } = task;
+
+  console.log(task, "tassssssssssssssssss");
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -24,15 +26,15 @@ const DashboardCard = ({ task, type }: DashboardCardProps) => {
     }),
   }));
 
-  const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newStatus = e.target.value;
-    dispatch(
-      editTaskThunk({
-        ...task,
-        status: newStatus,
-      })
-    );
-  };
+  // const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   const newStatus = e.target.value;
+  //   dispatch(
+  //     editTaskThunk({
+  //       ...task,
+  //       status: newStatus,
+  //     })
+  //   );
+  // };
 
   return (
     <div

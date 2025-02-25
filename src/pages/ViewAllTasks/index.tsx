@@ -30,7 +30,9 @@ const ViewAllTasks = () => {
     selectedCategory: selectedCategoryFilter || "All",
   });
 
-  const tasksList = useLoaderData() as { tasks: Task[] };
+  const tasksList = useLoaderData() as Task[];
+
+  console.log(tasksList, "check thiss");
 
   const setFilter = (key: string, value: any) => {
     setFilters((prevFilters) => ({
@@ -230,7 +232,7 @@ const ViewAllTasks = () => {
           <div className="tasks-container">
             {" "}
             {searchedTasks.length > 0
-              ? searchedTasks.map((task) => <DashboardCard task={task} />)
+              ? searchedTasks.map((task: Task) => <DashboardCard task={task} />)
               : "No tasks found"}
           </div>
         )}
