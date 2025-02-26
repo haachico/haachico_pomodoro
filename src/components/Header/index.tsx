@@ -23,6 +23,8 @@ const Header = () => {
     }
   }, [dispatch, navigate]);
 
+  console.log(isLoggedIn, "isLoggedIn");
+
   return (
     <div className="header">
       <h1

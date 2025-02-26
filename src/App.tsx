@@ -17,11 +17,8 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import Signup from "./pages/Singup";
 import viewTaskDetailsLoader from "./Loaders/viewTaskDetailsLoader";
 import viewAllTasksLoader from "./Loaders/viewAllTasksLoader";
-import { useEffect } from "react";
-import { auth } from "./firebaseConfig";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "./store";
-import { setLoggedIn } from "./redux/tasks/tasksSlice";
+
+const onAuthStateChanged = (user: any) => {};
 
 const router = createBrowserRouter([
   {

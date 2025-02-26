@@ -41,6 +41,7 @@ export const fetchTasksThunk = createAsyncThunk(
       ...doc.data(),
       dueDate: doc.data().dueDate.toDate().toISOString(),
     })) as Task[];
+
     return tasksList;
   }
 );
@@ -81,7 +82,6 @@ export const deleteTaskThunk = createAsyncThunk(
 export const editTaskThunk = createAsyncThunk(
   "tasks/editTask",
   async (task: Task) => {
-    console.log(task, "tasss");
     try {
       if (!auth.currentUser) throw new Error("User not authenticated");
       const taskCollection = collection(
@@ -191,7 +191,7 @@ const tasksSlice = createSlice({
     builder.addCase(addTaskThunk.fulfilled, (state, action) => {
       state.loading = false;
       state.error = null;
-      state.tasks.push(action.payload);
+      state.tasks.push(action.payload as Task);
     });
     builder.addCase(addTaskThunk.rejected, (state, action) => {
       state.loading = false;

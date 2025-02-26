@@ -32,8 +32,6 @@ const ViewAllTasks = () => {
 
   const tasksList = useLoaderData() as Task[];
 
-  console.log(tasksList, "check thiss");
-
   const setFilter = (key: string, value: any) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
