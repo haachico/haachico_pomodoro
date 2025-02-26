@@ -8,15 +8,18 @@ import { AppDispatch, RootState } from "../../store";
 import { fetchTasksThunk } from "../../redux/tasks/tasksSlice";
 import DragNDrop from "../../components/DragNDrop";
 import { Task } from "../../types";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
 
 const ViewAllTasks = () => {
+  const taskState = useSelector((state: RootState) => state.tasks.tasks);
   const location = useLocation();
   const selectedStatusFilter = location.state?.status || "All";
   const selectedPriorityFilter = location.state?.priority || "";
   const selectedCategoryFilter = location.state?.category || "";
   const [changeStatus, setChangeStatus] = useState(false);
-  const tasks = useSelector((state: RootState) => state.tasks.tasks);
-  const [tasksList, setTasksList] = useState<Task[]>([]);
+
+  // const [tasksList, setTasksList] = useState<Task[]>([]);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
@@ -30,21 +33,25 @@ const ViewAllTasks = () => {
     selectedCategory: selectedCategoryFilter || "All",
   });
 
-  const fetchedTasks = useLoaderData() as Task[];
+  const tasksList = useLoaderData() as Task[];
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const response = await dispatch(fetchTasksThunk()).unwrap();
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       dispatch(fetchTasksThunk())
+  //         .unwrap()
+  //         .then((response) => {
+  //           console.log(response, "ss");
+  //           setTasksList(response as Task[]);
+  //         })
+  //         .catch((error) => {
+  //           console.error("Error fetching tasks", error);
+  //         });
+  //     }
+  //   });
 
-        setTasksList(response as Task[]);
-      } catch (error) {
-        console.error("Error fetching tasks", error);
-      }
-    };
-
-    fetchTasks();
-  }, []);
+  //   return () => unsubscribe(); // Cleanup listener
+  // }, [dispatch]);
 
   const setFilter = (key: string, value: any) => {
     setFilters((prevFilters) => ({
@@ -239,7 +246,7 @@ const ViewAllTasks = () => {
         }}
       >
         {changeStatus ? (
-          <DragNDrop tasks={tasksList} />
+          <DragNDrop tasks={taskState} />
         ) : (
           <div className="tasks-container">
             {" "}
