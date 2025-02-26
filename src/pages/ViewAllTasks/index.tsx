@@ -15,9 +15,9 @@ const ViewAllTasks = () => {
   const selectedPriorityFilter = location.state?.priority || "";
   const selectedCategoryFilter = location.state?.category || "";
   const [changeStatus, setChangeStatus] = useState(false);
-  // const tasksList = useSelector((state: RootState) => state.tasks.tasks);
-
-  // const dispatch = useDispatch<AppDispatch>();
+  const tasks = useSelector((state: RootState) => state.tasks.tasks);
+  const [tasksList, setTasksList] = useState<Task[]>([]);
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   const [filters, setFilters] = useState({
@@ -30,7 +30,21 @@ const ViewAllTasks = () => {
     selectedCategory: selectedCategoryFilter || "All",
   });
 
-  const tasksList = useLoaderData() as Task[];
+  const fetchedTasks = useLoaderData() as Task[];
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await dispatch(fetchTasksThunk()).unwrap();
+
+        setTasksList(response as Task[]);
+      } catch (error) {
+        console.error("Error fetching tasks", error);
+      }
+    };
+
+    fetchTasks();
+  }, []);
 
   const setFilter = (key: string, value: any) => {
     setFilters((prevFilters) => ({

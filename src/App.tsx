@@ -17,8 +17,12 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import Signup from "./pages/Singup";
 import viewTaskDetailsLoader from "./Loaders/viewTaskDetailsLoader";
 import viewAllTasksLoader from "./Loaders/viewAllTasksLoader";
-
-const onAuthStateChanged = (user: any) => {};
+import { setLoggedIn } from "./redux/tasks/tasksSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "./store";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebaseConfig";
+import { useEffect } from "react";
 
 const router = createBrowserRouter([
   {
@@ -64,7 +68,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  // const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
   // useEffect(() => {
   //   const unsubscribe = auth.onAuthStateChanged((user) => {
   //     if (user) {
@@ -77,6 +81,23 @@ function App() {
   //   return () => unsubscribe();
   // }, [dispatch]);
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in
+
+        dispatch(setLoggedIn(true));
+        sessionStorage.setItem("token", user.refreshToken);
+      } else {
+        // User is signed out
+        dispatch(setLoggedIn(false));
+        sessionStorage.removeItem("token");
+      }
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, [dispatch]);
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="app">
