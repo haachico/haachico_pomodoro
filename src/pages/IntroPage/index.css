@@ -1,12 +1,12 @@
 .intro-page {
   width: 1024px;
   margin: 0 auto;
-  height: calc(100vh - 101px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: var(--text-primary);
+  font-family: "Poppins", sans-serif;
 }
 
 .intro-buttons {
@@ -16,5 +16,53 @@
 }
 
 .intro-buttons button {
+  padding: 20px 40px; /* Increased padding for larger buttons */
+  font-size: 20px; /* Increased font size */
   border: 2px solid var(--border-color);
+  cursor: pointer;
+}
+
+.features,
+.testimonials,
+.faq,
+.contact {
+  margin-top: 40px;
+}
+
+h2 {
+  font-size: 28px; /* Increased font size for subheadings */
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style-type: disc;
+  margin-left: 20px;
+  font-size: 18px; /* Increased font size for list items */
+}
+
+blockquote {
+  font-style: italic;
+  margin: 10px 0;
+  font-size: 18px; /* Increased font size for blockquotes */
+}
+
+cite {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 16px; /* Increased font size for citations */
+}
+
+details {
+  margin-bottom: 10px;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 18px; /* Increased font size for summary */
+}
+
+.contact p {
+  margin: 5px 0;
+  font-size: 18px; /* Increased font size for contact information */
 }

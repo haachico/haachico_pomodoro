@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store";
 import { editTaskThunk } from "../../redux/tasks/tasksSlice";
 import pomodoroSound from "../../assets/audio/pomodoro.mp3";
+import { useNavigate } from "react-router-dom";
 
 type PomodoroPopupProps = {
   onClose: () => void;
@@ -29,6 +30,8 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
   const dispatch = useDispatch<AppDispatch>();
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [endTime, setEndTime] = useState<Date | null>(null);
+
+  const navigate = useNavigate();
 
   const storedPomodoroCount = task && task.pomodoroCount;
 
@@ -146,6 +149,7 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
               );
             }
             onClose();
+            navigate(`/task/${task?.id}`);
           }}
         >
           X

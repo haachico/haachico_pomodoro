@@ -10,6 +10,7 @@ import DragNDrop from "../../components/DragNDrop";
 import { Task } from "../../types";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
+import searchIcon from "../../assets/searchIcon.svg";
 
 const ViewAllTasks = () => {
   const taskState = useSelector((state: RootState) => state.tasks.tasks);
@@ -200,14 +201,19 @@ const ViewAllTasks = () => {
         >
           {(selectedStatus !== "All" ||
             selectedPriority !== "All" ||
-            inputField) && <div onClick={handleClearFilters}>Clear</div>}
+            inputField) && (
+            <div className="clear-btn" onClick={handleClearFilters}>
+              Clear
+            </div>
+          )}
+
           <div
             onClick={(e) => {
               e.stopPropagation();
               setFilter("isSearchBarOpen", (prev: boolean) => !prev);
             }}
           >
-            Search
+            <img src={searchIcon} alt="search icon" />
           </div>
         </div>
         {changeStatus ? (
@@ -228,7 +234,7 @@ const ViewAllTasks = () => {
           </button>
         )}
       </nav>
-      <div ref={searchBarRef}>
+      <div ref={searchBarRef} className="search-bar-container">
         {isSearchBarOpen && (
           <input
             onChange={handleSearch}

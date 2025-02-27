@@ -19,7 +19,7 @@ const DetailsPage = () => {
   const [showEditPopup, setEditPopup] = useState(false);
   const [showNote, setShowNote] = useState(false);
 
-  const [task, setTask] = useState<Task | undefined>(undefined);
+  // const [task, setTask] = useState<Task | undefined>(undefined);
 
   // const tasks = useSelector((state: RootState) => state.tasks.tasks);
   const { id } = useParams<{ id: string }>();
@@ -29,21 +29,21 @@ const DetailsPage = () => {
 
   // console.log(task, "task detail");
 
-  // const task = useLoaderData() as Task;
+  const task = useLoaderData() as Task;
 
-  useEffect(() => {
-    const fetchTask = async () => {
-      // if (!id) return;
-      try {
-        const task = await dispatch(getTaskDetailsThunk(id as string));
-        setTask(task.payload as Task);
-      } catch (error) {
-        console.error("Error fetching task", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchTask = async () => {
+  //     // if (!id) return;
+  //     try {
+  //       const task = await dispatch(getTaskDetailsThunk(id as string));
+  //       setTask(task.payload as Task);
+  //     } catch (error) {
+  //       console.error("Error fetching task", error);
+  //     }
+  //   };
 
-    fetchTask();
-  }, [openPomodoro, id, dispatch]);
+  //   fetchTask();
+  // }, [openPomodoro, id, dispatch]);
 
   const handleClose = () => {
     setOpenPomodoro(false);

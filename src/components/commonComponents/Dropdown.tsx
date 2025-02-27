@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import "./Dropdown.css";
 import { capitaliseHeading } from "../../utils";
+import dropDown from "../../assets/downArrow.svg";
 
 type DropdownProps = {
   label: string;
@@ -57,12 +58,20 @@ const Dropdown: React.FC<DropdownProps> = ({
         cursor: "pointer",
       }}
     >
-      <div>
+      <div className="dropdown-header">
         <h4>
           {selectedOption !== ""
             ? `${capitaliseHeading(selectedOption)}`
             : `Select ${label}`}
         </h4>
+        <img
+          src={dropDown}
+          alt="dropdown"
+          style={{
+            transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+            filter: "invert(100%)",
+          }}
+        />
       </div>
       {isOpen && (
         <div

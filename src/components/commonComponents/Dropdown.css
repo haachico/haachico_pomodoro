@@ -49,3 +49,10 @@
   padding: 5px;
   opacity: 0.9;
 }
+
+.dropdown-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
