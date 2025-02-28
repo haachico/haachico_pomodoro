@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import DashboardCard from "../../components/DashboardCard";
 import "./index.css";
 import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
@@ -34,25 +34,23 @@ const ViewAllTasks = () => {
     selectedCategory: selectedCategoryFilter || "All",
   });
 
-  const tasksList = useLoaderData() as Task[];
+  function arraysEqual(arr1: Task[], arr2: Task[]) {
+    return (
+      arr1.length === arr2.length &&
+      arr1.every((value, index) => value === arr2[index])
+    );
+  }
 
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       dispatch(fetchTasksThunk())
-  //         .unwrap()
-  //         .then((response) => {
-  //           console.log(response, "ss");
-  //           setTasksList(response as Task[]);
-  //         })
-  //         .catch((error) => {
-  //           console.error("Error fetching tasks", error);
-  //         });
-  //     }
-  //   });
+  const tasks = useSelector((state: RootState) => state.tasks.tasks);
 
-  //   return () => unsubscribe(); // Cleanup listener
-  // }, [dispatch]);
+  const tasksFetched = useLoaderData() as Task[];
+  const [tasksList, setTasksList] = useState<Task[]>(tasksFetched);
+
+  useEffect(() => {
+    if (!arraysEqual(tasks, tasksList)) {
+      setTasksList(tasks);
+    }
+  }, [tasks]);
 
   const setFilter = (key: string, value: any) => {
     setFilters((prevFilters) => ({

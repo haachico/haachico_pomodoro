@@ -4,9 +4,13 @@ import "./index.css";
 
 const Layout = () => {
   return (
-    <div className="main-body ">
-      <Header />
-      <Outlet />
+    <div className="main-body">
+      <div className="header">
+        <Header />
+      </div>
+      <div className="content">
+        <Outlet />
+      </div>
     </div>
   );
 };

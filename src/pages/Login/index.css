@@ -54,11 +54,11 @@
   background-color: #8a4820;
 }
 
-.login-form button:last-child {
+.google-signin-btn {
   background-color: #c16e3e;
 }
 
-.login-form button:last-child:hover {
+.google-signin-btn:hover {
   background-color: #a04e30;
 }
 

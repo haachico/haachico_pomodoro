@@ -53,9 +53,9 @@ const Header = () => {
           )}
         </div>
 
-        <NavLink className="about" to="aboutus">
+        {/* <NavLink className="about" to="aboutus">
           About
-        </NavLink>
+        </NavLink> */}
       </div>
     </div>
   );

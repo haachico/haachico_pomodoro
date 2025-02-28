@@ -16,13 +16,14 @@ const DragNDrop: React.FC<DragNDropProps> = ({ tasks }) => {
   const [{ isOver: isOverAdded }, dropAdded] = useDrop(
     () => ({
       accept: "TASK",
-      drop: (task: Task) =>
+      drop: (task: Task) => {
         dispatch(
           editTaskThunk({
             ...task,
             status: "pending",
           })
-        ),
+        );
+      },
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),
       }),

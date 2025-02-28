@@ -1,17 +1,24 @@
+import { redirect } from "react-router";
 import { auth } from "../firebaseConfig";
 import { fetchTasksThunk } from "../redux/tasks/tasksSlice";
 import { getStoreDispatch } from "../utils/getStoreDispatch";
 import { onAuthStateChanged } from "firebase/auth";
 
 const waitForAuth = (): Promise<void> => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      reject(new Error("Auth timed out"));
+    }, 5000);
+
     if (auth.currentUser) {
       resolve();
+      clearTimeout(timeout);
     } else {
       const unsubscribe = onAuthStateChanged(auth, (user) => {
         if (user) {
           resolve();
           unsubscribe();
+          clearTimeout(timeout);
         }
       });
     }
@@ -19,7 +26,12 @@ const waitForAuth = (): Promise<void> => {
 };
 
 const viewAllTasksLoader = async () => {
-  await waitForAuth();
+  try {
+    await waitForAuth();
+  } catch (error) {
+    console.error(error);
+    return { redirect: "/login" };
+  }
 
   const dispatch = getStoreDispatch();
   try {
