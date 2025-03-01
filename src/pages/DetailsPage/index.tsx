@@ -27,8 +27,6 @@ const DetailsPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  // console.log(task, "task detail");
-
   const task = useLoaderData() as Task;
 
   // useEffect(() => {

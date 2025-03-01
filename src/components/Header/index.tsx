@@ -6,6 +6,8 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 import { setLoggedIn } from "../../redux/tasks/tasksSlice";
 import { useCallback } from "react";
+import loginIcon from "../../assets/loginIcon.svg";
+import logoutIcon from "../../assets/logoutIcon.svg";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -23,8 +25,6 @@ const Header = () => {
     }
   }, [dispatch, navigate]);
 
-  console.log(isLoggedIn, "isLoggedIn");
-
   return (
     <div className="header">
       <h1
@@ -32,23 +32,21 @@ const Header = () => {
           navigate("/");
         }}
       >
-        haachicoductive
+        haachidoro
       </h1>
       {/* <NavLink to="">Tasks</NavLink> */}
       <div className="nav-links">
-        <div>
+        <div className="auth-container">
           {isLoggedIn ? (
-            <h3
-              className="logout"
-              onClick={() => {
-                handleLogout();
-              }}
-            >
-              Log out
-            </h3>
+            <img
+              className="auth-icon"
+              src={logoutIcon}
+              alt="Logout"
+              onClick={handleLogout} // No need for an extra function
+            />
           ) : (
-            <NavLink className="login" to="/login">
-              Log in
+            <NavLink className="auth-link" to="/login">
+              <img className="auth-icon" src={loginIcon} alt="Login" />
             </NavLink>
           )}
         </div>

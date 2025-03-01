@@ -15,7 +15,7 @@
   /* opacity: 0.8; */
 }
 
-.viewAll::after {
+.view-all::after {
   content: "";
   position: absolute;
   right: 0;
@@ -26,7 +26,7 @@
   background-color: var(--border-color); /* Use the desired border color */
 }
 
-.viewAll {
+.view-all {
   width: 12rem;
   border-radius: 0px;
   border-top: none;
@@ -35,7 +35,7 @@
 
 .drop-down {
   position: absolute;
-  top: 80px;
+  top: 77px;
   right: 0px;
 
   border-radius: 0px 0px 8px 8px;

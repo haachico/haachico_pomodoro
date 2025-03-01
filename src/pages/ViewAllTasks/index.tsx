@@ -1,15 +1,12 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DashboardCard from "../../components/DashboardCard";
 import "./index.css";
 import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import Dropdown from "../../components/commonComponents/Dropdown";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store";
-import { fetchTasksThunk } from "../../redux/tasks/tasksSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 import DragNDrop from "../../components/DragNDrop";
 import { Task } from "../../types";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebaseConfig";
 import searchIcon from "../../assets/searchIcon.svg";
 
 const ViewAllTasks = () => {
@@ -20,8 +17,6 @@ const ViewAllTasks = () => {
   const selectedCategoryFilter = location.state?.category || "";
   const [changeStatus, setChangeStatus] = useState(false);
 
-  // const [tasksList, setTasksList] = useState<Task[]>([]);
-  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   const [filters, setFilters] = useState({
@@ -70,6 +65,7 @@ const ViewAllTasks = () => {
   } = filters;
 
   const searchBarRef = useRef<HTMLDivElement | null>(null);
+  const searchIconRef = useRef<HTMLDivElement | null>(null);
   const [inputField, setInputField] = useState<string>("");
 
   const statuses: string[] = ["All", "Pending", "Completed", "In Progress"];
@@ -82,7 +78,9 @@ const ViewAllTasks = () => {
     const handleOutsideClick = (e: MouseEvent) => {
       if (
         searchBarRef.current &&
-        !searchBarRef.current.contains(e.target as Node)
+        !searchBarRef.current.contains(e.target as Node) &&
+        searchIconRef.current &&
+        !searchIconRef.current.contains(e.target as Node)
       ) {
         setFilter("isSearchBarOpen", false);
       }
@@ -100,8 +98,6 @@ const ViewAllTasks = () => {
       ? str.split("-").join("").toLowerCase()
       : str.split(" ").join("").toLowerCase();
 
-  console.log(selectedCategory, "cje");
-
   const displayTasks = tasksList.filter((task) => {
     const categoryMatch =
       selectedCategory === "All" ||
@@ -116,7 +112,6 @@ const ViewAllTasks = () => {
     return categoryMatch && statusMatch && priorityMatch;
   });
 
-  console.log(displayTasks, selectedStatusFilter, "check");
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputField(e.target.value);
   };
@@ -136,8 +131,6 @@ const ViewAllTasks = () => {
     setInputField("");
     navigate(".", { replace: true, state: {} });
   };
-
-  console.log(tasksList, "tasksList");
 
   return (
     <div className="viewAll-page">
@@ -208,8 +201,9 @@ const ViewAllTasks = () => {
           <div
             onClick={(e) => {
               e.stopPropagation();
-              setFilter("isSearchBarOpen", (prev: boolean) => !prev);
+              setFilter("isSearchBarOpen", isSearchBarOpen ? false : true);
             }}
+            ref={searchIconRef}
           >
             <img src={searchIcon} alt="search icon" />
           </div>

@@ -1,48 +1,14 @@
 import { useState } from "react";
 import "./index.css";
 import { auth } from "../../firebaseConfig";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
-} from "firebase/auth";
-import { ActionFunctionArgs, Form, useActionData } from "react-router-dom";
-
-export async function action({ request }: ActionFunctionArgs) {
-  const formData = await request.formData();
-  const email = formData.get("email");
-  const password = formData.get("password");
-  const formType = formData.get("formType");
-
-  if (!email || !password) {
-    return { error: "Please fill out all required fields." };
-  }
-
-  try {
-    if (formType === "login") {
-      const user = await signInWithEmailAndPassword(auth, email, password);
-      return user
-        ? { redirect: "/pomodoros/dashboard" }
-        : { error: "Invalid email or password." };
-    } else {
-      const userCred = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      return userCred
-        ? { redirect: "/pomodoros/dashboard" }
-        : { error: "Failed to create account." };
-    }
-  } catch (error) {
-    return { error: error.message || "An error occurred." };
-  }
-}
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { Form, useActionData, useNavigation } from "react-router-dom";
 
 const Login = () => {
   const [isType, setIsType] = useState("login");
   const actionData = useActionData();
+  const navigation = useNavigation();
+  const errorMessage = actionData?.error;
 
   const handleGoogleSignIn = async () => {
     try {
@@ -54,9 +20,18 @@ const Login = () => {
     }
   };
 
+  const buttonText = () => {
+    if (isType === "login") {
+      return navigation?.state === "submitting" ? "Logging in..." : "Log In";
+    } else if (isType === "signup") {
+      return navigation?.state === "submitting" ? "Signing up..." : "Sign Up";
+    }
+  };
+
   return (
     <div className="login-page">
       <h1>{isType === "login" ? "Log In" : "Sign Up"}</h1>
+      {errorMessage && <p className="errorMessage">{errorMessage}</p>}
       <Form method="post" className="login-form">
         <input type="hidden" name="formType" value={isType} />
         <label htmlFor="email">Email</label>
@@ -65,8 +40,8 @@ const Login = () => {
         <label htmlFor="password">Password</label>
         <input type="password" id="password" name="password" required />
 
-        <button type="submit">
-          {isType === "login" ? "Log in" : "Sign up"}
+        <button disabled={navigation.state === "submitting"} type="submit">
+          {buttonText()}
         </button>
       </Form>
 

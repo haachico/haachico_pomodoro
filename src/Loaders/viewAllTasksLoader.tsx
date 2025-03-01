@@ -8,7 +8,7 @@ const waitForAuth = (): Promise<void> => {
   return new Promise((resolve, reject) => {
     const timeout = setTimeout(() => {
       reject(new Error("Auth timed out"));
-    }, 5000);
+    }, 2000);
 
     if (auth.currentUser) {
       resolve();

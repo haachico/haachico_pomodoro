@@ -28,8 +28,6 @@ const TasksGraph = ({ onClose }: TasksGraphProps) => {
     { name: "Pending", value: pendingCount },
   ];
 
-  console.log(data, "data");
-
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28"];
   return (
     <div className="tasks-graph">

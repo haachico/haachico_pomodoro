@@ -30,19 +30,22 @@ const Dropdown: React.FC<DropdownProps> = ({
     const handleOutsideClick = (e: MouseEvent) => {
       if (
         dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node) &&
-        isOpen
+        !dropdownRef.current.contains(e.target as Node)
       ) {
         onToggle();
       }
     };
 
-    document.addEventListener("mousedown", handleOutsideClick);
+    if (isOpen) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    } else {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    }
 
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [isOpen, onToggle]);
+  }, [isOpen]);
 
   // const normalised =
   //   normalisedStatus || ((status: string) => status.toLowerCase());
@@ -51,14 +54,20 @@ const Dropdown: React.FC<DropdownProps> = ({
     <div
       ref={dropdownRef}
       className={`dropdown-mainContainer ${
-        source === "viewAll" ? "viewAll" : "createTask"
+        source === "viewAll" ? "view-all" : "createTask"
       }`}
-      onClick={onToggle}
       style={{
         cursor: "pointer",
+        borderRadius: isOpen ? "10px 10px 0 0" : "10px",
       }}
     >
-      <div className="dropdown-header">
+      <div
+        className="dropdown-header"
+        onClick={(e) => {
+          e.stopPropagation();
+          onToggle();
+        }}
+      >
         <h4>
           {selectedOption !== ""
             ? `${capitaliseHeading(selectedOption)}`
@@ -81,7 +90,7 @@ const Dropdown: React.FC<DropdownProps> = ({
               source === "viewAll"
                 ? "95%"
                 : source === "createTask"
-                ? "97%"
+                ? "97.8%"
                 : "100%",
           }}
         >

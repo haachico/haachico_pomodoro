@@ -87,18 +87,21 @@ function IntroPage() {
       <section className="contact">
         <h2>Contact Us</h2>
         <p>
-          If you have any questions or feedback, feel free to reach out to us at
-          support@productivityapp.com.
+          If you have any questions or feedback, feel free to reach out to us at{" "}
+          <a href="mailto:nile10kokare@gmail.com" className="email-link">
+            nile10kokare@gmail.com
+          </a>
+          .
         </p>
       </section>
 
       {/* Footer Section */}
       <footer className="footer">
         <p>&copy; 2025 Productivity App. All rights reserved.</p>
-        <nav>
+        {/* <nav>
           <a href="/privacy-policy">Privacy Policy</a> |{" "}
           <a href="/terms-of-service">Terms of Service</a>
-        </nav>
+        </nav> */}
       </footer>
     </div>
   );

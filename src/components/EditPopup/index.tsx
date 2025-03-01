@@ -73,15 +73,12 @@ const EditPopup: React.FC<EditPopupProps> = ({ task, onClose }) => {
   };
   const handleSaveDetails = async () => {
     try {
-      console.log(editDetials, "editTaskThunk");
       await dispatch(editTaskThunk(editDetials));
 
       await dispatch(fetchTasksThunk());
       onClose();
-      console.log("Task edited successfully");
     } catch (error) {
       console.error("Error editing task", error);
-      console.log("Task editing failed");
     }
   };
 

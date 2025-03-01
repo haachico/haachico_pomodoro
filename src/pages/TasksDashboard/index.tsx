@@ -143,7 +143,7 @@ const TasksDashboard = () => {
             <div
               className={`filter-card ${countText}`}
               key={countText}
-              onClick={() => handleFilterClick(countText)}
+              onClick={() => count > 0 && handleFilterClick(countText)}
             >
               <h4>{count}</h4>
               <p>
@@ -161,7 +161,7 @@ const TasksDashboard = () => {
             <div
               className={`filter-card`}
               key={countText}
-              onClick={() => handleFilterClick(countText)}
+              onClick={() => count > 0 && handleFilterClick(countText)}
             >
               <h4>{count}</h4>
               <p>
@@ -179,7 +179,7 @@ const TasksDashboard = () => {
             <div
               className={`filter-card ${countText}`}
               key={countText}
-              onClick={() => handleFilterClick(countText)}
+              onClick={() => count > 0 && handleFilterClick(countText)}
             >
               <h4>{count}</h4>
               <p>
@@ -204,6 +204,7 @@ const TasksDashboard = () => {
             setSelectedCategory("");
           }
         }}
+        className="back-button"
       >
         Back
       </button>

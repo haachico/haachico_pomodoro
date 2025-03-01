@@ -19,7 +19,7 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
   isFullPage,
   task,
 }) => {
-  const [timeLeft, setTimeLeft] = useState(10);
+  const [timeLeft, setTimeLeft] = useState(25 * 60);
   const [isTimerActive, setIsTimerActive] = useState(false);
   const [isPomodoroTime, setIsPomodoroTime] = useState(true);
   const [isShortBreak, setIsShortBreak] = useState(false);
@@ -47,7 +47,6 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
     audioRef.current.pause();
     audioRef.current.currentTime = 0;
   };
-  console.log(task, "taskkkk");
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (isTimerActive) {
@@ -110,7 +109,6 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
       .padStart(2, "0")}`;
   };
 
-  console.log(isFullPage, startTime, "ddd");
   return (
     <div
       className={`${isFullPage ? "pomodoro-page" : "pomodoro-popup"}`}
@@ -209,8 +207,6 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
         <div className="pomodoro-popup__timer__buttons">
           <button
             onClick={async () => {
-              console.log(isFullPage, task, "isfull");
-              console.log("worksss");
               setStartTime(new Date());
               await dispatch(
                 editTaskThunk({

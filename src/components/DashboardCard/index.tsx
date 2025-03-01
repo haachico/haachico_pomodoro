@@ -14,7 +14,6 @@ type DashboardCardProps = {
 const DashboardCard = ({ task, type }: DashboardCardProps) => {
   const { id, title, status, priority } = task;
 
-  console.log(task, "tassssssssssssssssss");
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 

@@ -14,8 +14,6 @@ function EditTask() {
     (task: Task) => task.id == params.id
   );
 
-  console.log({ tasks, params, task }, "edit task");
-
   return (
     <div>
       <CreateTask mode="edit" task={task} id={params.id} />

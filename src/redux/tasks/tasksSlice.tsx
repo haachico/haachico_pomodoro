@@ -96,7 +96,6 @@ export const editTaskThunk = createAsyncThunk(
         dueDate: Timestamp.fromDate(new Date(task.dueDate as string)), // Convert ISO string to Timestamp
       });
 
-      console.log("Task edited successfully", task);
       return task;
     } catch (error) {
       console.error("Error editing task", error);

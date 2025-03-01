@@ -14,7 +14,7 @@ import AuthGuard from "./components/AuthGuard";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-import Signup from "./pages/Singup";
+// import Signup from "./pages/Singup";
 import viewTaskDetailsLoader from "./Loaders/viewTaskDetailsLoader";
 import viewAllTasksLoader from "./Loaders/viewAllTasksLoader";
 import { setLoggedIn } from "./redux/tasks/tasksSlice";
@@ -23,6 +23,7 @@ import { AppDispatch } from "./store";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebaseConfig";
 import { useEffect } from "react";
+import { action } from "./actions/authAction";
 
 const router = createBrowserRouter([
   {
@@ -61,8 +62,8 @@ const router = createBrowserRouter([
       },
       { path: "aboutus", element: <AboutPage /> },
       { path: "pomodoro", element: <PomodoroPage /> },
-      { path: "login", element: <Login /> },
-      { path: "signup", element: <Signup /> },
+      { path: "login", element: <Login />, action },
+      // { path: "signup", element: <Signup />, action },
     ],
   },
 ]);

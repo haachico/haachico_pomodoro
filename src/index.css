@@ -31,10 +31,8 @@
   --pending-color: #ff7ca4;
 
   /* Button Colors */
-  --button-primary: #d9a83e; /* Deep Gold (Matches primary) */
-  --button-primary-hover: #b3782d; /* Darker Deep Gold */
-  --button-secondary: #c16e3e; /* Muted Terracotta (Unchanged) */
-  --button-secondary-hover: #a04e30; /* Darker Terracotta */
+  --button-primary: #b3782d; /* Deep Gold (Matches primary) */
+  --button-primary-hover: #a04e30; /* Darker Deep Gold */
   --button-text-color: #ffffff; /* White for contrast */
 }
 

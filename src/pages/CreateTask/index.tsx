@@ -8,11 +8,12 @@ import {
   editTaskThunk,
   fetchTasksThunk,
 } from "../../redux/tasks/tasksSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../store";
 import "react-toggle/style.css"; // Import the CSS file for react-toggle
-import { Box, Step, StepLabel, Stepper, StepButton } from "@mui/material";
+import { Box, Step, Stepper, StepButton } from "@mui/material";
+import { useDelayUnmount } from "../../components/common/useDelayUnmount";
 // import { Timestamp } from "firebase/firestore";
 
 type CreateTaskProps = {
@@ -31,7 +32,8 @@ const CreateTask: React.FC<CreateTaskProps> = ({ mode, task, id }) => {
     selectedCategory: "",
   });
   const [enableNextBtn, setEnableNextBtn] = useState<boolean>(false);
-
+  const [isMounted, setIsMounted] = useState<boolean>(true);
+  const [direction, setDirection] = useState<"next" | "prev">("next");
   const [payload, setPayload] = useState<CreateTaskType>({
     // id: "",
     title: "",
@@ -47,7 +49,11 @@ const CreateTask: React.FC<CreateTaskProps> = ({ mode, task, id }) => {
     pomodoroSessions: [],
   });
 
-  console.log(payload);
+  const { shouldRender, animationClass } = useDelayUnmount(
+    isMounted,
+    270,
+    direction
+  );
 
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -59,8 +65,6 @@ const CreateTask: React.FC<CreateTaskProps> = ({ mode, task, id }) => {
   }, [mode, task]);
 
   const { title, description } = payload;
-
-  console.log(payload, "payload");
 
   useEffect(() => {
     if (activeStep === 0) {
@@ -107,9 +111,20 @@ const CreateTask: React.FC<CreateTaskProps> = ({ mode, task, id }) => {
     }
   };
 
+  const toggleMounting = () => {
+    setIsMounted(false);
+    setTimeout(() => {
+      setIsMounted(true);
+    }, 270);
+  };
+
   const handlePrevClick = () => {
     if (activeStep > 0) {
-      setActiveStep((prev) => prev - 1);
+      setDirection("prev");
+      toggleMounting();
+      setTimeout(() => {
+        setActiveStep((prev) => prev - 1);
+      }, 270);
     } else {
       navigate("/pomodoros/dashboard");
     }
@@ -117,7 +132,11 @@ const CreateTask: React.FC<CreateTaskProps> = ({ mode, task, id }) => {
 
   const handleNextClick = () => {
     if (activeStep < steps.length - 1) {
-      setActiveStep((prev) => prev + 1);
+      setDirection("next");
+      toggleMounting();
+      setTimeout(() => {
+        setActiveStep((prev) => prev + 1);
+      }, 270);
     }
   };
 
@@ -133,12 +152,9 @@ const CreateTask: React.FC<CreateTaskProps> = ({ mode, task, id }) => {
     try {
       const response = await dispatch(addTaskThunk(newTask));
       await dispatch(fetchTasksThunk());
-      console.log("newTask", response);
       navigate("/pomodoros/dashboard");
-      console.log("success");
     } catch (error) {
       console.error("Failed to create task:", error);
-      console.log("error");
     }
   };
   const handleEdit = async () => {
@@ -199,18 +215,18 @@ const CreateTask: React.FC<CreateTaskProps> = ({ mode, task, id }) => {
           <Stepper nonLinear activeStep={activeStep}>
             {steps.map((label, index) => (
               <Step key={label} completed={activeStep > index}>
-                <StepButton color="inherit" onClick={handleStep(index)}>
-                  {label}
-                </StepButton>
+                <StepButton disabled>{label}</StepButton>
               </Step>
             ))}
           </Stepper>
         </Box>
       </div>
       <div>
-        <div>
-          {mode === "edit" && task ? displayComponent() : displayComponent()}
-        </div>
+        {shouldRender && (
+          <div className={`transition-container ${animationClass}`}>
+            {mode === "edit" && task ? displayComponent() : displayComponent()}
+          </div>
+        )}
       </div>
     </div>
   );

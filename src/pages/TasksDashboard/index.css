@@ -109,3 +109,11 @@
   left: 90px;
   bottom: 90px;
 }
+
+.back-button {
+  background-color: var(--button-primary);
+}
+
+.back-button:hover {
+  background-color: var(--button-primary-hover);
+}

@@ -7,7 +7,7 @@ const waitForAuth = (): Promise<void> => {
   return new Promise((resolve, reject) => {
     const timeout = setTimeout(() => {
       reject(new Error("Auth timed out"));
-    }, 5000);
+    }, 2000);
 
     if (auth.currentUser) {
       resolve();
@@ -35,7 +35,6 @@ const viewTaskDetailsLoader = async ({ params }: any) => {
   const { id } = params;
   const result = await dispatch(getTaskDetailsThunk(id));
 
-  console.log(result, "result");
   return result.payload;
 };
 

@@ -17,4 +17,66 @@
 .navigation-buttons button {
   border-radius: 0px;
   margin-bottom: 10px;
+  background-color: var(--button-primary);
+  transition: background-color 0.3s ease;
+}
+
+.navigation-buttons button:hover {
+  background-color: var(--button-primary-hover);
+}
+
+.mountedRight {
+  opacity: 0;
+  transform: translateX(50%);
+  animation: slideInRight 0.6s forwards;
+}
+
+.unmountedRight {
+  opacity: 1;
+  transform: translateX(0%);
+  animation: slideOutRight 0.6s forwards;
+}
+
+.mountedLeft {
+  opacity: 0;
+  transform: translateX(-100%);
+  animation: slideInLeft 0.6s forwards;
+}
+
+.unmountedLeft {
+  opacity: 1;
+  transform: translateX(0%);
+  animation: slideOutLeft 0.6s forwards;
+}
+
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slideOutRight {
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+@keyframes slideInLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slideOutLeft {
+  to {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
 }
