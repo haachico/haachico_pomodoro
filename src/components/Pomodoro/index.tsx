@@ -116,6 +116,7 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
     >
       {!isFullPage && (
         <button
+          className="close-pomodoro-button"
           style={{
             position: "absolute",
             right: "4px",

@@ -68,3 +68,12 @@
 .pomodoro-popup__timer__buttons button:hover {
   background-color: var(--button-primary-hover);
 }
+
+.close-pomodoro-button {
+  background-color: var(--button-primary);
+  transition: background-color 0.3s ease;
+}
+
+.close-pomodoro-button:hover {
+  background-color: var(--button-primary-hover);
+}
