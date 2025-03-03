@@ -13,8 +13,14 @@ const Login = () => {
   const handleGoogleSignIn = async () => {
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
-      window.location.href = "/pomodoros/dashboard"; // Redirect on success
+      const user = await signInWithPopup(auth, provider);
+      if (user) {
+        sessionStorage.setItem(
+          "displayName",
+          user.user.displayName || user.user.email || ""
+        );
+      }
+      window.location.href = "/pomodoros/dashboard";
     } catch (error) {
       console.error("Google sign-in failed:", error);
     }
@@ -51,12 +57,13 @@ const Login = () => {
         <button disabled={navigation.state === "submitting"} type="submit">
           {buttonText()}
         </button>
-        <button onClick={handleGoogleSignIn} className="google-signin-btn">
-          Sign in with Google
-        </button>
       </Form>
 
       {actionData?.error && <p className="error">{actionData.error}</p>}
+
+      <button onClick={handleGoogleSignIn} className="google-signin-btn">
+        Sign in with Google
+      </button>
 
       <div>
         {isType === "login" ? (

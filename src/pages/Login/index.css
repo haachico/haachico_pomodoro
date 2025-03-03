@@ -56,6 +56,10 @@
 
 .google-signin-btn {
   background-color: #c16e3e;
+  width: 350px;
+  margin-top: 20px;
+  transition: background 0.3s ease;
+  border-radius: 5px;
 }
 
 .google-signin-btn:hover {
