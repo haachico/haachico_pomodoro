@@ -30,7 +30,6 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
   const [showNotification, setShowNotification] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const [startTime, setStartTime] = useState<Date | null>(null);
-  const [endTime, setEndTime] = useState<Date | null>(null);
 
   const navigate = useNavigate();
 
@@ -72,7 +71,7 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
 
     return () => {
       clearTimeout(timer);
-      setEndTime(new Date());
+      // setEndTime(new Date());
     };
   }, [timeLeft, shortbreakTImeLeft, longBreakTimeLeft, isTimerActive]);
 
@@ -127,7 +126,7 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
             setShowNotification(false);
             setIsTimerActive(false);
 
-            setEndTime(new Date());
+            // setEndTime(new Date());
 
             if (task && startTime) {
               const endTime = new Date();

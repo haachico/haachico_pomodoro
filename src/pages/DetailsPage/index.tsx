@@ -12,7 +12,7 @@ import { capitaliseHeading } from "../../utils";
 const DetailsPage = () => {
   const [openPomodoro, setOpenPomodoro] = useState(false);
   const [showDeletePopup, setDeletePopup] = useState(false);
-  const [showEditPopup, setEditPopup] = useState(false);
+  // const [showEditPopup, setEditPopup] = useState(false);
   const [showNote, setShowNote] = useState(false);
 
   // const [task, setTask] = useState<Task | undefined>(undefined);
@@ -41,7 +41,7 @@ const DetailsPage = () => {
 
   const handleClose = () => {
     setOpenPomodoro(false);
-    setEditPopup(false);
+    // setEditPopup(false);
   };
   useEffect(() => {}, [openPomodoro]);
 

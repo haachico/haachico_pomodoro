@@ -39,7 +39,7 @@ const TasksDashboard = () => {
 
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedStatus, setSelectedStatus] = useState<string>("");
-  const [selectedPriority, setSelectedPriority] = useState<string>("");
+  // const [selectedPriority, setSelectedPriority] = useState<string>("");
 
   const countCategories: {
     [key: string]: number;
@@ -97,7 +97,7 @@ const TasksDashboard = () => {
     } else if (selectedCategory !== "" && selectedStatus === "") {
       setSelectedStatus(filter);
     } else {
-      setSelectedPriority(filter);
+      // setSelectedPriority(filter);
       navigate("/tasks", {
         state: {
           category: selectedCategory,
