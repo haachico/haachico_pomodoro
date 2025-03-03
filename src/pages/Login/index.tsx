@@ -34,6 +34,14 @@ const Login = () => {
       {errorMessage && <p className="errorMessage">{errorMessage}</p>}
       <Form method="post" className="login-form">
         <input type="hidden" name="formType" value={isType} />
+
+        {isType === "signup" && (
+          <>
+            <label htmlFor="username">Username</label>
+            <input type="username" id="username" name="username" required />
+          </>
+        )}
+
         <label htmlFor="email">Email</label>
         <input type="email" id="email" name="email" required />
 
@@ -43,13 +51,12 @@ const Login = () => {
         <button disabled={navigation.state === "submitting"} type="submit">
           {buttonText()}
         </button>
+        <button onClick={handleGoogleSignIn} className="google-signin-btn">
+          Sign in with Google
+        </button>
       </Form>
 
       {actionData?.error && <p className="error">{actionData.error}</p>}
-
-      <button onClick={handleGoogleSignIn} className="google-signin-btn">
-        Sign in with Google
-      </button>
 
       <div>
         {isType === "login" ? (

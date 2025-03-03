@@ -25,6 +25,8 @@ const Header = () => {
     }
   }, [dispatch, navigate]);
 
+  const displayName = sessionStorage.getItem("displayName");
+
   return (
     <div className="header">
       <h1
@@ -36,6 +38,7 @@ const Header = () => {
       </h1>
       {/* <NavLink to="">Tasks</NavLink> */}
       <div className="nav-links">
+        {isLoggedIn && <h4>Hi, {displayName}</h4>}
         <div className="auth-container">
           {isLoggedIn ? (
             <img
