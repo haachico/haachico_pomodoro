@@ -1,4 +1,3 @@
-import React from "react";
 import CreateTask from "../CreateTask";
 import { Task } from "../../types";
 import { useSelector } from "react-redux";

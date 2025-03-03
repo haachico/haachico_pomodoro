@@ -15,7 +15,7 @@ type TaskStatusProps = {
     selectedPriority: string;
     selectedCategory: string;
   };
-  setFilter: (key: string, value: unknown) => void;
+  setFilter: (key: string, value: string | boolean) => void;
   payload: CreateTaskType;
   setPayload: React.Dispatch<React.SetStateAction<CreateTaskType>>;
 };

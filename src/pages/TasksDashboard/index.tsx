@@ -1,20 +1,20 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import "./index.css";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../store";
-import { useEffect, useState } from "react";
-import { fetchTasksThunk } from "../../redux/tasks/tasksSlice";
+// import { useDispatch } from "react-redux";
+// import { AppDispatch } from "../../store";
+import { useState } from "react";
+// import { fetchTasksThunk } from "../../redux/tasks/tasksSlice";
 import { Task } from "../../types";
-import { unwrapResult } from "@reduxjs/toolkit";
+// import { unwrapResult } from "@reduxjs/toolkit";
 import TasksGraph from "../../components/TasksGraph";
 import TasksDueDates from "../../components/TasksDueDates";
 import Sidebar from "../../components/Sidebar";
-import viewAllTasksLoader from "../../Loaders/viewAllTasksLoader";
+// import viewAllTasksLoader from "../../Loaders/viewAllTasksLoader";
 
 const TasksDashboard = () => {
   const navigate = useNavigate();
   // const [tasksList, setTasksList] = useState<Task[]>([]);
-  const dispatch = useDispatch<AppDispatch>();
+  // const dispatch = useDispatch<AppDispatch>();
   const [showGraph, setShowGraph] = useState(false);
   const [showDueDates, setShowDueDates] = useState(false);
 

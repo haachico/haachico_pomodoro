@@ -47,7 +47,7 @@ const ViewAllTasks = () => {
     }
   }, [tasks]);
 
-  const setFilter = (key: string, value: any) => {
+  const setFilter = (key: string, value: string | boolean) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
       [key]: value,

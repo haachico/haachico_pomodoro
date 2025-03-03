@@ -1,6 +1,3 @@
-import { Timestamp } from "firebase/firestore";
-
-
 export type PomodoroSession = {
   startTime: string;
   endTime: string;

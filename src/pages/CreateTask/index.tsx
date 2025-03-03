@@ -84,7 +84,7 @@ const CreateTask: React.FC<CreateTaskProps> = ({ mode, task, id }) => {
     }
   }, [payload, activeStep, filters]);
 
-  const setFilter = (key: string, value: any) => {
+  const setFilter = (key: string, value: string | boolean) => {
     setFilters((prevState) => {
       return {
         ...prevState,
@@ -150,7 +150,7 @@ const CreateTask: React.FC<CreateTaskProps> = ({ mode, task, id }) => {
     };
 
     try {
-      const response = await dispatch(addTaskThunk(newTask));
+      await dispatch(addTaskThunk(newTask));
       await dispatch(fetchTasksThunk());
       navigate("/pomodoros/dashboard");
     } catch (error) {

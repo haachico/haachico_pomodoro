@@ -1,4 +1,3 @@
-import { redirect } from "react-router";
 import { auth } from "../firebaseConfig";
 import { fetchTasksThunk } from "../redux/tasks/tasksSlice";
 import { getStoreDispatch } from "../utils/getStoreDispatch";

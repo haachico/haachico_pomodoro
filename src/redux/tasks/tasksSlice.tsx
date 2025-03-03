@@ -217,7 +217,7 @@ const tasksSlice = createSlice({
       state.loading = false;
       state.error = null;
       state.tasks = state.tasks.map((task) => {
-        if (task.id === action.payload.id) {
+        if (action.payload && task.id === action.payload.id) {
           return {
             ...task,
             ...action.payload,
