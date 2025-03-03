@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import { Task } from "../../types";

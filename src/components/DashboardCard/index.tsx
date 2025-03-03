@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./index.css";
-import { AppDispatch } from "../../store";
-import { useDispatch } from "react-redux";
-import { editTaskThunk } from "../../redux/tasks/tasksSlice";
+// import { AppDispatch } from "../../store";
+// import { useDispatch } from "react-redux";
 import { Task } from "../../types";
 import { useDrag } from "react-dnd";
 
@@ -15,7 +14,7 @@ const DashboardCard = ({ task, type }: DashboardCardProps) => {
   const { id, title, status, priority } = task;
 
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
+  // const dispatch = useDispatch<AppDispatch>();
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "TASK",

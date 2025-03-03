@@ -2,12 +2,8 @@ import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import PomodoroPopup from "../../components/Pomodoro";
 import "./index.css";
-import {
-  deleteTaskThunk,
-  getTaskDetails,
-  getTaskDetailsThunk,
-} from "../../redux/tasks/tasksSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { deleteTaskThunk } from "../../redux/tasks/tasksSlice";
+import { useDispatch } from "react-redux";
 import { Task } from "../../types";
 import DeletePopup from "../../components/DeletePopup";
 import { AppDispatch } from "../../store";

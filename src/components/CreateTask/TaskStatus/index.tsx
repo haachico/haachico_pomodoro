@@ -15,7 +15,7 @@ type TaskStatusProps = {
     selectedPriority: string;
     selectedCategory: string;
   };
-  setFilter: (key: string, value: any) => void;
+  setFilter: (key: string, value: unknown) => void;
   payload: CreateTaskType;
   setPayload: React.Dispatch<React.SetStateAction<CreateTaskType>>;
 };
@@ -33,7 +33,7 @@ const TaskStatus: React.FC<TaskStatusProps> = ({
     selectedCategory,
   } = filters;
 
-  const statuses: string[] = ["Pending", "Completed", "In Progress"];
+  // const statuses: string[] = ["Pending", "Completed", "In Progress"];
   const priority: string[] = ["Low", "Medium", "High"];
   const categories: string[] = ["Work", "Personal", "Study"];
 

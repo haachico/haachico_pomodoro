@@ -140,9 +140,9 @@ const CreateTask: React.FC<CreateTaskProps> = ({ mode, task, id }) => {
     }
   };
 
-  const handleStep = (step: number) => () => {
-    setActiveStep(step);
-  };
+  // const handleStep = (step: number) => () => {
+  //   setActiveStep(step);
+  // };
 
   const handleCreateTask = async () => {
     const newTask: CreateTaskType = {

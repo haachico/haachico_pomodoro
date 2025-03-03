@@ -1,6 +1,6 @@
 import { useDrop } from "react-dnd";
 import { editTaskThunk } from "../../redux/tasks/tasksSlice";
-import { CreateTaskType, Task } from "../../types";
+import { Task } from "../../types";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store";
 import "./index.css";
