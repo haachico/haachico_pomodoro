@@ -1,0 +1,55 @@
+/* Overlay to blur the background */
+
+/* Popup container */
+.notification {
+  background: #5e3d2e; /* Warm Cream (from your app's theme) */
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 320px;
+  max-width: 90%;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Title */
+.notification h3 {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Text */
+.notification p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* Close button */
+.close-button {
+  background: var(--button-primary); /* Deep Gold (from your app's theme) */
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease-in-out;
+}
+
+.close-button:hover {
+  background: #8a4820; /* Darker gold on hover */
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

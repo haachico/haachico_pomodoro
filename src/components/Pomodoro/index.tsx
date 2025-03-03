@@ -7,6 +7,7 @@ import { AppDispatch } from "../../store";
 import { editTaskThunk } from "../../redux/tasks/tasksSlice";
 import pomodoroSound from "../../assets/audio/pomodoro.mp3";
 import { useNavigate } from "react-router-dom";
+import PomodoroTimeup from "../PomodoroTimeup";
 
 type PomodoroPopupProps = {
   onClose: () => void;
@@ -19,7 +20,7 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
   isFullPage,
   task,
 }) => {
-  const [timeLeft, setTimeLeft] = useState(25 * 60);
+  const [timeLeft, setTimeLeft] = useState(10);
   const [isTimerActive, setIsTimerActive] = useState(false);
   const [isPomodoroTime, setIsPomodoroTime] = useState(true);
   const [isShortBreak, setIsShortBreak] = useState(false);
@@ -232,35 +233,16 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
           </button>
         </div>
         {showNotification && (
-          <div className="notification">
-            <h3>Time's up!</h3>
-            <p>
-              {" "}
-              {isPomodoroTime
-                ? "Pomodoro session is up! Time to take a break!"
-                : isLongBreak || isShortBreak
-                ? "Break is over! Time to get back to work"
-                : ""}
-            </p>
-            <button
-              onClick={() => {
-                stopSound();
-                setShowNotification(false);
-                if (isPomodoroTime) {
-                  setTimeLeft(25 * 60);
-                }
-                if (isShortBreak) {
-                  setShortBreakTimeLeft(5 * 60);
-                }
-
-                if (isLongBreak) {
-                  setLongBreakTimeLeft(15 * 60);
-                }
-              }}
-            >
-              Close
-            </button>
-          </div>
+          <PomodoroTimeup
+            setTimeLeft={setTimeLeft}
+            setShortBreakTimeLeft={setShortBreakTimeLeft}
+            setLongBreakTimeLeft={setLongBreakTimeLeft}
+            isPomodoroTime={isPomodoroTime}
+            isShortBreak={isShortBreak}
+            isLongBreak={isLongBreak}
+            setShowNotification={setShowNotification}
+            stopSound={stopSound}
+          />
         )}
       </div>
       <div className="spotify-embed">
