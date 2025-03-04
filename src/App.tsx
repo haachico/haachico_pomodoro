@@ -24,6 +24,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebaseConfig";
 import { useEffect } from "react";
 import { action } from "./actions/authAction";
+import NoPageFound from "./pages/NoPageFound";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +64,7 @@ const router = createBrowserRouter([
       { path: "aboutus", element: <AboutPage /> },
       { path: "pomodoro", element: <PomodoroPage /> },
       { path: "login", element: <Login />, action },
+      { path: "*", element: <NoPageFound /> },
       // { path: "signup", element: <Signup />, action },
     ],
   },

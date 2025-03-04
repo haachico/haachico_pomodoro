@@ -8,6 +8,7 @@ import { RootState } from "../../store";
 import DragNDrop from "../../components/DragNDrop";
 import { Task } from "../../types";
 import searchIcon from "../../assets/searchIcon.svg";
+import noTaskFound from "../../assets/noTask.svg";
 
 const ViewAllTasks = () => {
   const taskState = useSelector((state: RootState) => state.tasks.tasks);
@@ -248,9 +249,14 @@ const ViewAllTasks = () => {
         ) : (
           <div className="tasks-container">
             {" "}
-            {searchedTasks.length > 0
-              ? searchedTasks.map((task: Task) => <DashboardCard task={task} />)
-              : "No tasks found"}
+            {searchedTasks.length > 0 ? (
+              searchedTasks.map((task: Task) => <DashboardCard task={task} />)
+            ) : (
+              <div className="no-task-found">
+                <img src={noTaskFound} alt="no task found" />
+                <h2>No tasks found</h2>
+              </div>
+            )}
           </div>
         )}
       </div>

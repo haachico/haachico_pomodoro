@@ -20,7 +20,7 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
   isFullPage,
   task,
 }) => {
-  const [timeLeft, setTimeLeft] = useState(10);
+  const [timeLeft, setTimeLeft] = useState(60 * 25);
   const [isTimerActive, setIsTimerActive] = useState(false);
   const [isPomodoroTime, setIsPomodoroTime] = useState(true);
   const [isShortBreak, setIsShortBreak] = useState(false);
