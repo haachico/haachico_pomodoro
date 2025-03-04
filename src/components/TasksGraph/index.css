@@ -21,4 +21,10 @@
   position: absolute;
   right: 10px;
   top: 10px;
+  background-color: var(--button-primary);
+  transition: background-color 0.3s ease;
+}
+
+.graph-close-btn:hover {
+  background-color: var(--button-primary-hover);
 }

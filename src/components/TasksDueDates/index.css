@@ -21,18 +21,30 @@
   position: absolute;
   right: 10px;
   top: 10px;
+  background-color: var(--button-primary);
+  transition: background-color 0.3s ease;
 }
 
 .date-next-btn {
   position: absolute;
   right: 10px;
   bottom: 10px;
+  background-color: var(--button-primary);
+  transition: background-color 0.3s ease;
 }
 
 .date-prev-btn {
   position: absolute;
   left: 10px;
   bottom: 10px;
+  background-color: var(--button-primary);
+  transition: background-color 0.3s ease;
+}
+
+.date-next-btn:hover,
+.date-prev-btn:hover,
+.dueDates-btn-close:hover {
+  background-color: var(--button-primary-hover);
 }
 /* .tasks-due-dates-container button {
   margin: 5px;
