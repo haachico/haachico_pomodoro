@@ -22,6 +22,8 @@
   border: none;
   cursor: pointer;
   text-align: center;
+  border: 2px solid var(--border-color);
+
 }
 
 .sidebar-btn:hover {

@@ -23,6 +23,7 @@
   top: 10px;
   background-color: var(--button-primary);
   transition: background-color 0.3s ease;
+  border: 1px solid var(--popup-btn-border-color)
 }
 
 .graph-close-btn:hover {

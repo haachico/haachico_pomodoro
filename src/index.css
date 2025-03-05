@@ -13,6 +13,7 @@
   /* Neutral Colors */
   --background-color: #fffae5; /* Warm Cream (Unchanged) */
   --border-color: #000000; /* Muted Grayish Brown (Softer than black for warm tones) */
+  --popup-btn-border-color: #ffffff;
 
   /* Text Colors (Better readability on warm tones) */
   --text-primary: #333333; /* Dark Gray (Unchanged) */
