@@ -13,6 +13,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 10px;
+  border: 2px solid var(--popup-border-color);
 }
 
 .delete-popup-buttons {
@@ -29,6 +30,7 @@
   cursor: pointer;
   background-color: var(--button-primary);
   transition: background-color 0.3s ease;
+  border: 1px solid var(--popup-border-color) !important;
 }
 
 .delete-popup-buttons button:hover {

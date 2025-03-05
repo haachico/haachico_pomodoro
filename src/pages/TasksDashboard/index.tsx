@@ -49,8 +49,6 @@ const TasksDashboard = () => {
     study: tasksList.filter((task) => task.category === "study").length,
   };
 
-  console.log(selectedStatus, selectedCategory, selectedCategory, "selected");
-
   const countStatus = {
     pending: tasksList.filter(
       (task) =>
@@ -119,7 +117,7 @@ const TasksDashboard = () => {
         }}
       />
       {showGraph && (
-        <div>
+        <div className="graph-container">
           <TasksGraph
             onClose={() => {
               setShowGraph(false);
@@ -128,7 +126,7 @@ const TasksDashboard = () => {
         </div>
       )}
       {showDueDates && (
-        <div>
+        <div className="due-dates-container">
           <TasksDueDates
             onClose={() => {
               setShowDueDates(false);

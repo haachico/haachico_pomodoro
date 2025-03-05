@@ -1,6 +1,6 @@
 .tasks-graph {
   background-color: #5e3d2e;
-  color: #000000;
+  color: #ffffff;
   padding: 20px;
   height: 400px;
   width: 500px;
@@ -14,6 +14,7 @@
   align-items: center;
   border-radius: 10px;
   z-index: 9999;
+  border: 2px solid var(--popup-border-color);
   /* position: relative; */
 }
 
@@ -23,6 +24,7 @@
   top: 10px;
   background-color: var(--button-primary);
   transition: background-color 0.3s ease;
+  border: 1px solid var(--popup-border-color) !important;
 }
 
 .graph-close-btn:hover {
