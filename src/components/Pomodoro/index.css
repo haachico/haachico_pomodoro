@@ -64,6 +64,7 @@
 .pomodoro-popup__timer__buttons button {
   background-color: var(--button-primary);
   transition: background-color 0.3s ease;
+  border: 1px solid var(--popup-btn-border-color);
 }
 
 .pomodoro-popup__timer__buttons button:hover {
@@ -73,6 +74,7 @@
 .close-pomodoro-button {
   background-color: var(--button-primary);
   transition: background-color 0.3s ease;
+  border: 1px solid var(--popup-btn-border-color);
 }
 
 .close-pomodoro-button:hover {

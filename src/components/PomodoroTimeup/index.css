@@ -36,6 +36,7 @@
   cursor: pointer;
   font-size: 14px;
   transition: background 0.2s ease-in-out;
+  border: 1px solid var(--popup-btn-border-color);
 }
 
 .close-button:hover {
