@@ -66,6 +66,7 @@ const DragNDrop: React.FC<DragNDropProps> = ({ tasks }) => {
   );
   return (
     <div className="drag-n-drop-container">
+      <p className="drag-drop-info">You can drag and drop the cards to change their status.</p>
       <div className="drag-n-drop">
         <div
           ref={dropAdded}
