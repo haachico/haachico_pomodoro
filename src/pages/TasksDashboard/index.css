@@ -114,3 +114,17 @@
 .back-button:hover {
   background-color: var(--button-primary-hover);
 }
+
+.graph-container,
+.due-dates-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8); /* Equivalent to bg-[#000] bg-opacity-80 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}

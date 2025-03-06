@@ -56,12 +56,12 @@ function IntroPage() {
         <blockquote>
           "This app has transformed the way I work. My productivity has soared!"
         </blockquote>
-        <cite>- Alex P.</cite>
+        <cite>- Naman Gaikwad.</cite>
         <blockquote>
           "The Pomodoro timer keeps me on track throughout the day. Highly
           recommend!"
         </blockquote>
-        <cite>- Jamie L.</cite>
+        <cite>- Yash Jangle.</cite>
       </section>
 
       {/* FAQ Section */}
@@ -70,7 +70,7 @@ function IntroPage() {
         <details>
           <summary>How do I create a new task?</summary>
           <p>
-            Navigate to the task manager and click on 'Add New Task' to get
+            Navigate to the task manager and click on 'Create Task' to get
             started.
           </p>
         </details>

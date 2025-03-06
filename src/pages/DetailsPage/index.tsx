@@ -151,6 +151,17 @@ const DetailsPage = () => {
           <br />
           <span className="task-detail-title">Time spent</span>
         </p>
+
+        <p>
+          <span className="task-detail-value">{task?.pomodoroCount || 0}</span>
+          <br />
+          <span className="task-detail-title">Pomodoros done</span>
+        </p>
+        <p>
+          <span className="task-detail-value">{task?.pomodoroTarget || 0}</span>
+          <br />
+          <span className="task-detail-title">Pomodoro goals</span>
+        </p>
         <p>
           <span className="task-detail-value">
             {capitaliseHeading(task?.category as string)}

@@ -36,7 +36,6 @@ export async function action({ request }: ActionFunctionArgs) {
         email,
         password
       );
-      console.log(userLoggedin, "user");
       sessionStorage.setItem(
         "displayName",
         userLoggedin.user.displayName || userLoggedin.user.email || ""

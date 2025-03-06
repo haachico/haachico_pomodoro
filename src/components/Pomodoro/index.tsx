@@ -164,6 +164,9 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
             setLongBreakTimeLeft(15 * 60);
             setIsTimerActive(false);
           }}
+          style={{
+            border: isFullPage ? "2px solid #000000" : "2px solid #ffffff",
+          }}
         >
           Timer
         </h4>
@@ -176,6 +179,9 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
             setLongBreakTimeLeft(15 * 60);
             setIsTimerActive(false);
           }}
+          style={{
+            border: isFullPage ? "2px solid #000000" : "2px solid #ffffff",
+          }}
         >
           Short break
         </h4>
@@ -187,6 +193,9 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
             setTimeLeft(25 * 60);
             setShortBreakTimeLeft(5 * 60);
             setIsTimerActive(false);
+          }}
+          style={{
+            border: isFullPage ? "2px solid #000000" : "2px solid #ffffff",
           }}
         >
           Long break
@@ -217,6 +226,9 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
               );
               setIsTimerActive(true);
             }}
+            style={{
+              border: isFullPage ? "2px solid #000000" : "2px solid #ffffff",
+            }}
           >
             Start
           </button>
@@ -226,6 +238,9 @@ const PomodoroPopup: React.FC<PomodoroPopupProps> = ({
               setTimeLeft(25 * 60);
               setShortBreakTimeLeft(5 * 60);
               setLongBreakTimeLeft(15 * 60);
+            }}
+            style={{
+              border: isFullPage ? "2px solid #000000" : "2px solid #ffffff",
             }}
           >
             Reset
