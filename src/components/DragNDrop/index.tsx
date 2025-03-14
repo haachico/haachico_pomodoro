@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store";
 import "./index.css";
 import DashboardCard from "../DashboardCard";
+import DragNDropContainer from "../DragNDropContainer";
+import { useState } from "react";
 
 type DragNDropProps = {
   tasks: Task[];
@@ -13,102 +15,30 @@ type DragNDropProps = {
 const DragNDrop: React.FC<DragNDropProps> = ({ tasks }) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const [{ isOver: isOverAdded }, dropAdded] = useDrop(
-    () => ({
-      accept: "TASK",
-      drop: (task: Task) => {
-        dispatch(
-          editTaskThunk({
-            ...task,
-            status: "pending",
-          })
-        );
-      },
-      collect: (monitor) => ({
-        isOver: !!monitor.isOver(),
-      }),
-    }),
-    [tasks]
-  );
+  const [isDragging, setIsDragging] = useState(false);
 
-  const [{ isOver: isOverStarted }, dropStarted] = useDrop(
-    () => ({
-      accept: "TASK",
-      drop: (task: Task) =>
-        dispatch(
-          editTaskThunk({
-            ...task,
-            status: "in progress",
-          })
-        ),
-      collect: (monitor) => ({
-        isOver: !!monitor.isOver(),
-      }),
-    }),
-    [tasks]
-  );
+  const handledDragging = (dragging: boolean) => setIsDragging(dragging);
 
-  const [{ isOver: isOverCompleted }, dropCompleted] = useDrop(
-    () => ({
-      accept: "TASK",
-      drop: (task: Task) =>
-        dispatch(
-          editTaskThunk({
-            ...task,
-            status: "completed",
-          })
-        ),
-      collect: (monitor) => ({
-        isOver: !!monitor.isOver(),
-      }),
-    }),
-    [tasks]
-  );
+  const statuses: ("Pending" | "In Progress" | "Completed")[] = [
+    "Pending",
+    "In Progress",
+    "Completed",
+  ];
+
   return (
     <div className="drag-n-drop-container">
       <div className="drag-n-drop">
-        <div
-          ref={dropAdded}
-          className="dropzone"
-          style={{ backgroundColor: isOverAdded ? "lightgreen" : "white" }}
-        >
-          <h3>Pending</h3>
-          <div className="pending-tasks-body">
-            {tasks
-              .filter((task) => task.status === "pending")
-              .map((task) => (
-                <DashboardCard task={task} key={task.id} type="dragDrop" />
-              ))}
-          </div>
-        </div>
-        <div
-          ref={dropStarted}
-          style={{ backgroundColor: isOverStarted ? "lightblue" : "white" }}
-          className="dropzone"
-        >
-          <h3> In Progress</h3>
-          <div className="in-progress-tasks-body">
-            {tasks
-              .filter((task) => task.status === "in progress")
-              .map((task) => (
-                <DashboardCard task={task} key={task.id} type="dragDrop" />
-              ))}
-          </div>
-        </div>
-        <div
-          ref={dropCompleted}
-          style={{ backgroundColor: isOverCompleted ? "lightcoral" : "white" }}
-          className="dropzone"
-        >
-          <h3>Completed</h3>
-          <div className="completed-tasks-body">
-            {tasks
-              .filter((task) => task.status === "completed")
-              .map((task) => (
-                <DashboardCard task={task} key={task.id} type="dragDrop" />
-              ))}
-          </div>
-        </div>
+        {statuses.map((status) => {
+          return (
+            <DragNDropContainer
+              status={status}
+              key={status}
+              tasksList={tasks}
+              isDragging={isDragging}
+              handledDragging={handledDragging}
+            />
+          );
+        })}
       </div>
     </div>
   );
