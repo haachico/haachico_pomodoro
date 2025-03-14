@@ -34,6 +34,7 @@
   margin-right: 10px;
   background-color: var(--button-primary);
   transition: background-color 0.3s ease;
+  border: 1px solid #000000;
 }
 
 .view-all-nav-button:hover {
