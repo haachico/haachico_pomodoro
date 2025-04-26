@@ -1,6 +1,7 @@
 .login-page {
   margin: 0 auto;
-  width: 1024px;
+  width: 90%;
+  max-width: 1024px;
   height: calc(100vh - 101px);
   display: flex;
   flex-direction: column;
@@ -20,7 +21,8 @@
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 350px;
+  width: 100%;
+  max-width: 350px;
 }
 
 .login-form label {
