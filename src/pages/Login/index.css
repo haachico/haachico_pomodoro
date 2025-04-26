@@ -83,7 +83,7 @@
 
 @media (max-width: 480px) {
   .login-form {
-    padding: 0px 32px;
+    padding: 32px;
   }
 
   .google-signin-btn {
