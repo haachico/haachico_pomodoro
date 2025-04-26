@@ -75,7 +75,7 @@ const Login = () => {
           </p>
         ) : (
           <p>
-            Already have an account?{" "}
+            Already have an account ?{" "}
             <strong onClick={() => setIsType("login")}>Log in here!</strong>
           </p>
         )}
