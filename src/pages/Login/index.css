@@ -21,7 +21,7 @@
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
+  width: 90%;
   max-width: 350px;
   /*  */
 }
@@ -41,7 +41,7 @@
 }
 
 .login-form button {
-  width: 100%;
+  width: 90%;
   padding: 10px;
   margin-top: 10px;
   background-color: #b3782d;
@@ -59,7 +59,7 @@
 
 .google-signin-btn {
   background-color: #c16e3e;
-  width: 100%;
+  width: 90%;
   max-width: 350px;
   margin-top: 20px;
   transition: background 0.3s ease;
@@ -83,10 +83,10 @@
 
 @media (max-width: 480px) {
   .login-form {
-    padding: 32px;
+    padding: 0px 32px;
   }
 
   .google-signin-btn {
-    margin-top: 15px;
+    /* margin-top: 15px; */
   }
 }
