@@ -1,5 +1,8 @@
 .intro-page {
-  width: 1024px;
+  width: 90%;
+  display: flex;
+  /*  */
+  max-width: 1024px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -13,6 +16,7 @@
   display: flex;
   margin-top: 20px;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 .intro-buttons button {
@@ -70,4 +74,58 @@ summary {
 .contact p {
   margin: 5px 0;
   font-size: 18px; /* Increased font size for contact information */
+}
+
+@media (max-width: 768px) {
+  .intro-page {
+    padding: 10px; /* CHANGED: Reduce padding for smaller screens */
+    justify-content: center;
+  }
+
+  .intro-buttons {
+    flex-direction: column; /* NEW: Stack buttons vertically */
+    align-items: center; /* NEW: Center buttons */
+  }
+
+  .intro-buttons button {
+    width: 100%; /* NEW: Make button full width on mobile */
+    max-width: 300px; /* NEW: Limit maximum button width */
+    font-size: 18px; /* NEW: Slightly smaller button text */
+    padding: 15px 20px; /* NEW: Adjust padding for smaller screens */
+  }
+
+  h2 {
+    font-size: 24px; /* NEW: Slightly smaller heading */
+  }
+
+  ul,
+  blockquote,
+  cite,
+  summary,
+  .contact p {
+    font-size: 16px; /* NEW: Slightly smaller text for content */
+  }
+}
+/* Mobile screens */
+@media (max-width: 480px) {
+  .intro-page {
+    padding: 10px; /* Already set above, no change */
+  }
+
+  h2 {
+    font-size: 20px; /* NEW: Even smaller heading for phones */
+  }
+
+  .intro-buttons button {
+    font-size: 16px; /* NEW: Even smaller button text */
+    padding: 12px 16px; /* NEW: Tighter padding for buttons */
+  }
+
+  ul,
+  blockquote,
+  cite,
+  summary,
+  .contact p {
+    font-size: 14px; /* NEW: Smaller text for small devices */
+  }
 }
