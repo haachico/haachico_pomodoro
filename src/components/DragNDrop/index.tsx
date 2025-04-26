@@ -1,10 +1,10 @@
-import { useDrop } from "react-dnd";
-import { editTaskThunk } from "../../redux/tasks/tasksSlice";
+// import { useDrop } from "react-dnd";
+// import { editTaskThunk } from "../../redux/tasks/tasksSlice";
 import { Task } from "../../types";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../store";
+// import { useDispatch } from "react-redux";
+// import { AppDispatch } from "../../store";
 import "./index.css";
-import DashboardCard from "../DashboardCard";
+// import DashboardCard from "../DashboardCard";
 import DragNDropContainer from "../DragNDropContainer";
 import { useState } from "react";
 
@@ -13,7 +13,7 @@ type DragNDropProps = {
 };
 
 const DragNDrop: React.FC<DragNDropProps> = ({ tasks }) => {
-  const dispatch = useDispatch<AppDispatch>();
+  // const dispatch = useDispatch<AppDispatch>();
 
   const [isDragging, setIsDragging] = useState(false);
 
@@ -27,7 +27,9 @@ const DragNDrop: React.FC<DragNDropProps> = ({ tasks }) => {
 
   return (
     <div className="drag-n-drop-container">
-      <p className="drag-drop-info">You can drag and drop the cards to change their status.</p>
+      <p className="drag-drop-info">
+        You can drag and drop the cards to change their status.
+      </p>
       <div className="drag-n-drop">
         {statuses.map((status) => {
           return (
