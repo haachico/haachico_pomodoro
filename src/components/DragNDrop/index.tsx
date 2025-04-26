@@ -38,7 +38,7 @@ const DragNDrop: React.FC<DragNDropProps> = ({ tasks }) => {
               key={status}
               tasksList={tasks}
               isDragging={isDragging}
-              handledDragging={handledDragging}
+              handleDragging={handledDragging}
             />
           );
         })}
