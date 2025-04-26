@@ -59,7 +59,8 @@
 
 .google-signin-btn {
   background-color: #c16e3e;
-  width: 350px;
+  width: 100%;
+  max-width: 350px;
   margin-top: 20px;
   transition: background 0.3s ease;
   border-radius: 5px;
@@ -78,4 +79,14 @@
 
 .login-page p strong {
   text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .login-form {
+    padding: 32px;
+  }
+
+  .google-signin-btn {
+    margin-top: 15px;
+  }
 }
