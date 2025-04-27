@@ -2,7 +2,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import "./index.css";
 // import { useDispatch } from "react-redux";
 // import { AppDispatch } from "../../store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import { fetchTasksThunk } from "../../redux/tasks/tasksSlice";
 import { Task } from "../../types";
 // import { unwrapResult } from "@reduxjs/toolkit";
@@ -17,6 +17,8 @@ const TasksDashboard = () => {
   // const dispatch = useDispatch<AppDispatch>();
   const [showGraph, setShowGraph] = useState(false);
   const [showDueDates, setShowDueDates] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   // useEffect(() => {
   //   const fetchTasks = async () => {
@@ -34,6 +36,16 @@ const TasksDashboard = () => {
 
   //   fetchTasks();
   // }, [dispatch]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const tasksList = useLoaderData() as Task[];
 
@@ -108,14 +120,24 @@ const TasksDashboard = () => {
 
   return (
     <div className="dashboard">
-      <Sidebar
-        openDueDates={() => {
-          setShowDueDates(true);
-        }}
-        openGraph={() => {
-          setShowGraph(true);
-        }}
-      />
+      <button
+        className="menu-button"
+        onClick={() => setSidebarOpen((prev) => !prev)}
+      >
+        {sidebarOpen ? "x" : "☰"}
+      </button>
+      {(sidebarOpen || windowWidth > 768) && (
+        <Sidebar
+          openDueDates={() => {
+            setShowDueDates(true);
+          }}
+          openGraph={() => {
+            setShowGraph(true);
+          }}
+          isOpen={sidebarOpen}
+        />
+      )}
+
       {showGraph && (
         <div className="graph-container">
           <TasksGraph

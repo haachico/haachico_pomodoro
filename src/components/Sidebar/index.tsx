@@ -5,13 +5,23 @@ import "./index.css";
 type SidebarProps = {
   openDueDates: () => void;
   openGraph: () => void;
+  isOpen: boolean;
 };
 
-const Sidebar: React.FC<SidebarProps> = ({ openDueDates, openGraph }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  openDueDates,
+  openGraph,
+  isOpen,
+}) => {
   const navigate = useNavigate();
 
   return (
-    <div className="sidebar">
+    <div
+      className="sidebar"
+      style={{
+        transform: isOpen ? "translateX(0)" : "translateX(-100%)",
+      }}
+    >
       <button
         className="sidebar-btn"
         onClick={() => {

@@ -1,55 +1,56 @@
 /* .dashboard {
-  width: 1024px;
-  margin: 0 auto;
-}
+    width: 1024px;
+    margin: 0 auto;
+  }
 
-.dashboards-cards-main {
-  display: grid;
-  grid-template-columns: 75% 25%;
-}
+  .dashboards-cards-main {
+    display: grid;
+    grid-template-columns: 75% 25%;
+  }
 
-.dashboard .first-column {
-  border: 1px solid #eaeaea;
-}
+  .dashboard .first-column {
+    border: 1px solid #eaeaea;
+  }
 
-.dashboard .second-column {
-  border: 1px solid #eaeaea;
-  margin: 0 auto;
-}
+  .dashboard .second-column {
+    border: 1px solid #eaeaea;
+    margin: 0 auto;
+  }
 
-.dashboard .second-column button {
-  margin-top: 10px;
-}
+  .dashboard .second-column button {
+    margin-top: 10px;
+  }
 
-.viewall-div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid #eaeaea;
-  padding: 0px 10px;
-}
+  .viewall-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #eaeaea;
+    padding: 0px 10px;
+  }
 
-.dashbord-cards-div {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  row-gap: 15px;
-  padding: 15px;
-}
+  .dashbord-cards-div {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 15px;
+    padding: 15px;
+  }
 
 
-.count-cards div {
-  border: 1px solid #eaeaea;
-  width: 100px;
-  padding: 5px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  cursor: pointer;
-  } */
+  .count-cards div {
+    border: 1px solid #eaeaea;
+    width: 100px;
+    padding: 5px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    cursor: pointer;
+    } */
 
 .dashboard {
-  width: 1024px;
+  width: 90%;
+  max-width: 1024px;
   height: calc(100vh - 101px);
   margin: 0 auto;
   display: flex;
@@ -80,26 +81,9 @@
   font-weight: bold;
 }
 
-.view-all-btn {
-  position: absolute;
-  right: 90px;
-  top: 150px;
-}
-.create-btn {
-  position: absolute;
-  right: 90px;
-  bottom: 90px;
-}
-.view-graph-btn {
-  position: absolute;
-  left: 90px;
-  top: 150px;
-}
-
 .filter-card p {
   font-weight: bold;
 }
-
 
 .view-due-dates-btn {
   position: absolute;
@@ -128,3 +112,40 @@
   justify-content: center;
   z-index: 99999;
 }
+
+.menu-button {
+  position: fixed;
+  top: 100px;
+  left: 0px;
+  font-size: 24px;
+  /* background: none; */
+  border: none;
+  cursor: pointer;
+  z-index: 1001; /* so it stays above sidebar */
+  display: none; /* default hidden */
+  height: 50px;
+}
+
+/* Show menu button only on mobile */
+@media (max-width: 768px) {
+  .menu-button {
+    display: block;
+  }
+  .categories-cards {
+    display: flex;
+    flex-direction: column;
+    /* margin-top: 150px; */
+  }
+
+  .filter-card {
+    height: 130px;
+    width: 150px;
+  }
+
+  .filter-card h4,
+  .filter-card p {
+    margin: 5px;
+  }
+}
+
+/* Sidebar styles */
