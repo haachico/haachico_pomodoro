@@ -156,7 +156,7 @@ const TasksDashboard = () => {
           />
         </div>
       )}
-      <h2>Tasks Dashboard</h2>
+      <h2 className="dashbord-title">Tasks Dashboard</h2>
       <div className="categories-cards">
         {selectedCategory === "" &&
           Object.entries(countCategories).map(([countText, count]) => (

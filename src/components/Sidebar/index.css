@@ -12,8 +12,16 @@
   align-items: center;
   overflow-y: auto; /* Add scroll if content exceeds the height */
   z-index: 2;
-  background-color: var(--secondary-color);
-  transition: transform 0.3s ease;
+  background-color: #5e3d2e;
+  transform: translateX(-100%); /* Position the component off-screen (left) */
+  opacity: 0; /* Make it invisible initially */
+  transition: transform 0.5s ease-out, opacity 0.5s ease-out; /* Smooth transition */
+}
+
+/* After the component is visible, slide it in from the left */
+.sidebar.visible {
+  transform: translateX(0); /* Bring the component to its original position */
+  opacity: 1; /* Make it fully visible */
 }
 
 .view-all-btn {

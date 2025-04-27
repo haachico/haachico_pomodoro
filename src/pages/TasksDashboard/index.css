@@ -146,6 +146,10 @@
   .filter-card p {
     margin: 5px;
   }
+
+  .dashboard-title {
+    margin-top: 70px;
+  }
 }
 
 /* Sidebar styles */

@@ -16,12 +16,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   const navigate = useNavigate();
 
   return (
-    <div
-      className="sidebar"
-      style={{
-        transform: isOpen ? "translateX(0)" : "translateX(-100%)",
-      }}
-    >
+    <div className={`sidebar ${isOpen ? "visible" : ""}`}>
       <button
         className="sidebar-btn"
         onClick={() => {
