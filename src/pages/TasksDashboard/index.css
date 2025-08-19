@@ -124,6 +124,8 @@
   z-index: 1001; /* so it stays above sidebar */
   display: none; /* default hidden */
   height: 50px;
+  display: flex;
+  align-items: center;
 }
 
 /* Show menu button only on mobile */

@@ -17,7 +17,7 @@ const TasksDashboard = () => {
   // const dispatch = useDispatch<AppDispatch>();
   const [showGraph, setShowGraph] = useState(false);
   const [showDueDates, setShowDueDates] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth < 768 ? false : true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   // useEffect(() => {
@@ -126,7 +126,6 @@ const TasksDashboard = () => {
       >
         {sidebarOpen ? "x" : "☰"}
       </button>
-      {(sidebarOpen || windowWidth > 768) && (
         <Sidebar
           openDueDates={() => {
             setShowDueDates(true);
@@ -136,7 +135,6 @@ const TasksDashboard = () => {
           }}
           isOpen={sidebarOpen}
         />
-      )}
 
       {showGraph && (
         <div className="graph-container">
