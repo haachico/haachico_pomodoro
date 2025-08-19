@@ -2,7 +2,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import "./index.css";
 // import { useDispatch } from "react-redux";
 // import { AppDispatch } from "../../store";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 // import { fetchTasksThunk } from "../../redux/tasks/tasksSlice";
 import { Task } from "../../types";
 // import { unwrapResult } from "@reduxjs/toolkit";
