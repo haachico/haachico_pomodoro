@@ -18,7 +18,7 @@ const TasksDashboard = () => {
   const [showGraph, setShowGraph] = useState(false);
   const [showDueDates, setShowDueDates] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth < 768 ? false : true);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  // const [windowWidth, setWindowWidth] = useState(window.innerWidth);`
 
   // useEffect(() => {
   //   const fetchTasks = async () => {
@@ -37,15 +37,15 @@ const TasksDashboard = () => {
   //   fetchTasks();
   // }, [dispatch]);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setWindowWidth(window.innerWidth);
+  //   };
 
-    window.addEventListener("resize", handleResize);
+  //   window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
   const tasksList = useLoaderData() as Task[];
 
