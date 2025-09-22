@@ -5,6 +5,8 @@
   margin: 0 auto;
   padding: 32px 24px;
   background: var(--background-color);
+  position: relative;
+  z-index: 1;
 }
 
 .dashbord-title {
@@ -13,6 +15,8 @@
   color: var(--text-primary);
   margin: 40px 0;
   text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
 .categories-cards {
@@ -21,16 +25,18 @@
   flex-wrap: wrap;
   gap: 20px;
   padding: 20px 0;
+  position: relative;
+  z-index: 3;
 }
 
 .filter-card {
   background: var(--surface-color);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
-  padding: 24px;
+  padding: 20px;
   cursor: pointer;
-  width: 240px;
-  height: 160px;
+  width: 200px;
+  height: 140px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -39,6 +45,7 @@
   border: 1px solid var(--border-color);
   position: relative;
   overflow: hidden;
+  z-index: 4;
 }
 
 .filter-card::before {
@@ -64,7 +71,7 @@
 }
 
 .filter-card h4 {
-  font-size: 2.8rem;
+  font-size: 2.4rem;
   font-weight: 800;
   color: var(--primary-color);
   margin: 0 0 12px 0;
@@ -85,6 +92,8 @@
   font-size: 1.125rem;
   font-weight: 600;
   display: block;
+  position: relative;
+  z-index: 2;
 }
 
 .graph-container,
@@ -112,24 +121,25 @@
   background: var(--surface-color);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
-  display: none;
+  display: flex;  /* Changed from none to flex */
   align-items: center;
   justify-content: center;
   z-index: 1001;
   transition: all 0.2s ease;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  color: var(--text-primary);
 }
 
 .menu-button:hover {
   background: var(--background-color);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
 }
 
 @media (max-width: 768px) {
   .dashboard {
     padding: 24px 16px;
-  }
-
-  .menu-button {
-    display: flex;
   }
 
   .dashbord-title {
@@ -145,13 +155,13 @@
   }
 
   .filter-card {
-    width: 200px;
-    height: 140px;
-    padding: 20px;
+    width: 180px;
+    height: 120px;
+    padding: 16px;
   }
 
   .filter-card h4 {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 
   .filter-card p {
