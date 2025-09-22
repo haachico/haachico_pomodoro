@@ -1,63 +1,99 @@
 .sidebar {
-  width: 200px;
-  height: calc(100vh - 101px); /* Adjust based on the height of your navbar */
-  background-color: var(-- background-color);
-  padding: 20px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  width: 280px;
+  height: calc(100vh - 80px);
+  background: var(--surface-color);
+  padding: 24px;
+  box-shadow: var(--shadow-md);
   position: fixed;
-  top: 101px; /* Adjust based on the height of your navbar */
+  top: 80px;
   left: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  overflow-y: auto; /* Add scroll if content exceeds the height */
-  z-index: 2;
-  background-color: #5e3d2e;
-  transform: translateX(-100%); /* Position the component off-screen (left) */
-  opacity: 0; /* Make it invisible initially */
-  transition: transform 0.5s ease-out, opacity 0.5s ease-out; /* Smooth transition */
+  gap: 16px;
+  overflow-y: auto;
+  z-index: 100;
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-right: 1px solid var(--border-color);
 }
 
-/* After the component is visible, slide it in from the left */
 .sidebar.visible {
-  transform: translateX(0); /* Bring the component to its original position */
-  opacity: 1; /* Make it fully visible */
+  transform: translateX(0);
+  opacity: 1;
 }
 
-.view-all-btn {
-  position: absolute;
-  right: 90px;
-  top: 150px;
-}
-.create-btn {
-  position: absolute;
-  right: 90px;
-  bottom: 90px;
-}
-.view-graph-btn {
-  position: absolute;
-  left: 90px;
-  top: 150px;
-}
 .sidebar-btn {
   width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  background-color: var(--button-primary);
-  transition: background-color 0.3s ease;
-  color: var(--button-text-color);
-  border: none;
+  padding: 12px 16px;
+  margin: 4px 0;
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-weight: 500;
   cursor: pointer;
-  text-align: center;
-  border: 2px solid var(--border-color);
+  text-align: left;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .sidebar-btn:hover {
-  background-color: var(--button-primary-hover);
+  background: var(--button-secondary);
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+  transform: translateX(4px);
+}
+
+.view-all-btn,
+.create-btn,
+.view-graph-btn {
+  position: relative;
+  width: 100%;
+  margin: 8px 0;
 }
 
 @media (max-width: 768px) {
   .sidebar {
-    padding: 50px 20px;
+    width: 100%;
+    max-width: 320px;
+    padding: 20px;
+    height: 100vh;
+    top: 0;
   }
+  
+  .sidebar-btn {
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+
+.sidebar-btn {
+  width: 100%;
+  padding: 14px 18px;
+  margin: 4px 0;
+  background: var(--button-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.05rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebar-btn:hover {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-md);
 }

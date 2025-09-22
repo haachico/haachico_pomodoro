@@ -1,21 +1,38 @@
 .drag-n-drop-container {
-  width: 1024px;
-  margin: 0 auto;
+  max-width: 1200px;
+  width: 90%;
+  margin: 32px auto;
+  padding: 0 16px;
 }
 
 .drag-n-drop {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
 }
 
 .dropzone {
-  border: 2px dashed #000;
-  width: 350px;
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px 16px;
   min-height: 500px;
+  background: var(--surface-color);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
+}
+
+.dropzone:hover {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-md);
+}
+
+.dropzone.dragover {
+  background: var(--background-color);
+  border-color: var(--primary-color);
+  transform: scale(1.02);
 }
 
 .pending-tasks-body,
@@ -23,16 +40,37 @@
 .completed-tasks-body {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
+  width: 100%;
+  padding: 8px;
 }
 
-/* .drag-n-drop div {
-  border: 1px solid #000;
-  width: 350px;
-} */
-
-
 .drag-drop-info {
-  font-weight: 800;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin: 16px 0;
+}
+
+@media (max-width: 1024px) {
+  .drag-n-drop {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .drag-n-drop-container {
+    width: 95%;
+    margin: 16px auto;
+  }
+
+  .drag-n-drop {
+    grid-template-columns: 1fr;
+  }
+
+  .dropzone {
+    min-height: 400px;
+    padding: 16px;
+  }
 }

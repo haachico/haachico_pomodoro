@@ -1,99 +1,86 @@
 :root {
-  font-family: "Poppins", sans-serif;
-  /* font-size: 10px; */
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
 
-  /* Primary Colors (Unchanged) */
-  --primary-color: #d9a83e; /* Deep Gold */
-  --primary-dark: #b3782d; /* Deep Brown */
+  /* Primary Colors - Modern Blue Theme */
+  --primary-color: #2563eb;    /* Vibrant Blue */
+  --primary-dark: #1d4ed8;     /* Deeper Blue */
 
-  /* Secondary Colors (Adjusted for better contrast) */
-  --secondary-color: #e5c89b; /* Warm Sand (Less contrast with primary) */
-  --secondary-dark: #a85b32; /* Deep Terracotta (Richer, balanced) */
+  /* Secondary Colors */
+  --secondary-color: #8b5cf6;  /* Purple */
+  --secondary-dark: #7c3aed;   /* Deep Purple */
 
   /* Neutral Colors */
-  --background-color: #fffae5; /* Warm Cream (Unchanged) */
-  --border-color: #000000; /* Muted Grayish Brown (Softer than black for warm tones) */
-  --popup-btn-border-color: #ffffff;
-  --popup-border-color: #ffffff;
-  /* Text Colors (Better readability on warm tones) */
-  --text-primary: #333333; /* Dark Gray (Unchanged) */
-  --text-secondary: #5b432c; /* Deep Brown (More warmth than standard gray) */
+  --background-color: #f8fafc;  /* Light Gray Blue */
+  --surface-color: #ffffff;     /* White */
+  --border-color: #e2e8f0;     /* Light Gray */
+  
+  /* Text Colors */
+  --text-primary: #1e293b;     /* Dark Blue Gray */
+  --text-secondary: #64748b;   /* Medium Gray */
+  
+  /* Status Colors - Vibrant & Clear */
+  --success-color: #10b981;    /* Emerald */
+  --error-color: #ef4444;      /* Red */
+  --warning-color: #f59e0b;    /* Amber */
 
-  /* Accent Colors */
-  --success-color: #6b8e23; /* Muted Olive Green (Unchanged) */
-  --error-color: #bf4e30; /* Soft Red Clay (Unchanged) */
-  --high-priority: #d64550; /* Muted Red3 (Unchanged) */
-  --medium-priority: #e8a04b; /* Warm Golden Orange (Unchanged) */
-  --low-priority: #6aab9c; /* Soft Teal (Unchanged) */
+  /* Priority Colors */
+  --high-priority: #dc2626;    /* Red */
+  --medium-priority: #f59e0b;  /* Amber */
+  --low-priority: #10b981;     /* Green */
 
-  /* Status Colors (Unchanged) */
-  --completed-color: #15b569;
-  --in-progress-color: #ffc23d;
-  --pending-color: #ff7ca4;
+  /* Task Status */
+  --completed-color: #10b981;  /* Green */
+  --in-progress-color: #f59e0b;/* Amber */
+  --pending-color: #ef4444;    /* Red */
 
   /* Button Colors */
-  --button-primary: #b3782d; /* Deep Gold (Matches primary) */
-  --button-primary-hover: #a04e30; /* Darker Deep Gold */
-  --button-text-color: #ffffff; /* White for contrast */
+  --button-primary: #2563eb;
+  --button-primary-hover: #1d4ed8;
+  --button-secondary: #f1f5f9;
+  --button-secondary-hover: #e2e8f0;
+  --button-text-color: #ffffff;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+
+/* Base Styles */
+body {
+  margin: 0;
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: none;
+  background: var(--button-primary);
+  color: var(--button-text-color);
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--button-primary-hover);
+  transform: translateY(-1px);
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
+
 a:hover {
-  color: #535bf2;
-}
-
-button {
-  border: 2px solid var(--border-color);
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-  color: var(--text-primary);
-}
-
-/* h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-  color: var(--text-primary);
-} */
-
-button {
-  /* border-radius: 8px; */
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: var(--primary-dark);
-  cursor: pointer;
-  transition: border-color 0.25s;
-  color: var(--button-text-color);
-}
-button:hover {
-  border-color: var(--border-color);
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+  color: var(--primary-dark);
 }

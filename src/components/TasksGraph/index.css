@@ -1,9 +1,10 @@
 .tasks-graph {
-  background-color: #5e3d2e;
-  color: #ffffff;
-  padding: 20px;
-  height: 400px;
-  width: 500px;
+  background: var(--surface-color);
+  color: var(--text-primary);
+  padding: 32px;
+  height: 500px;
+  width: 90%;
+  max-width: 800px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -12,21 +13,33 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
   z-index: 9999;
-  border: 2px solid var(--popup-border-color);
-  /* position: relative; */
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg);
 }
 
 .graph-close-btn {
   position: absolute;
-  right: 10px;
-  top: 10px;
-  background-color: var(--button-primary);
-  transition: background-color 0.3s ease;
-  border: 1px solid var(--popup-btn-border-color);
+  right: 16px;
+  top: 16px;
+  padding: 8px;
+  border-radius: var(--radius-md);
+  background: var(--button-secondary);
+  color: var(--text-primary);
+  border: none;
+  transition: all 0.2s ease;
 }
 
 .graph-close-btn:hover {
-  background-color: var(--button-primary-hover);
+  background: var(--button-secondary-hover);
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .tasks-graph {
+    width: 95%;
+    padding: 24px;
+    height: 80vh;
+  }
 }

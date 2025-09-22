@@ -1,79 +1,112 @@
 .tasks-due-dates-container {
-  background-color: #5e3d2e;
-  color: #f9f9f9f9;
-  padding: 20px;
-  height: 500px;
-  width: 50%;
+  background: var(--surface-color);
+  color: var(--text-primary);
+  padding: 32px;
+  height: 600px;
+  width: 90%;
+  max-width: 800px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
   z-index: 9999;
-  border: 2px solid var(--popup-border-color);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg);
 }
 
 .tasks-due-dates-container h1 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 32px;
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 .dueDates-btn-close {
   position: absolute;
-  right: 10px;
-  top: 10px;
-  background-color: var(--button-primary);
-  transition: background-color 0.3s ease;
-  border: 1px solid var(--popup-btn-border-color);
+  right: 16px;
+  top: 16px;
+  padding: 8px;
+  border-radius: var(--radius-md);
+  background: var(--button-secondary);
+  color: var(--text-primary);
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.date-next-btn,
+.date-prev-btn {
+  position: absolute;
+  bottom: 16px;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  background: var(--button-primary);
+  color: white;
+  border: none;
+  transition: all 0.2s ease;
+  font-weight: 500;
 }
 
 .date-next-btn {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  background-color: var(--button-primary);
-  transition: background-color 0.3s ease;
-  border: 1px solid var(--popup-btn-border-color);
+  right: 16px;
 }
 
 .date-prev-btn {
-  position: absolute;
-  left: 10px;
-  bottom: 10px;
-  background-color: var(--button-primary);
-  transition: background-color 0.3s ease;
-  border: 1px solid var(--popup-btn-border-color);
+  left: 16px;
 }
 
 .date-next-btn:hover,
-.date-prev-btn:hover,
-.dueDates-btn-close:hover {
-  background-color: var(--button-primary-hover);
+.date-prev-btn:hover {
+  background: var(--button-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
-/* .tasks-due-dates-container button {
-  margin: 5px;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-} */
+
+.dueDates-btn-close:hover {
+  background: var(--button-secondary-hover);
+  transform: scale(1.05);
+}
 
 .tasks-due-dates {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  padding: 16px;
+  overflow-y: auto;
+  max-height: calc(100% - 120px);
 }
 
 .task-due-date {
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 10px;
-  width: 150px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
   text-align: center;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.task-due-date:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-color);
 }
 
 .task-due-date p {
-  margin: 5px 0;
+  margin: 8px 0;
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .tasks-due-dates-container {
+    width: 95%;
+    padding: 24px;
+    height: 80vh;
+  }
+
+  .tasks-due-dates {
+    grid-template-columns: 1fr;
+  }
 }
