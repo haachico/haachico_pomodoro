@@ -2,7 +2,7 @@
   width: 180px;
   height: calc(100vh - 80px);
   background: var(--surface-color);
-  padding: 24px;
+  padding: 70px 20px;
   box-shadow: var(--shadow-md);
   position: fixed;
   top: 80px;
@@ -61,7 +61,7 @@
     max-width: 320px;
     padding: 20px;
     height: 100vh;
-    top: 0;
+    top: 65px;
   }
   
   .sidebar-btn {
