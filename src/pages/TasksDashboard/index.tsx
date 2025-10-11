@@ -112,7 +112,6 @@ const TasksDashboard = () => {
         openDueDates={() => setShowDueDates(true)}
         openGraph={() => setShowGraph(true)}
         isOpen={sidebarOpen}
-        onToggle={() => setSidebarOpen((prev) => !prev)}
       />
 
       {showGraph && (
