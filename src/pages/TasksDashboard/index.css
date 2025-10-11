@@ -484,7 +484,7 @@
 /* Menu Button - Updated positioning and z-index */
 .menu-button {
   position: fixed;
-  top: 24px;
+  top: 90px;
   left: 24px;
   width: 48px;
   height: 48px;
