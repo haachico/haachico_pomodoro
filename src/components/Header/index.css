@@ -54,7 +54,7 @@
 .auth-container {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 8px; /* reduced gap for tighter spacing */
 }
 
 .auth-icon {
@@ -63,6 +63,8 @@
   cursor: pointer;
   transition: all 0.2s ease;
   color: var(--text-primary);
+  margin: 0; /* reset any default margin */
+  padding: 0; /* reset any default padding */
 }
 
 .auth-icon:hover {
